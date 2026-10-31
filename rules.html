@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server Rules — RenderFrost SMP</title>
+<meta name="description" content="The complete 16-rule code for RenderFrost SMP: conduct, griefing, PvP consent, cheating, rollback policy, building limits, whitelist and access.">
+<meta name="theme-color" content="#06050c">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="rules.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RenderFrost SMP">
+<meta property="og:title" content="Server Rules — RenderFrost SMP">
+<meta property="og:description" content="All 16 RenderFrost SMP rules in full, with a contents list you can jump straight into.">
+<meta property="og:image" content="assets/img/background.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="assets/css/tokens.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/base.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/components.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/cards.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/nav.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/music.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/cursor.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/hero.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/pages.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/members.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/legal.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/rules.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/footer.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/responsive.css?v=20261031-syxlor">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================== NAVBAR ============================== -->
+<header class="nav" id="top">
+  <div class="shell shell--wide nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="RenderFrost SMP — home">
+      <svg class="nav__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2 L29 10 v12 L16 30 L3 22 V10 Z" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+        <path d="M16 8.5 L23.5 13 v7 L16 24.5 L8.5 20 v-7 Z" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M16 8.5 V24.5 M8.5 13 L23.5 20 M23.5 13 L8.5 20" stroke="currentColor" stroke-width=".9" opacity=".55"/>
+        <circle cx="16" cy="16.5" r="2.1" fill="currentColor"/>
+      </svg>
+      <span class="nav__wordmark"><b>RENDERFROST</b><span>SMP</span></span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="members.html">Members</a></li>
+        <li><a class="nav__link" href="rules.html" aria-current="page">Rules</a></li>
+        <li><a class="nav__link" href="discord.html">Discord</a></li>
+        <li><a class="nav__link" href="join.html">Join</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav__actions">
+      <!-- Soundtrack control. Silent until the visitor presses play. -->
+      <div class="music">
+        <button class="music__toggle" type="button" aria-label="Play soundtrack" aria-pressed="false">
+          <svg class="music__icon" data-music="play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5.2v13.6c0 .8.9 1.3 1.6.9l10.2-6.8c.6-.4.6-1.4 0-1.8L9.6 4.3c-.7-.4-1.6.1-1.6.9Z"/>
+          </svg>
+          <svg class="music__icon music__icon--hidden" data-music="pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect x="6.5" y="4.5" width="3.6" height="15" rx="1.1"/>
+            <rect x="13.9" y="4.5" width="3.6" height="15" rx="1.1"/>
+          </svg>
+          <span class="music__eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+
+        <button class="music__knob" type="button" data-music="pop" aria-label="Soundtrack volume and settings" aria-expanded="false" aria-controls="music-pop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7h10M18 7h2M4 17h4M12 17h8"/>
+            <circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>
+          </svg>
+        </button>
+
+        <div class="music__pop" id="music-pop" role="group" aria-label="Soundtrack volume">
+          <button class="music__pop-close" type="button" data-music="pop-close" aria-label="Close volume controls">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18"/>
+            </svg>
+          </button>
+          <div class="music__pop-head">
+            <span class="music__pop-title">Soundtrack</span>
+            <span class="music__value">40%</span>
+          </div>
+          <div class="music__row">
+            <button class="music__mini" type="button" data-music="mute" aria-label="Mute soundtrack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15.5 9.5a4 4 0 0 1 0 5"/>
+              </svg>
+            </button>
+            <button class="music__mini music__icon--hidden" type="button" data-music="unmute" aria-label="Unmute soundtrack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>
+              </svg>
+            </button>
+            <input class="music__slider" type="range" min="0" max="100" step="1" value="40"
+                   data-music="volume" aria-label="Soundtrack volume">
+          </div>
+          <p class="music__note">Music is optional and starts only when you press play.</p>
+        </div>
+      </div>
+
+      <a class="btn btn--primary" href="join.html">
+        Join the server
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="nav__toggle-box" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ MOBILE MENU ============================ -->
+<div class="drawer" id="mobile-menu">
+  <a class="drawer__link" href="index.html">Home <span>01</span></a>
+  <a class="drawer__link" href="members.html">Members <span>02</span></a>
+  <a class="drawer__link" href="rules.html" aria-current="page">Rules <span>03</span></a>
+  <a class="drawer__link" href="discord.html">Discord <span>04</span></a>
+  <a class="drawer__link" href="join.html">Join <span>05</span></a>
+  <a class="drawer__link" href="privacy.html">Privacy Policy <span>06</span></a>
+  <a class="drawer__link" href="terms.html">Terms of Service <span>07</span></a>
+  <a class="drawer__link" href="cookies.html">Cookie Policy <span>08</span></a>
+  <div class="drawer__cta"><a class="btn btn--primary" href="join.html">Join the server</a></div>
+</div>
+
+<main id="main">
+<!-- ============================= PAGE HEADER ============================= -->
+<section class="pagehead pagehead--art">
+  <div class="shell">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href="index.html">Home</a></li>
+        <li><span aria-current="page">Rules</span></li>
+      </ol>
+    </nav>
+    <div class="pagehead__inner">
+      <p class="eyebrow">Official rules &amp; regulations</p>
+      <h1>The RenderFrost code.</h1>
+      <p class="pagehead__sub">
+        Sixteen rules, written to keep this a fair, respectful and safe place to
+        build. Read them before your first session — by playing on RenderFrost
+        SMP you agree to follow them and to cooperate with the staff team.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== RULES ================================= -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="rules-layout">
+
+      <!-- Contents (desktop rail) -->
+      <aside class="rules-toc" aria-label="Rules contents">
+        <p class="rules-toc__title" id="contents">Contents</p>
+        <ul class="rules-toc__list">
+          <li><a class="rules-toc__link" href="#rule-1"><b>01</b><span>Be Kind &amp; Respectful</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-2"><b>02</b><span>No Griefing or Stealing</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-3"><b>03</b><span>No Unconsented PvP</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-4"><b>04</b><span>No Hacks, X-Ray or Duplication</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-5"><b>05</b><span>Rollback — Destruction</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-6"><b>06</b><span>Rollback — Inventory Loss</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-7"><b>07</b><span>Do Not Mine Straight Down</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-8"><b>08</b><span>Finish Chopping Trees</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-9"><b>09</b><span>Do Not Modify Spawn</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-10"><b>10</b><span>Elytra Ownership Limit</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-11"><b>11</b><span>Channeling Tridents</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-12"><b>12</b><span>Responsible Building</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-13"><b>13</b><span>Whitelist &amp; Player Access</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-14"><b>14</b><span>Respect Private Storage</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-15"><b>15</b><span>Do Not Interrupt Friendly PvP</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-16"><b>16</b><span>Invitation Restrictions</span></a></li>
+        </ul>
+      </aside>
+
+      <!-- Contents (mobile, accessible) -->
+      <details class="rules-toc__mobile rules-jump">
+        <summary>Jump to a rule</summary>
+        <ul class="rules-toc__list">
+          <li><a class="rules-toc__link" href="#rule-1"><b>01</b><span>Be Kind &amp; Respectful</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-2"><b>02</b><span>No Griefing or Stealing</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-3"><b>03</b><span>No Unconsented PvP</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-4"><b>04</b><span>No Hacks, X-Ray or Duplication</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-5"><b>05</b><span>Rollback — Destruction</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-6"><b>06</b><span>Rollback — Inventory Loss</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-7"><b>07</b><span>Do Not Mine Straight Down</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-8"><b>08</b><span>Finish Chopping Trees</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-9"><b>09</b><span>Do Not Modify Spawn</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-10"><b>10</b><span>Elytra Ownership Limit</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-11"><b>11</b><span>Channeling Tridents</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-12"><b>12</b><span>Responsible Building</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-13"><b>13</b><span>Whitelist &amp; Player Access</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-14"><b>14</b><span>Respect Private Storage</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-15"><b>15</b><span>Do Not Interrupt Friendly PvP</span></a></li>
+          <li><a class="rules-toc__link" href="#rule-16"><b>16</b><span>Invitation Restrictions</span></a></li>
+        </ul>
+      </details>
+      <!-- ============================ RULES 1-4 ============================ -->
+      <div class="rules-body">
+
+        <article class="rule" id="rule-1">
+          <header class="rule__head">
+            <span class="rule__num">01</span>
+            <h2 class="rule__title">Be Kind &amp; Respectful</h2>
+          </header>
+          <div class="rule__body">
+            <p>Every player deserves to feel welcome and respected within the
+            RenderFrost community.</p>
+            <p class="rule__sub">Prohibited behaviour</p>
+            <ul class="rule__list">
+              <li>Hate speech, discriminatory remarks and slurs.</li>
+              <li>Harassment, targeted abuse, or deliberately humiliating other players.</li>
+              <li>Excessive vulgarity or intentionally offensive behaviour directed at others.</li>
+              <li>Any conduct intended to make another player&rsquo;s experience uncomfortable or hostile.</li>
+            </ul>
+            <p>Normal conversations are not actively monitored. However, reported
+            incidents involving abusive or inappropriate behaviour will be taken
+            seriously and reviewed by the moderation team.</p>
+            <div class="callout">
+              <strong>Remember:</strong> disagreements are normal, but personal
+              attacks and harassment are not acceptable.
+            </div>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-2">
+          <header class="rule__head">
+            <span class="rule__num">02</span>
+            <h2 class="rule__title">No Griefing or Stealing</h2>
+          </header>
+          <div class="rule__body">
+            <p>Every player&rsquo;s property, builds and possessions must be respected.</p>
+            <p class="rule__sub">Strictly prohibited</p>
+            <ul class="rule__list">
+              <li>Breaking, removing or modifying another player&rsquo;s blocks without permission.</li>
+              <li>Stealing items from chests, barrels, shulker boxes or other storage.</li>
+              <li>Deliberately damaging or destroying a base, farm, infrastructure or decorations.</li>
+              <li>Tampering with another player&rsquo;s builds to cause damage, inconvenience or disruption.</li>
+            </ul>
+            <p>RenderFrost takes reported griefing and theft seriously. Incidents may
+            be investigated using available evidence, and confirmed violations may
+            result in appropriate moderation action.</p>
+            <div class="rule__warn">
+              If you grief or steal, you will be held accountable. Do not assume that
+              an unattended base or an accessible container means you have permission
+              to use or take anything from it.
+            </div>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-3">
+          <header class="rule__head">
+            <span class="rule__num">03</span>
+            <h2 class="rule__title">No Unconsented PvP or Player Harm</h2>
+          </header>
+          <div class="rule__body">
+            <p>Player-versus-player combat is disabled by default. No player should be
+            attacked, trapped or deliberately placed in a harmful situation without
+            their consent.</p>
+            <p class="rule__sub">Prohibited behaviour</p>
+            <ul class="rule__list">
+              <li>Attempting to kill or damage another player without their agreement.</li>
+              <li>Trapping players in enclosed spaces or preventing them from escaping.</li>
+              <li>Using lava, dripstone or similar hazards to attack or endanger a player.</li>
+              <li>Creating traps intended to cause death or destroy equipment.</li>
+              <li>Engineering harm deliberately and disguising it as an accident.</li>
+            </ul>
+            <p>PvP is permitted only when the players involved have agreed to
+            participate. Consent to one fight does not automatically grant permission
+            for unrelated attacks or interference.</p>
+            <p>Reported violations may be investigated and punished accordingly.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-4">
+          <header class="rule__head">
+            <span class="rule__num">04</span>
+            <h2 class="rule__title">No Hacks, X-Ray or Duplication Exploits</h2>
+          </header>
+          <div class="rule__body">
+            <p>RenderFrost requires fair gameplay. Any client, modification, resource
+            pack, tool or exploit that provides an unfair advantage is prohibited.</p>
+            <p class="rule__sub">Prohibited</p>
+            <ul class="rule__list">
+              <li>X-Ray resource packs or mods that reveal hidden ores or concealed resources.</li>
+              <li>Meteor Client or other hacked clients and cheating tools.</li>
+              <li>Seed crackers used to gain an unauthorised gameplay advantage.</li>
+              <li>Resource locators or similar tools that reveal hidden resources or locations unfairly.</li>
+              <li>Item duplication exploits through unintended game behaviour.</li>
+              <li>Any other modification or exploit that bypasses intended mechanics for an unfair advantage.</li>
+            </ul>
+            <div class="rule__ok">
+              <strong>Permitted modifications</strong>
+              <ul>
+                <li>Litematica</li>
+                <li>Tweakaroo</li>
+              </ul>
+            </div>
+            <p>Permitted modifications must be used responsibly and within their
+            legitimate functionality. Their names alone do not authorise every
+            possible use; any feature used to cheat or gain an unfair advantage
+            remains prohibited. Players must not exploit bugs or unintended
+            mechanics to bypass these rules.</p>
+          </div>
+        </article>
+        <article class="rule" id="rule-5">
+          <header class="rule__head">
+            <span class="rule__num">05</span>
+            <h2 class="rule__title">Rollback Policy &mdash; World Destruction</h2>
+          </header>
+          <div class="rule__body">
+            <p>A rollback is a restoration of affected blocks or world changes. It is
+            not an automatic guarantee of compensation.</p>
+            <p>Rollbacks for world destruction are considered primarily when the
+            damage or loss was directly caused by a <strong>verified server-side
+            issue</strong>, such as:</p>
+            <ul class="rule__list">
+              <li>Severe server lag or a server malfunction.</li>
+              <li>An unexpected server crash.</li>
+              <li>A confirmed server-related disconnection that resulted in the loss or destruction of world data.</li>
+            </ul>
+            <p>Confirmed griefing may also be reviewed for a possible rollback when
+            sufficient evidence is available and staff determine that restoration is
+            appropriate.</p>
+            <div class="rule__warn">
+              Normal player-caused destruction is not automatically eligible for
+              restoration. Natural or entity-caused destruction is not eligible for
+              compensation under the normal rollback policy. A report or request does
+              not guarantee that a rollback will be approved.
+            </div>
+            <p>The staff team evaluates the circumstances and available evidence
+            before making a decision.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-6">
+          <header class="rule__head">
+            <span class="rule__num">06</span>
+            <h2 class="rule__title">Rollback Policy &mdash; Inventory Loss</h2>
+          </header>
+          <div class="rule__body">
+            <p>Inventory restoration is considered only when the loss was directly
+            caused by a verified server-side problem.</p>
+            <p class="rule__sub">Potentially eligible</p>
+            <ul class="rule__list">
+              <li>Severe server lag directly causing the loss.</li>
+              <li>A server crash that results in inventory loss.</li>
+              <li>An unexpected server-related disconnection that directly causes items to become irrecoverable.</li>
+            </ul>
+            <p class="rule__sub">Not eligible</p>
+            <ul class="rule__list">
+              <li>Normal deaths during gameplay.</li>
+              <li>Accidental deaths, including falls, lava incidents or other player mistakes.</li>
+              <li>Deaths caused by hostile mobs or other entities under normal conditions.</li>
+              <li>Ordinary item loss unrelated to a verified server-side issue.</li>
+            </ul>
+            <div class="callout">
+              A death that happens while the server is lagging does not automatically
+              prove the server caused the loss. The connection between the technical
+              issue and the lost inventory must be established as clearly as possible.
+            </div>
+            <p>If you believe your situation qualifies, submit a report to the staff
+            team explaining what happened and when it occurred, and include any
+            available evidence. Final decisions are made by the staff team after
+            reviewing the incident.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-7">
+          <header class="rule__head">
+            <span class="rule__num">07</span>
+            <h2 class="rule__title">Do Not Mine Straight Down</h2>
+          </header>
+          <div class="rule__body">
+            <p>Mining directly downward is prohibited on RenderFrost SMP.</p>
+            <p>This practice can lead to unexpected falls, lava exposure, accidental
+            deaths, and dangerous situations involving other players.</p>
+            <div class="rule__warn">
+              Players must not mine straight down, even when they believe the area
+              below them is safe. This is a punishable offence &mdash; claiming that the
+              fall or damage was accidental does not automatically excuse a violation.
+            </div>
+            <p>Use a proper mining method that allows you to inspect the blocks and
+            terrain ahead of you.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-8">
+          <header class="rule__head">
+            <span class="rule__num">08</span>
+            <h2 class="rule__title">Finish Chopping Trees</h2>
+          </header>
+          <div class="rule__body">
+            <p>Keep the world clean and maintain the natural appearance of RenderFrost
+            SMP. Whenever you chop down a tree, remove the remaining logs rather than
+            leaving a partially chopped trunk floating above the ground.</p>
+            <p class="rule__sub">Expected of every player</p>
+            <ul class="rule__list">
+              <li>Finish cutting down the entire tree.</li>
+              <li>Remove any remaining exposed logs.</li>
+              <li>Avoid leaving unfinished trees that disrupt the surrounding environment.</li>
+            </ul>
+            <p>This rule helps preserve the server&rsquo;s appearance and makes the world
+            more enjoyable for everyone.</p>
+          </div>
+        </article>
+        <article class="rule" id="rule-9">
+          <header class="rule__head">
+            <span class="rule__num">09</span>
+            <h2 class="rule__title">Do Not Modify Spawn Village</h2>
+          </header>
+          <div class="rule__body">
+            <p>The Spawn Village is a protected area that serves as an important
+            shared location for the RenderFrost community.</p>
+            <p class="rule__sub">Without explicit staff permission, you must not</p>
+            <ul class="rule__list">
+              <li>Break, remove or damage existing blocks or structures.</li>
+              <li>Place blocks that modify or obstruct the protected area.</li>
+              <li>Build over, alter or replace existing structures.</li>
+              <li>Remove decorations or modify the village&rsquo;s appearance.</li>
+              <li>Make any other change to the spawn environment.</li>
+            </ul>
+            <p>Even seemingly minor modifications can affect the shared appearance and
+            functionality of the area. If you believe a change is necessary, contact a
+            staff member and obtain permission before proceeding.</p>
+            <div class="rule__warn">
+              Spawn Village is protected. Do not modify it without staff approval.
+            </div>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-10">
+          <header class="rule__head">
+            <span class="rule__num">10</span>
+            <h2 class="rule__title">Elytra Ownership Limit</h2>
+          </header>
+          <div class="rule__body">
+            <p>Each player may own a maximum of <strong>3 Elytras</strong> on
+            RenderFrost SMP. This limit prevents excessive accumulation and preserves
+            a reasonable distribution of Elytras throughout the community.</p>
+            <ul class="rule__list">
+              <li>You may not keep more than three Elytras in your possession.</li>
+              <li>You may not hoard additional Elytras beyond the permitted limit.</li>
+              <li>You may not trade or transfer extra Elytras in a way that bypasses the ownership restriction.</li>
+            </ul>
+            <div class="rule__ok">
+              <strong>New player Elytra gift.</strong> New players are eligible to
+              receive one Elytra after completing 30 days on the server, provided they
+              meet the applicable conditions set by the staff team. This is a gift from
+              the staff team to welcome and reward established members. The 30-day
+              period does not grant permission to bypass the three-Elytra limit.
+            </div>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-11">
+          <header class="rule__head">
+            <span class="rule__num">11</span>
+            <h2 class="rule__title">Channeling Trident Restrictions</h2>
+          </header>
+          <div class="rule__body">
+            <p>Channeling-enchanted tridents can cause lightning strikes during
+            suitable thunderstorms. Using them carelessly around important structures
+            can create unnecessary damage and disruption.</p>
+            <p>Players must avoid using Channeling tridents near another player&rsquo;s
+            base, house or other important structure when doing so could cause damage
+            or disturbance.</p>
+            <p class="rule__sub">Prohibited</p>
+            <ul class="rule__list">
+              <li>Deliberately using Channeling to damage or disrupt another player&rsquo;s property.</li>
+              <li>Intentionally causing damage and dismissing it as a joke.</li>
+              <li>Using Channeling to provoke other players or interfere with their builds.</li>
+            </ul>
+            <div class="rule__warn">
+              Damage caused as a joke is not automatically eligible for repair or
+              rollback. If staff confirm the incident involved intentional griefing,
+              appropriate moderation action may be taken under the server&rsquo;s rules.
+            </div>
+            <p>Always consider the potential consequences before using Channeling near
+            another player&rsquo;s property.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-12">
+          <header class="rule__head">
+            <span class="rule__num">12</span>
+            <h2 class="rule__title">Responsible Building &amp; Server Performance</h2>
+          </header>
+          <div class="rule__body">
+            <p>RenderFrost encourages creativity, ambitious projects and impressive
+            builds. However, everyone must build responsibly and consider the effect
+            their constructions may have on server performance.</p>
+            <p>Players should avoid creating excessively resource-intensive structures
+            that cause unnecessary lag or negatively affect the gameplay experience of
+            others.</p>
+            <p class="rule__sub">Builds that may require attention</p>
+            <ul class="rule__list">
+              <li>Excessively lag-inducing automatic farms.</li>
+              <li>Overly large or inefficient redstone systems.</li>
+              <li>Machines or mechanisms that generate excessive entity or processing load.</li>
+              <li>Other constructions that significantly degrade server performance.</li>
+            </ul>
+            <p>Large projects should be designed and maintained with reasonable
+            performance in mind. Players should also maintain a reasonable distance
+            between large builds when necessary, to reduce interference, preserve the
+            surrounding environment and support server performance.</p>
+            <p>If a build is found to be causing significant problems, cooperate with
+            the staff team to address the issue.</p>
+            <div class="callout">
+              Build creatively, but do not compromise the experience of the entire
+              server.
+            </div>
+          </div>
+        </article>
+        <article class="rule" id="rule-13">
+          <header class="rule__head">
+            <span class="rule__num">13</span>
+            <h2 class="rule__title">Whitelist &amp; Player Access</h2>
+          </header>
+          <div class="rule__body">
+            <p>RenderFrost SMP operates with a whitelist system to maintain a trusted
+            and controlled community.</p>
+            <div class="rule__warn">
+              Only authorised staff members can officially add players to the
+              whitelist. Players must not independently add, attempt to authorise, or
+              arrange unauthorised access for other individuals.
+            </div>
+            <p class="rule__sub">Want a friend to join?</p>
+            <p>Follow the official process:</p>
+            <ol class="rule__list rule__list--steps">
+              <li>Contact a staff member and explain whom you would like to invite.</li>
+              <li>Ensure the prospective player follows the required verification process.</li>
+              <li>Wait for staff approval and official whitelist access.</li>
+            </ol>
+            <p>Do not assume that sharing server information or receiving a personal
+            invitation automatically authorises someone to join. All whitelist
+            additions are subject to staff verification and approval.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-14">
+          <header class="rule__head">
+            <span class="rule__num">14</span>
+            <h2 class="rule__title">Respect Private Storage &amp; Restricted Areas</h2>
+          </header>
+          <div class="rule__body">
+            <p>Every player&rsquo;s private storage and designated restricted areas must
+            be respected.</p>
+            <div class="rule__warn">
+              You must not enter another player&rsquo;s private storage area without
+              permission. This includes accessing, interfering with, or taking items
+              from their storage containers without authorisation.
+            </div>
+            <p class="rule__sub">Staff-only storage halls</p>
+            <p>Staff-only storage halls are strictly restricted to authorised staff
+            members. Players must not:</p>
+            <ul class="rule__list">
+              <li>Enter restricted storage halls without authorisation.</li>
+              <li>Access or remove items from staff storage.</li>
+              <li>Interfere with stored materials, organised resources or restricted equipment.</li>
+              <li>Use unauthorised access to obtain items or information.</li>
+            </ul>
+            <p>Unauthorised access to another player&rsquo;s storage, taking their
+            belongings, or interfering with their property may be treated as
+            <strong>griefing or stealing</strong>, depending on the circumstances.</p>
+            <p>Respect all private and restricted areas, even when access appears
+            physically possible.</p>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-15">
+          <header class="rule__head">
+            <span class="rule__num">15</span>
+            <h2 class="rule__title">Do Not Interrupt Ongoing Friendly PvP</h2>
+          </header>
+          <div class="rule__body">
+            <p>When players are participating in an agreed-upon friendly PvP session,
+            allow them to complete their fight without unnecessary interference.</p>
+            <p><strong>You do not need to participate, fight or provide assistance.
+            Simply respect the ongoing activity.</strong></p>
+            <p>Players must not deliberately:</p>
+            <ul class="rule__list">
+              <li>Run into the fight to disrupt the participants.</li>
+              <li>Interfere with the fight or distract those involved.</li>
+              <li>Obstruct the participants or otherwise prevent the agreed session from continuing normally.</li>
+            </ul>
+            <p>This rule applies to intentional disruption; merely being nearby or
+            passing through is not automatically a violation.</p>
+            <div class="rule__warn">
+              Intentionally disrupting an ongoing friendly PvP session may result in
+              several hours of jail time.
+            </div>
+          </div>
+        </article>
+
+        <article class="rule" id="rule-16">
+          <header class="rule__head">
+            <span class="rule__num">16</span>
+            <h2 class="rule__title">Player Recommendations &amp; Invitation Restrictions</h2>
+          </header>
+          <div class="rule__body">
+            <p>New players must spend at least <strong>15 days on RenderFrost SMP from
+            their first login</strong> before they can recommend another player for
+            whitelist consideration.</p>
+            <p>This waiting period allows the staff team to become familiar with new
+            members, establish trust, and maintain the quality and security of the
+            community.</p>
+            <p class="rule__sub">How the 15-day requirement works</p>
+            <ul class="rule__list">
+              <li>Before completing 15 days, you cannot recommend or request another player&rsquo;s addition based on your invitation.</li>
+              <li>After completing the required period, you may request that another player be considered for the whitelist.</li>
+              <li>The recommended player must still complete the required verification process.</li>
+              <li>Meeting the 15-day requirement does not guarantee approval.</li>
+            </ul>
+            <div class="callout">
+              The staff team retains final authority over whitelist applications and
+              player access. Please respect this requirement and allow the staff team
+              to complete its verification process.
+            </div>
+          </div>
+        </article>
+        <!-- ======================= COMMUNITY STATEMENT ======================= -->
+        <div class="divider-orn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/>
+          </svg>
+        </div>
+
+        <article class="rule rule--statement" id="community"
+          <header class="rule__head">
+            <span class="rule__num">&mdash;</span>
+            <h2 class="rule__title">Build the RenderFrost community together</h2>
+          </header>
+          <div class="rule__body">
+            <p>RenderFrost SMP is built on trust, fairness, creativity and respect.
+            Every player contributes to the environment we share, and following these
+            rules helps ensure that everyone can enjoy their adventure.</p>
+            <p><strong>Respect the world. Respect the players. Play fairly. Enjoy the
+            adventure.</strong></p>
+            <div class="rule__warn">
+              <strong>Ignorance of the rules is not an excuse for breaking them.</strong>
+              The RenderFrost staff team reserves the right to investigate reported
+              incidents and take appropriate action against behaviour that negatively
+              affects the server, its players or its community, including situations
+              not explicitly covered by a specific rule. All reports are assessed
+              according to the circumstances, available evidence and applicable server
+              regulations. Players are expected to cooperate with the staff team and
+              follow reasonable instructions related to server safety, fair play and
+              community well-being.
+            </div>
+            <p class="rule__thanks">Thank you for being part
+            of RenderFrost SMP. Let&rsquo;s keep our world fair, welcoming and enjoyable
+            for everyone.</p>
+          </div>
+        </article>
+
+      </div><!-- /rules-body -->
+    </div><!-- /rules-layout -->
+  </div>
+</section>
+</main>
+<!-- ============================== FINAL CTA ============================== -->
+<section class="cta">
+  <div class="shell cta__inner">
+    <p class="eyebrow eyebrow--center">Your adventure starts here</p>
+    <h2>Ready to find your way home?</h2>
+    <p>
+      Copy the address, launch Java Edition, and add yourself to the world.
+      If you need access, ask a staff member in Discord first.
+    </p>
+    <div class="btn-row">
+      <div class="copyip">
+        <span class="copyip__addr">
+          <span class="copyip__dot" aria-hidden="true"></span>
+          <span>play.renderfrost.com</span>
+        </span>
+        <button class="copyip__btn" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="11" height="11" rx="2"/>
+            <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span class="copyip__label">Copy IP</span>
+        </button>
+      </div>
+      <a class="btn btn--primary" href="https://discord.gg/SMRS6skKYY" target="_blank" rel="noopener noreferrer">
+        Join the Discord
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 5h5v5M19 5l-8 8"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- =============================== FOOTER =============================== -->
+<footer class="footer">
+  <div class="shell shell--wide">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__mark">
+          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 2 L29 10 v12 L16 30 L3 22 V10 Z" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+            <path d="M16 8.5 L23.5 13 v7 L16 24.5 L8.5 20 v-7 Z" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M16 8.5 V24.5 M8.5 13 L23.5 20 M23.5 13 L8.5 20" stroke="currentColor" stroke-width=".9" opacity=".55"/>
+            <circle cx="16" cy="16.5" r="2.1" fill="currentColor"/>
+          </svg>
+          <b>RENDERFROST SMP</b>
+        </div>
+        <p class="footer__tag">
+          A whitelisted Minecraft Java survival world built on trust, fairness,
+          creativity and respect.
+        </p>
+        <p class="footer__ip mono">play.renderfrost.com</p>
+
+        <div class="footer__studio">
+          <a
+            class="footer__studio-card"
+            href="https://studios.syxlor.xyz/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit SYXLOR Studios"
+          >
+            <img
+              class="footer__studio-logo"
+              src="assets/img/syxlor-mark.png"
+              alt="SYXLOR Studios logo"
+              width="56"
+              height="56"
+              loading="lazy"
+              decoding="async"
+            >
+            <span class="footer__studio-copy">
+              <span class="footer__studio-name">SYXLOR</span>
+              <span class="footer__studio-description">
+                Syxlor Studios builds polished Minecraft, Discord, and web systems.
+              </span>
+              <span class="footer__studio-domain">studios.syxlor.xyz</span>
+            </span>
+          </a>
+          <p class="footer__developer">
+            <span class="footer__developer-label">Developer:</span>
+            <a class="footer__developer-name" href="https://syxlor.xyz/" target="_blank" rel="noopener noreferrer">TasfiqAhmed</a>
+            <span class="footer__developer-divider" aria-hidden="true">|</span>
+            <span
+              class="footer__cv-unavailable"
+              title="A CV download URL has not been provided."
+            >Download CV</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h3>Explore</h3>
+        <ul class="footer__list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="discord.html">Discord</a></li>
+          <li><a href="join.html">Join</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3>Legal</h3>
+        <ul class="footer__list">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+          <li><a href="https://discord.gg/SMRS6skKYY" target="_blank" rel="noopener noreferrer">Discord <span class="footer__ext">EXT</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; <span data-year>2026</span> RenderFrost SMP. All rights reserved.</p>
+      <p>Crafted for adventurers.</p>
+      <a class="backtotop" href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19V6M6 12l6-6 6 6"/>
+        </svg>
+        Back to top
+      </a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/toast.js?v=20261030-visual" defer></script>
+<script src="assets/js/particles.js?v=20261030-visual" defer></script>
+<script src="assets/js/music.js?v=20261030-visual" defer></script>
+<script src="assets/js/cursor.js?v=20261030-visual" defer></script>
+<script src="assets/js/app.js?v=20261030-visual" defer></script>

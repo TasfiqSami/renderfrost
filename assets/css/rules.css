@@ -1,0 +1,245 @@
+/* ==========================================================================
+   RenderFrost SMP — 11 Rules page
+   Built for extended reading: sticky contents rail + numbered rule blocks.
+   ========================================================================== */
+
+.rules-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.rules-toc {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  max-height: calc(100svh - var(--nav-h) - 4rem);
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.rules-toc__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.rules-toc__list { list-style: none; display: grid; gap: 0.1rem; }
+
+.rules-toc__link {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.42rem 0.6rem;
+  border-radius: var(--r-sm);
+  border-left: 1px solid transparent;
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+
+.rules-toc__link:hover { color: var(--frost-100); background: var(--surface-3); }
+
+.rules-toc__link b {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  color: var(--text-faint);
+  flex: none;
+  padding-top: 0.15em;
+}
+
+.rules-toc__link.is-current {
+  color: var(--frost-100);
+  background: rgba(139, 92, 246, 0.12);
+  border-left-color: var(--violet-400);
+}
+
+.rules-toc__link.is-current b { color: var(--violet-300); }
+
+.rule {
+  padding: clamp(1.5rem, 3vw, 2.4rem) 0;
+  border-top: 1px solid var(--hairline);
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+
+.rule:not(:first-of-type) { border-image: linear-gradient(90deg, var(--glass-border), transparent 82%) 1; }
+
+.rule:first-of-type { border-top: 0; padding-top: 0; }
+
+.rule__head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.rule__num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  color: var(--violet-400);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-sm);
+  flex: none;
+  line-height: 1;
+}
+
+.rule__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.1vw + 1rem, 1.65rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--frost-100);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rule__body { font-size: var(--fs-body-lg); line-height: 1.75; color: var(--text-secondary); }
+.rule__body p:last-child { margin-bottom: 0; }
+
+.rule__sub {
+  margin: 1.25rem 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.rule__list { list-style: none; display: grid; gap: 0.55rem; margin: 0 0 1.2rem; }
+
+.rule__list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.rule__list li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--violet-500);
+}
+
+/* Consequence / restriction emphasis — restrained, not an alarm. */
+.rule__warn {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.15rem;
+  border-left: 2px solid var(--warning);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: rgba(240, 194, 100, 0.07);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--frost-200);
+}
+
+.rule__ok {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.15rem;
+  border-left: 2px solid var(--success);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: rgba(94, 211, 165, 0.07);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--frost-200);
+}
+
+.rule__ok ul { list-style: none; margin: 0.5rem 0 0; display: grid; gap: 0.35rem; }
+.rule__ok li { padding-left: 1.1rem; position: relative; }
+.rule__ok li::before { content: "+"; position: absolute; left: 0; color: var(--success); }
+
+/* Mobile: TOC becomes an accessible expandable menu. */
+.rules-toc__mobile { display: none; }
+
+/* Numbered process list (whitelist steps) — real ordered semantics. */
+.rule__list--steps {
+  counter-reset: step;
+  list-style: none;
+  padding-left: 0;
+}
+
+.rule__list--steps li {
+  counter-increment: step;
+  padding-left: 2.1rem;
+}
+
+.rule__list--steps li::before {
+  content: counter(step);
+  top: 0.15em;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--violet-300);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+}
+
+/* Closing community statement */
+.rule--statement { padding-top: 1.25rem; }
+
+.rule__thanks {
+  margin-top: 1.25rem;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+details.rules-jump {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  overflow: hidden;
+}
+
+details.rules-jump > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--violet-300);
+  list-style: none;
+}
+
+details.rules-jump > summary::-webkit-details-marker { display: none; }
+
+details.rules-jump > summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--t-base) var(--ease);
+}
+
+details.rules-jump[open] > summary::after { transform: rotate(225deg) translateY(-1px); }
+
+details.rules-jump .rules-toc__list {
+  padding: 0.35rem 0.6rem 0.9rem;
+  max-height: 46vh;
+  overflow-y: auto;
+}

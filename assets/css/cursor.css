@@ -1,0 +1,93 @@
+/* ==========================================================================
+   RenderFrost SMP — 07 Custom cursor
+   Purely decorative layer: pointer-events none, hidden on coarse pointers.
+   ========================================================================== */
+
+.cursor,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 400;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+
+.cursor {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--frost-100);
+  box-shadow: 0 0 8px rgba(196, 181, 253, 0.9);
+  transition: opacity var(--t-base) var(--ease), width var(--t-fast) var(--ease),
+    height var(--t-fast) var(--ease), margin var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+/* Minimal frost crosshair ticks — elegant, not a gaming reticle. */
+.cursor-ring {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border: 1px solid rgba(196, 181, 253, 0.5);
+  border-radius: 50%;
+  transition: opacity var(--t-base) var(--ease),
+    transform 180ms var(--ease-out), width var(--t-base) var(--ease-out),
+    height var(--t-base) var(--ease-out), margin var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease);
+}
+
+.cursor-ring::before,
+.cursor-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 4px;
+  margin-left: -0.5px;
+  background: rgba(196, 181, 253, 0.65);
+  transition: opacity var(--t-base) var(--ease);
+}
+
+.cursor-ring::before { top: -5px; }
+.cursor-ring::after { bottom: -5px; }
+
+/* Interactive: ring becomes a soft lens, ticks retract. */
+body.cursor--link .cursor-ring {
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  border-color: rgba(167, 139, 250, 0.85);
+  background: rgba(139, 92, 246, 0.14);
+}
+
+body.cursor--link .cursor-ring::before,
+body.cursor--link .cursor-ring::after { opacity: 0; }
+
+body.cursor--link .cursor { width: 4px; height: 4px; margin: -2px 0 0 -2px; }
+body.cursor--down .cursor-ring { transform: scale(0.86); }
+
+/* Hide the native cursor only where the custom one genuinely replaces it.
+   Text, inputs and the IP address always keep their real cursor. */
+body.cursor-active,
+body.cursor-active a,
+body.cursor-active button,
+body.cursor-active .btn,
+body.cursor-active .card--interactive,
+body.cursor-active [role="button"],
+body.cursor-active summary { cursor: none; }
+
+body.cursor-active input,
+body.cursor-active textarea,
+body.cursor-active select,
+body.cursor-active [data-cursor="text"],
+body.cursor-active p,
+body.cursor-active li,
+body.cursor-active h1,
+body.cursor-active h2,
+body.cursor-active h3,
+body.cursor-active h4,
+body.cursor-active .copyip__addr,
+body.cursor-active .prose { cursor: auto; }

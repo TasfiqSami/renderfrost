@@ -1,0 +1,92 @@
+/* ==========================================================================
+   RenderFrost SMP — 01 Design Tokens
+   Dark purple / violet / indigo / charcoal / frost. Purple establishes
+   identity; depth comes from light and layering, not gradients everywhere.
+   ========================================================================== */
+
+:root {
+  /* Surfaces — deep, near-black violet charcoal */
+  --bg-0: #06050c;
+  --bg-1: #0a0913;
+  --bg-2: #0f0d1b;
+  --surface-1: rgba(22, 19, 38, 0.72);
+  --surface-2: rgba(30, 26, 51, 0.55);
+  --surface-3: rgba(40, 34, 66, 0.42);
+
+  /* Frost / glass edges */
+  --glass-border: rgba(174, 158, 240, 0.14);
+  --glass-border-strong: rgba(186, 172, 250, 0.30);
+  --hairline: rgba(174, 158, 240, 0.10);
+
+  /* Violet identity */
+  --violet-700: #4c2f9e;
+  --violet-600: #6d3fd4;
+  --violet-500: #8b5cf6;
+  --violet-400: #a78bfa;
+  --violet-300: #c4b5fd;
+  --violet-glow: rgba(139, 92, 246, 0.30);
+
+  /* Frost */
+  --frost-100: #f4f8ff;
+  --frost-200: #dfe9f7;
+  --frost-300: #b7c8e0;
+  --frost-400: #8fa2bd;
+
+  /* Text */
+  --text-primary: #eceafa;
+  --text-secondary: #bdb8d6;
+  --text-muted: #918bab;
+  --text-faint: #6f6a94;
+
+  /* States */
+  --success: #5ed3a5;
+  --warning: #f0c264;
+  --danger: #f2777a;
+
+  /* Type */
+  --font-display: "Cinzel", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace,
+    SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-eyebrow: 0.6875rem;
+  --fs-label: 0.75rem;
+  --fs-small: 0.875rem;
+  --fs-body: 1rem;
+  --fs-body-lg: 1.0625rem;
+  --fs-lead: clamp(1.125rem, 1vw + 0.95rem, 1.25rem);
+  --fs-h4: 1.0625rem;
+  --fs-h3: clamp(1.25rem, 0.6vw + 1.1rem, 1.5rem);
+  --fs-h2: clamp(1.75rem, 1.6vw + 1.3rem, 2.75rem);
+  --fs-h1: clamp(2.5rem, 5.2vw + 1rem, 5.25rem);
+
+  /* Rhythm */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --shell: 1200px;
+  --shell-prose: 72ch;
+  --shell-wide: 1440px;
+  --section-y: clamp(4.25rem, 8vw, 7.5rem);
+
+  /* Radii — restrained; not pills everywhere */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+
+  /* Elevation + ambient light */
+  --shadow-sm: 0 1px 2px rgba(3, 2, 8, 0.5);
+  --shadow-md: 0 10px 30px -12px rgba(3, 2, 8, 0.75);
+  --shadow-lg: 0 30px 70px -30px rgba(3, 2, 8, 0.85);
+  --shadow-glow: 0 0 0 1px rgba(167, 139, 250, 0.16),
+    0 18px 50px -24px rgba(109, 63, 212, 0.55);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 140ms;
+  --t-base: 260ms;
+  --t-slow: 520ms;
+
+  --nav-h: 72px;
+}

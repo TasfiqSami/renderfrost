@@ -1,0 +1,261 @@
+/* ==========================================================================
+   RenderFrost SMP — 14 Footer + CTA band
+   ========================================================================== */
+
+.cta {
+  position: relative;
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+
+/* Same world as the hero: dark artwork echo + frost haze. */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url("../img/background.jpg") 50% 60% / cover no-repeat;
+  opacity: 0.27;
+  transform: scale(1.03);
+}
+
+.cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 60% at 50% 50%, rgba(76, 47, 158, 0.26), transparent 70%),
+    linear-gradient(180deg, var(--bg-0), rgba(6, 5, 12, 0.82) 48%, var(--bg-0));
+}
+
+.cta__inner { display: grid; justify-items: center; gap: 1.35rem; }
+
+.cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.4vw + 1rem, 3.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--frost-100);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.cta p { max-width: 48ch; color: var(--text-secondary); margin: 0; }
+.cta .btn-row { justify-content: center; }
+
+.footer {
+  border-top: 1px solid var(--hairline);
+  background: linear-gradient(180deg, rgba(9, 8, 17, 0.76), var(--bg-0) 58%);
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 0.8fr));
+  gap: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.footer__brand { display: grid; gap: 1.1rem; align-content: start; }
+.footer__mark { display: flex; align-items: center; gap: 0.7rem; }
+.footer__mark svg { width: 28px; height: 28px; color: var(--violet-300); flex: none; }
+
+.footer__mark b {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--frost-100);
+}
+
+.footer__tag {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  max-width: 34ch;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.footer__studio {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.footer__studio-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: min(100%, 28rem);
+  min-height: 5.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(81, 151, 255, 0.25);
+  border-left: 2px solid rgba(76, 158, 255, 0.7);
+  border-radius: var(--r-md);
+  background:
+    linear-gradient(115deg, rgba(17, 47, 91, 0.55), rgba(11, 19, 42, 0.76) 68%),
+    var(--surface-1);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition:
+    border-color var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+.footer__studio-card:hover {
+  border-color: rgba(91, 166, 255, 0.48);
+  background:
+    linear-gradient(115deg, rgba(19, 57, 108, 0.66), rgba(13, 23, 49, 0.84) 68%),
+    var(--surface-1);
+}
+
+.footer__studio-card:focus-visible,
+.footer__developer-name:focus-visible {
+  outline: 2px solid var(--frost-200);
+  outline-offset: 3px;
+}
+
+.footer__studio-logo {
+  display: block;
+  flex: 0 0 3.25rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  object-fit: contain;
+}
+
+.footer__studio-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.22rem;
+}
+
+.footer__studio-name {
+  color: #eaf3ff;
+  font-size: 0.95rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+}
+
+.footer__studio-description {
+  max-width: 34ch;
+  color: #bdcbe0;
+  font-size: var(--fs-eyebrow);
+  line-height: 1.55;
+}
+
+.footer__studio-domain {
+  color: #7fb8ff;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+}
+
+.footer__developer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-eyebrow);
+  line-height: 1.6;
+}
+
+.footer__developer-label { color: var(--text-faint); }
+
+.footer__developer-name {
+  color: #8dbfff;
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease);
+}
+
+.footer__developer-name:hover { color: #c5ddff; }
+
+.footer__developer-divider {
+  margin-inline: 0.16rem;
+  color: var(--text-faint);
+}
+
+.footer__cv-unavailable {
+  color: var(--text-faint);
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+  cursor: not-allowed;
+}
+
+.footer__col h3 {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.footer__list { list-style: none; display: grid; gap: 0.7rem; }
+
+.footer__list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease);
+}
+
+.footer__list a:hover { color: var(--frost-100); }
+
+.footer__ext {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.footer__bottom p { margin: 0; }
+
+.backtotop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+
+.backtotop:hover { color: var(--frost-100); border-color: var(--glass-border-strong); }
+.backtotop svg { width: 12px; height: 12px; }

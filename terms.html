@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Service — RenderFrost SMP</title>
+<meta name="description" content="The terms that govern use of the RenderFrost SMP website, and how they relate to the separate rules that apply to playing on the Minecraft server.">
+<meta name="theme-color" content="#06050c">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="terms.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RenderFrost SMP">
+<meta property="og:title" content="Terms of Service — RenderFrost SMP">
+<meta property="og:description" content="Clear terms for using this website, with an honest boundary between website use and server participation.">
+<meta property="og:image" content="assets/img/background.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="assets/css/tokens.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/base.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/components.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/cards.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/nav.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/music.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/cursor.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/hero.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/pages.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/members.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/legal.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/rules.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/footer.css?v=20261031-syxlor">
+<link rel="stylesheet" href="assets/css/responsive.css?v=20261031-syxlor">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================== NAVBAR ============================== -->
+<header class="nav" id="top">
+  <div class="shell shell--wide nav__inner">
+    <a class="nav__brand" href="index.html" aria-label="RenderFrost SMP — home">
+      <svg class="nav__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2 L29 10 v12 L16 30 L3 22 V10 Z" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+        <path d="M16 8.5 L23.5 13 v7 L16 24.5 L8.5 20 v-7 Z" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M16 8.5 V24.5 M8.5 13 L23.5 20 M23.5 13 L8.5 20" stroke="currentColor" stroke-width=".9" opacity=".55"/>
+        <circle cx="16" cy="16.5" r="2.1" fill="currentColor"/>
+      </svg>
+      <span class="nav__wordmark"><b>RENDERFROST</b><span>SMP</span></span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="members.html">Members</a></li>
+        <li><a class="nav__link" href="rules.html">Rules</a></li>
+        <li><a class="nav__link" href="discord.html">Discord</a></li>
+        <li><a class="nav__link" href="join.html">Join</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav__actions">
+      <!-- Soundtrack control. Silent until the visitor presses play. -->
+      <div class="music">
+        <button class="music__toggle" type="button" aria-label="Play soundtrack" aria-pressed="false">
+          <svg class="music__icon" data-music="play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5.2v13.6c0 .8.9 1.3 1.6.9l10.2-6.8c.6-.4.6-1.4 0-1.8L9.6 4.3c-.7-.4-1.6.1-1.6.9Z"/>
+          </svg>
+          <svg class="music__icon music__icon--hidden" data-music="pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect x="6.5" y="4.5" width="3.6" height="15" rx="1.1"/>
+            <rect x="13.9" y="4.5" width="3.6" height="15" rx="1.1"/>
+          </svg>
+          <span class="music__eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+
+        <button class="music__knob" type="button" data-music="pop" aria-label="Soundtrack volume and settings" aria-expanded="false" aria-controls="music-pop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7h10M18 7h2M4 17h4M12 17h8"/>
+            <circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>
+          </svg>
+        </button>
+
+        <div class="music__pop" id="music-pop" role="group" aria-label="Soundtrack volume">
+          <button class="music__pop-close" type="button" data-music="pop-close" aria-label="Close volume controls">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18"/>
+            </svg>
+          </button>
+          <div class="music__pop-head">
+            <span class="music__pop-title">Soundtrack</span>
+            <span class="music__value">40%</span>
+          </div>
+          <div class="music__row">
+            <button class="music__mini" type="button" data-music="mute" aria-label="Mute soundtrack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15.5 9.5a4 4 0 0 1 0 5"/>
+              </svg>
+            </button>
+            <button class="music__mini music__icon--hidden" type="button" data-music="unmute" aria-label="Unmute soundtrack">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>
+              </svg>
+            </button>
+            <input class="music__slider" type="range" min="0" max="100" step="1" value="40"
+                   data-music="volume" aria-label="Soundtrack volume">
+          </div>
+          <p class="music__note">Music is optional and starts only when you press play.</p>
+        </div>
+      </div>
+
+      <a class="btn btn--primary" href="join.html">
+        Join the server
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="nav__toggle-box" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ MOBILE MENU ============================ -->
+<div class="drawer" id="mobile-menu">
+  <a class="drawer__link" href="index.html">Home <span>01</span></a>
+  <a class="drawer__link" href="members.html">Members <span>02</span></a>
+  <a class="drawer__link" href="rules.html">Rules <span>03</span></a>
+  <a class="drawer__link" href="discord.html">Discord <span>04</span></a>
+  <a class="drawer__link" href="join.html">Join <span>05</span></a>
+  <a class="drawer__link" href="privacy.html">Privacy Policy <span>06</span></a>
+  <a class="drawer__link" href="terms.html" aria-current="page">Terms of Service <span>07</span></a>
+  <a class="drawer__link" href="cookies.html">Cookie Policy <span>08</span></a>
+  <div class="drawer__cta"><a class="btn btn--primary" href="join.html">Join the server</a></div>
+</div>
+
+<main id="main">
+<!-- ============================= PAGE HEADER ============================= -->
+<section class="pagehead">
+  <div class="shell">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href="index.html">Home</a></li>
+        <li><span aria-current="page">Terms of Service</span></li>
+      </ol>
+    </nav>
+    <div class="pagehead__inner">
+      <p class="eyebrow">Legal</p>
+      <h1>Terms of Service.</h1>
+      <p class="pagehead__sub">
+        These terms cover your use of the RenderFrost SMP website. They are written to
+        match what the site actually is, and they are deliberately clear about where
+        website rules stop and server rules begin.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTENT =============================== -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="legal-meta">
+      <div><b>Effective</b>11 October 2026</div>
+      <div><b>Applies to</b>This website only</div>
+      <div><b>Server rules</b>Separate — see <a href="rules.html">Rules</a></div>
+    </div>
+
+    <nav class="legal-toc" aria-label="On this page">
+      <p class="rules-toc__title">On this page</p>
+      <ol class="legal-toc__list">
+        <li><a href="#tos-1">Acceptance</a></li>
+        <li><a href="#tos-2">What this website is</a></li>
+        <li><a href="#tos-3">Eligibility and responsible use</a></li>
+        <li><a href="#tos-4">Using the website's features</a></li>
+        <li><a href="#tos-5">Server access and whitelist</a></li>
+        <li><a href="#tos-6">Community guidelines</a></li>
+        <li><a href="#tos-7">Intellectual property</a></li>
+        <li><a href="#tos-8">User-submitted material</a></li>
+        <li><a href="#tos-9">Third-party services</a></li>
+        <li><a href="#tos-10">Availability and maintenance</a></li>
+        <li><a href="#tos-11">Disclaimers</a></li>
+        <li><a href="#tos-12">Limitation of liability</a></li>
+        <li><a href="#tos-13">Changes to these terms</a></li>
+        <li><a href="#tos-14">Contact and reporting</a></li>
+        <li><a href="#tos-15">Relationship to other documents</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <h2 id="tos-1">1. Acceptance of these terms</h2>
+      <p>
+        By using the RenderFrost SMP website, you agree to these terms. If you do not
+        agree with them, please stop using the site. These terms do not require you to
+        create an account, and they do not form a contract to play on the Minecraft
+        server.
+      </p>
+
+      <h2 id="tos-2">2. What this website is</h2>
+      <p>
+        This is an informational website about RenderFrost SMP, a whitelisted
+        Minecraft Java Edition survival community. It publishes the server address,
+        the community rules, membership information, and links to the Discord server.
+      </p>
+      <p>
+        It is a static website with no backend. It has no accounts, no login, no
+        payments, no subscriptions, no private messaging, and no system that can
+        change anything on the Minecraft server. Where these terms describe a
+        limitation, it reflects how the site is genuinely built rather than a
+        preference.
+      </p>
+
+      <h2 id="tos-3">3. Eligibility and responsible use</h2>
+      <p>
+        You may use this website for lawful purposes and in a way that does not
+        interfere with anyone else's use of it. That includes not attempting to
+        disrupt, overload, or probe the site for vulnerabilities.
+      </p>
+      <p>
+        Please do not misrepresent the website or its contents, and do not present the
+        server address as an invitation to join without approval. Access to the server
+        is whitelisted, and stating that clearly here is not a formality.
+      </p>
+
+      <h2 id="tos-4">4. Using the website's features</h2>
+      <p>
+        The interactive features on this site are limited and plain: navigation, the
+        rules contents, the FAQ, the Copy IP button, and the optional soundtrack
+        control.
+      </p>
+      <ul>
+        <li>
+          <strong>Copy IP</strong> copies <code>play.renderfrost.com</code> to your
+          clipboard. Copying an address does not connect you to anything.
+        </li>
+        <li>
+          <strong>The soundtrack</strong> is optional and only plays when you press
+          play. Your volume and mute choices are stored in your own browser. No music
+          starts automatically.
+        </li>
+        <li>
+          <strong>External links</strong>, such as the Discord invite, open in a new
+          tab and are marked as leaving this site.
+        </li>
+      </ul>
+      <h2 id="tos-5">5. Minecraft server access and whitelist</h2>
+      <p>
+        RenderFrost SMP is a whitelisted server. Only authorised staff members can add
+        a player to the whitelist, and every addition is subject to staff verification
+        and approval.
+      </p>
+      <p>
+        This website cannot grant, check, or restore server access. It has no
+        connection to the server, so it cannot tell you whether you are whitelisted,
+        which version is currently supported, or whether the server is running. Those
+        matters belong to the staff team, reachable through Discord.
+      </p>
+      <p>
+        Do not treat knowing the address, or receiving a personal invitation from
+        another player, as authorisation to join.
+      </p>
+
+      <h2 id="tos-6">6. Community guidelines and the separate SMP rules</h2>
+      <p>
+        Conduct on the Minecraft server is governed by the RenderFrost rules, which are
+        a separate document from these terms. The rules cover behaviour in the world,
+        including griefing, consent for PvP, cheating, rollback eligibility, building
+        limits, and how whitelist invitations work.
+      </p>
+      <p>
+        Using this website does not change those rules, and breaking the server rules
+        is not something a website can enforce or waive. Enforcement on the server,
+        including moderation action and any in-game consequences, runs through the
+        staff team.
+      </p>
+      <p>
+        Conversely, these terms apply to how you use the website, not to how you play.
+        The two documents sit alongside each other rather than one overriding the other.
+      </p>
+
+      <h2 id="tos-7">7. Intellectual property and brand assets</h2>
+      <p>
+        The RenderFrost name, logo, and the artwork used on this site belong to the
+        RenderFrost project. You may not use them to imply endorsement, or in a way
+        that suggests you operate or represent the server, without permission.
+      </p>
+      <p>
+        Minecraft is a trademark of Mojang Studios. This website is an independent
+        community project and is not affiliated with, endorsed by, or sponsored by
+        Mojang Studios or Microsoft. That statement is made plainly because it is
+        true, not as a disclaimer of ownership.
+      </p>
+      <p>
+        Text written for this website may be quoted with attribution to RenderFrost
+        SMP, provided the meaning is not altered.
+      </p>
+
+      <h2 id="tos-8">8. User-submitted material</h2>
+      <p>
+        This website does not accept user submissions. There are no forms, no comment
+        system, and no upload path, so no material you create is submitted to or stored
+        by this site.
+      </p>
+      <p>
+        If you share screenshots, builds or messages with the staff team through
+        Discord, that material is handled by that platform and by the staff team under
+        their own arrangements, not by this website.
+      </p>
+
+      <h2 id="tos-9">9. Third-party websites and services</h2>
+      <p>
+        This site links to Discord and nowhere else external. Links that open in a new
+        tab are marked, and use <code>rel="noopener noreferrer"</code> for safe
+        handling.
+      </p>
+      <p>
+        We are not responsible for the content, availability, or data practices of any
+        external service, including Discord. Your use of those services is governed by
+        their own terms.
+      </p>
+      <p>
+        Fonts used by this site are served from the same host as the pages rather than
+        from an external provider, so viewing a page does not involve a third-party
+        request.
+      </p>
+
+      <h2 id="tos-10">10. Website availability and maintenance</h2>
+      <p>
+        The site is provided as-is and may change, move, or become unavailable without
+        notice. Content may be corrected or updated as the project changes,
+        particularly the rules and membership process.
+      </p>
+      <p>
+        No part of this website is a promise that the Minecraft server is online, that
+        any particular version is supported, or that access will be granted.
+      </p>
+
+      <h2 id="tos-11">11. Disclaimers</h2>
+      <p>
+        The website and its content are provided without warranties of any kind,
+        whether stated or implied, including any implied warranty of merchantability,
+        fitness for a particular purpose, or non-infringement, to the extent permitted
+        by applicable law.
+      </p>
+      <p>
+        Information here is provided in good faith and reflects the project's own
+        rules and process. It is not legal advice, and it is not a guarantee about any
+        technical or administrative outcome.
+      </p>
+
+      <h2 id="tos-12">12. Limitation of liability</h2>
+      <p>
+        To the extent permitted by applicable law, the RenderFrost project and its
+        contributors are not liable for any indirect, incidental, special,
+        consequential or punitive damages, or for any loss arising from your use of,
+        or inability to use, this website.
+      </p>
+      <p>
+        Nothing in these terms excludes liability that cannot lawfully be excluded,
+        and this section is not intended to do so. Where local law materially affects
+        the wording here, that is a genuine question for a qualified adviser rather
+        than something to be settled by a website template.
+      </p>
+
+      <h2 id="tos-13">13. Changes to these terms</h2>
+      <p>
+        These terms may be updated when the website changes in a relevant way. The
+        effective date at the top of this page will be updated at the same time, so
+        you can see how current the document is. Continued use after a change means
+        you accept the updated terms.
+      </p>
+
+      <h2 id="tos-14">14. Contact and reporting</h2>
+      <p>
+        Questions about these terms, or about the website, can be raised with the
+        RenderFrost staff team through Discord.
+      </p>
+      <p>
+        No email address or postal address is listed here, because no verified contact
+        of that kind could be established for this project. Rather than invent one,
+        this page points to the channel that is genuinely monitored.
+      </p>
+
+      <h2 id="tos-15">15. Relationship to the Privacy Policy and SMP rules</h2>
+      <p>
+        These terms sit alongside two other documents:
+      </p>
+      <ul>
+        <li>
+          The <a href="privacy.html">Privacy Policy</a> explains what data the
+          website handles, which is deliberately very little.
+        </li>
+        <li>
+          The <a href="rules.html">Rules</a> govern conduct on the Minecraft server
+          and are enforced by staff.
+        </li>
+      </ul>
+      <p>
+        Where these terms are silent, the other documents apply to their own subject
+        matter. Nothing here overrides the server rules, and the server rules do not
+        govern your use of this website.
+      </p>
+
+      <div class="callout">
+        <strong>The short version:</strong> this is an information site about a
+        whitelisted Minecraft community. It cannot give you server access, it does not
+        track you, and conduct in the world is covered by the separate rules.
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<!-- ============================== FINAL CTA ============================== -->
+<section class="cta">
+  <div class="shell cta__inner">
+    <p class="eyebrow eyebrow--center">Your adventure starts here</p>
+    <h2>Ready to find your way home?</h2>
+    <p>
+      Copy the address, launch Java Edition, and add yourself to the world.
+      If you need access, ask a staff member in Discord first.
+    </p>
+    <div class="btn-row">
+      <div class="copyip">
+        <span class="copyip__addr">
+          <span class="copyip__dot" aria-hidden="true"></span>
+          <span>play.renderfrost.com</span>
+        </span>
+        <button class="copyip__btn" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="11" height="11" rx="2"/>
+            <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span class="copyip__label">Copy IP</span>
+        </button>
+      </div>
+      <a class="btn btn--primary" href="https://discord.gg/SMRS6skKYY" target="_blank" rel="noopener noreferrer">
+        Join the Discord
+        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 5h5v5M19 5l-8 8"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- =============================== FOOTER =============================== -->
+<footer class="footer">
+  <div class="shell shell--wide">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__mark">
+          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 2 L29 10 v12 L16 30 L3 22 V10 Z" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+            <path d="M16 8.5 L23.5 13 v7 L16 24.5 L8.5 20 v-7 Z" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M16 8.5 V24.5 M8.5 13 L23.5 20 M23.5 13 L8.5 20" stroke="currentColor" stroke-width=".9" opacity=".55"/>
+            <circle cx="16" cy="16.5" r="2.1" fill="currentColor"/>
+          </svg>
+          <b>RENDERFROST SMP</b>
+        </div>
+        <p class="footer__tag">
+          A whitelisted Minecraft Java survival world built on trust, fairness,
+          creativity and respect.
+        </p>
+        <p class="footer__ip mono">play.renderfrost.com</p>
+
+        <div class="footer__studio">
+          <a
+            class="footer__studio-card"
+            href="https://studios.syxlor.xyz/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit SYXLOR Studios"
+          >
+            <img
+              class="footer__studio-logo"
+              src="assets/img/syxlor-mark.png"
+              alt="SYXLOR Studios logo"
+              width="56"
+              height="56"
+              loading="lazy"
+              decoding="async"
+            >
+            <span class="footer__studio-copy">
+              <span class="footer__studio-name">SYXLOR</span>
+              <span class="footer__studio-description">
+                Syxlor Studios builds polished Minecraft, Discord, and web systems.
+              </span>
+              <span class="footer__studio-domain">studios.syxlor.xyz</span>
+            </span>
+          </a>
+          <p class="footer__developer">
+            <span class="footer__developer-label">Developer:</span>
+            <a class="footer__developer-name" href="https://syxlor.xyz/" target="_blank" rel="noopener noreferrer">TasfiqAhmed</a>
+            <span class="footer__developer-divider" aria-hidden="true">|</span>
+            <span
+              class="footer__cv-unavailable"
+              title="A CV download URL has not been provided."
+            >Download CV</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h3>Explore</h3>
+        <ul class="footer__list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="discord.html">Discord</a></li>
+          <li><a href="join.html">Join</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3>Legal</h3>
+        <ul class="footer__list">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
+          <li><a href="https://discord.gg/SMRS6skKYY" target="_blank" rel="noopener noreferrer">Discord <span class="footer__ext">EXT</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; <span data-year>2026</span> RenderFrost SMP. All rights reserved.</p>
+      <p>Crafted for adventurers.</p>
+      <a class="backtotop" href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19V6M6 12l6-6 6 6"/>
+        </svg>
+        Back to top
+      </a>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/toast.js?v=20261030-visual" defer></script>
+<script src="assets/js/particles.js?v=20261030-visual" defer></script>
+<script src="assets/js/music.js?v=20261030-visual" defer></script>
+<script src="assets/js/cursor.js?v=20261030-visual" defer></script>
+<script src="assets/js/app.js?v=20261030-visual" defer></script>

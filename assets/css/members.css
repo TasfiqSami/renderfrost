@@ -1,0 +1,257 @@
+/* ==========================================================================
+   RenderFrost SMP — 12 Members page + FAQ accordion
+   ========================================================================== */
+
+.members-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.roster__card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  transition: transform var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+}
+
+.roster__card:hover {
+  transform: translateY(-2px);
+  border-color: var(--glass-border-strong);
+  background-color: rgba(30, 26, 51, 0.72);
+}
+
+.roster__avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border-radius: var(--r-sm);
+  background: linear-gradient(160deg, rgba(139, 92, 246, 0.28), rgba(76, 47, 158, 0.16));
+  border: 1px solid var(--glass-border);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--frost-200);
+}
+
+.roster__name { font-size: var(--fs-small); font-weight: 600; color: var(--frost-200); }
+.roster__role {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-top: 0.2rem;
+}
+
+/* Honest state: there is no live member-data source on a static site. */
+.notice {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--glass-border);
+  border-left: 2px solid var(--violet-500);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background: rgba(139, 92, 246, 0.07);
+}
+
+.notice svg { width: 18px; height: 18px; flex: none; color: var(--violet-300); margin-top: 0.2rem; }
+.notice h3 { font-size: var(--fs-h4); margin-bottom: 0.45rem; color: var(--frost-100); }
+.notice p { font-size: var(--fs-small); color: var(--text-muted); line-height: 1.7; }
+
+.side-panel {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  display: grid;
+  gap: 1rem;
+}
+
+.factlist { list-style: none; display: grid; gap: 0.85rem; }
+
+.factlist li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--hairline);
+  font-size: var(--fs-small);
+}
+
+.factlist li:last-child { border-bottom: 0; padding-bottom: 0; }
+.factlist dt, .factlist .k { color: var(--text-muted); }
+.factlist .v {
+  font-family: var(--font-mono);
+  color: var(--frost-200);
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------- FAQ */
+
+.faq { display: grid; gap: 0.7rem; width: min(100%, 74ch); margin-inline: auto; }
+
+.section#faq .section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.section#faq .section-head h2 { max-width: 20ch; }
+
+.faq__item {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  overflow: hidden;
+  interpolate-size: allow-keywords;
+  transition: border-color var(--t-base) var(--ease),
+    background-color var(--t-base) var(--ease);
+}
+
+.faq__item[open] { border-color: var(--glass-border-strong); background: var(--surface-2); }
+.faq__item.is-closing { border-color: var(--glass-border); background: var(--surface-1); }
+
+.faq__q {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 54px;
+  padding: clamp(0.95rem, 2.5vw, 1.2rem) clamp(1rem, 3vw, 1.4rem);
+  cursor: pointer;
+  font-size: var(--fs-body);
+  font-weight: 550;
+  color: var(--frost-200);
+  list-style: none;
+  line-height: 1.5;
+}
+
+.faq__q::-webkit-details-marker { display: none; }
+
+.faq__q::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: none;
+  margin-top: 0.45em;
+  border-right: 1.5px solid var(--violet-300);
+  border-bottom: 1.5px solid var(--violet-300);
+  transform: rotate(45deg);
+  transition: transform var(--t-base) var(--ease);
+}
+
+.faq__item[open] .faq__q::after { transform: rotate(225deg) translateY(-1px); }
+.faq__q:hover { color: var(--frost-100); }
+
+.faq__a {
+  height: auto;
+  overflow: hidden;
+  padding: 0 clamp(1rem, 3vw, 1.4rem) 1.3rem;
+  font-size: var(--fs-small);
+  line-height: 1.75;
+  color: var(--text-muted);
+  transition: height 280ms var(--ease-out);
+}
+
+.faq__a p:last-child { margin-bottom: 0; }
+.faq__a code { font-family: var(--font-mono); font-size: 0.92em; color: var(--frost-300); }
+
+@keyframes faqReveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+.faq__item[open]:not(.is-closing) .faq__a { animation: faqReveal 240ms var(--ease-out) both; }
+
+/* ==========================================================================
+   RenderFrost SMP — 13 Feature / editorial sections (home)
+   ========================================================================== */
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.split--wide-left { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); }
+.split--reverse .split__media { order: -1; }
+
+.split__body { display: grid; gap: 1.15rem; align-content: start; }
+
+.media-panel {
+  position: relative;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--surface-1);
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 16 / 10;
+}
+
+.media-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 900ms var(--ease-out);
+}
+
+.media-panel:hover img { transform: scale(1.06); }
+
+.media-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(6, 5, 12, 0.72));
+  pointer-events: none;
+}
+
+.media-panel__cap {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1rem;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--frost-300);
+}
+
+.ticklist { list-style: none; display: grid; gap: 0.7rem; }
+
+.ticklist li {
+  position: relative;
+  padding-left: 1.75rem;
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.ticklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 9px;
+  height: 5px;
+  border-left: 1.5px solid var(--violet-400);
+  border-bottom: 1.5px solid var(--violet-400);
+  transform: rotate(-45deg);
+}

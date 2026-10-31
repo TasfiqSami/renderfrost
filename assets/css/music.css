@@ -1,0 +1,231 @@
+/* ==========================================================================
+   RenderFrost SMP — 06 Soundtrack control (navbar)
+   Understated by design: no playing animation unless audio is really playing.
+   ========================================================================== */
+
+.music {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.music__toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  background: var(--surface-1);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease), background-color var(--t-base) var(--ease);
+}
+
+.music__toggle:hover {
+  color: var(--frost-100);
+  border-color: var(--glass-border-strong);
+  background: var(--surface-2);
+}
+
+.music__toggle svg { width: 16px; height: 16px; }
+
+/* Icon swap without layout shift. */
+.music__icon {
+  grid-area: 1 / 1;
+  transition: opacity var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease);
+}
+
+.music__icon--hidden { opacity: 0; transform: scale(0.7); pointer-events: none; }
+
+/* Three quiet bars — only animate while genuinely playing. */
+.music__eq {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 9px;
+  opacity: 0;
+  transition: opacity var(--t-base) var(--ease);
+}
+
+.music__eq i {
+  display: block;
+  width: 1.5px;
+  height: 3px;
+  background: var(--violet-300);
+  border-radius: 1px;
+}
+
+.music.is-playing .music__eq { opacity: 1; }
+
+.music.is-playing .music__eq i { animation: eq 1100ms var(--ease) infinite; }
+.music.is-playing .music__eq i:nth-child(2) { animation-delay: 180ms; }
+.music.is-playing .music__eq i:nth-child(3) { animation-delay: 360ms; }
+
+@keyframes eq {
+  0%, 100% { height: 3px; }
+  50% { height: 9px; }
+}
+
+/* Secondary knob: opens the volume popover. Kept quieter than the play
+   button so play/pause stays the obvious primary action. */
+.music__knob {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: color var(--t-base) var(--ease);
+}
+
+.music__knob:hover,
+.music__knob[aria-expanded="true"] { color: var(--violet-300); }
+.music__knob svg { width: 15px; height: 15px; }
+
+.music__pop-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+.music__pop-close:hover { color: var(--frost-100); background: var(--surface-3); }
+.music__pop-close svg { width: 12px; height: 12px; }
+
+/* Leave room for the close button in the header row. */
+.music__pop-head { padding-right: 2.2rem; }
+
+/* --------------------------------------------------------- Volume popover */
+
+.music__pop {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  z-index: 130;
+  width: min(212px, calc(100vw - 2rem));
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  background: rgba(14, 12, 26, 0.96);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity var(--t-base) var(--ease-out),
+    transform var(--t-base) var(--ease-out), visibility var(--t-base) linear;
+}
+
+.music__pop.is-open { opacity: 1; visibility: visible; transform: none; }
+
+.music__pop-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.music__pop-title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.music__value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--violet-300);
+}
+
+.music__row { display: flex; align-items: center; gap: 0.65rem; }
+
+.music__mini {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+
+.music__mini:hover { color: var(--frost-100); border-color: var(--glass-border-strong); }
+.music__mini svg { width: 14px; height: 14px; }
+
+.music__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.music__slider::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--violet-400) var(--fill, 40%),
+    rgba(174, 158, 240, 0.18) var(--fill, 40%));
+}
+
+.music__slider::-moz-range-track {
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--violet-400) var(--fill, 40%),
+    rgba(174, 158, 240, 0.18) var(--fill, 40%));
+}
+
+.music__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4.5px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--frost-100);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.music__slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--frost-100);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.music__note {
+  margin: 0.85rem 0 0;
+  font-size: var(--fs-eyebrow);
+  line-height: 1.55;
+  color: var(--text-faint);
+}

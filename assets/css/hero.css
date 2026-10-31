@@ -1,0 +1,198 @@
+/* ==========================================================================
+   RenderFrost SMP — 08 Hero (layered depth) + atmosphere
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: min(100svh, 900px);
+  display: flex;
+  align-items: flex-end;
+  padding-top: calc(var(--nav-h) + clamp(3rem, 8vh, 6rem));
+  padding-bottom: clamp(3rem, 7vh, 5.5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Layer 1: authentic supplied artwork. */
+.hero__art {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+}
+
+.hero__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  transform: scale(var(--hero-scale, 1)) translate3d(var(--hero-x, 0px), var(--hero-y, 0px), 0);
+  transform-origin: center 42%;
+  will-change: transform;
+}
+
+/* Layer 2: atmosphere — vignette + frost haze so text always has contrast. */
+.hero__atmos {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(75% 55% at 50% 42%, transparent 30%, rgba(6, 5, 12, 0.55) 100%),
+    linear-gradient(180deg, rgba(6, 5, 12, 0.58) 0%, rgba(6, 5, 12, 0.12) 30%,
+      rgba(6, 5, 12, 0.48) 56%, rgba(6, 5, 12, 0.88) 80%, var(--bg-0) 100%),
+    linear-gradient(90deg, rgba(6, 5, 12, 0.55) 0%, transparent 42%);
+}
+
+/* Layer 3: particle canvas. */
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.ambient-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  opacity: 0.48;
+  mix-blend-mode: screen;
+}
+
+.hero__inner {
+  position: relative;
+  width: 100%;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.section#world {
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  background: linear-gradient(180deg, rgba(6, 5, 12, 0.2), transparent 70%);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--frost-100);
+  text-shadow: 0 2px 40px rgba(6, 5, 12, 0.65);
+}
+
+.hero__title em {
+  display: block;
+  font-style: normal;
+  font-size: 0.42em;
+  letter-spacing: 0.34em;
+  font-weight: 500;
+  color: var(--violet-300);
+  margin-bottom: 0.85em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+.hero__title strong {
+  display: block;
+  font-weight: 700;
+  background: linear-gradient(180deg, #ffffff 8%, #e8e4ff 58%, #b8addc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--frost-100);
+}
+
+.hero__sub {
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--frost-200);
+  font-weight: 350;
+  margin: 0;
+  text-shadow: 0 1px 20px rgba(6, 5, 12, 0.8);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--frost-400);
+}
+
+.hero__meta li { display: flex; align-items: center; gap: 0.55rem; }
+
+.hero__meta li::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--violet-400);
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  text-decoration: none;
+}
+
+.hero__scroll i {
+  display: block;
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(180deg, var(--violet-400), transparent);
+  animation: scrollHint 2600ms var(--ease) infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollHint {
+  0% { transform: scaleY(0.25); opacity: 0.3; }
+  45% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0.25); opacity: 0.3; }
+}
+
+/* Page entrance — grouped, short, never blocking. */
+.hero__inner > * {
+  animation: heroIn 900ms var(--ease-out) both;
+}
+
+.hero__inner > *:nth-child(1) { animation-delay: 60ms; }
+.hero__inner > *:nth-child(2) { animation-delay: 160ms; }
+.hero__inner > *:nth-child(3) { animation-delay: 260ms; }
+.hero__inner > *:nth-child(4) { animation-delay: 360ms; }
+
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
