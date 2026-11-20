@@ -1,0 +1,12 @@
+{
+  "_help": "Edit entries below, then run: node tools/build.js. Links open in a new tab; nothing is embedded, so no third-party scripts load.",
+  "items": [
+    {
+      "type": "Video",
+      "platform": "TikTok",
+      "title": "Watch our latest video on TikTok",
+      "description": "A look at RenderFrost SMP from @tasfiqah.",
+      "url": "https://www.tiktok.com/@tasfiqah/video/7675914800102165768"
+    }
+  ]
+}

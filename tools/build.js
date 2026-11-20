@@ -158,6 +158,25 @@ function buildGallery() {
     </dialog>`;
 }
 
+/* News & media: link cards from src/media.json. Nothing is embedded, so the
+   site still loads no third-party scripts. */
+function buildMedia() {
+  let items = [];
+  try {
+    items = JSON.parse(fs.readFileSync(path.join(SRC, "media.json"), "utf8")).items || [];
+  } catch (e) { items = []; }
+  items = items.filter((i) => i && i.title && /^https:\/\//.test(i.url || ""));
+  if (!items.length) {
+    return `<div class="gallery__empty" data-reveal><p><strong>No announcements yet.</strong> News and videos will appear here.</p></div>`;
+  }
+  const cards = items.map((i) => `      <a class="card card--interactive media__card" href="${esc(i.url)}" target="_blank" rel="noopener noreferrer" data-reveal>
+        <span class="media__meta">${esc(i.type || "News")}${i.platform ? " · " + esc(i.platform) : ""}${i.date ? " · " + esc(i.date) : ""}</span>
+        <h3>${esc(i.title)}</h3>${i.description ? `\n        <p>${esc(i.description)}</p>` : ""}
+        <span class="media__go">Open${i.platform ? " on " + esc(i.platform) : ""} <span aria-hidden="true">↗</span></span>
+      </a>`).join("\n");
+  return `<div class="media__grid">\n${cards}\n    </div>`;
+}
+
 const SHELL_CACHE = {};
 const partials = ["head.html", "nav.html", "drawer.html", "cta.html", "footer.html", "scripts.html"];
 partials.forEach((p) => { SHELL_CACHE[p] = read(p); });
@@ -177,7 +196,7 @@ function render(pageFile, meta, body) {
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
-  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()) + "\n</main>\n";
+  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()) + "\n</main>\n";
   html += SHELL_CACHE["cta.html"];
   html += "\n" + SHELL_CACHE["footer.html"]
     .replace(/\{\{EXPLORE_LINKS\}\}/g, footer.explore)

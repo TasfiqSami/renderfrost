@@ -49,3 +49,7 @@ Put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/
 ```json
 { "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "alt": "Spawn Village at dusk" } ] }
 ```
+
+## News & media
+
+Edit `src/media.json` (title, description, link, platform) and run `node tools/build.js`. Items render as link cards that open in a new tab; nothing is embedded, so the site keeps loading no third-party scripts.
