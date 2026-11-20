@@ -47,7 +47,8 @@ function readPage(page) {
 
 function fileExists(rel) {
   let local = rel.split(/[?#]/)[0];
-  if (!local || local === "." || local.endsWith("/")) local += "index.html";
+  if (!local || local === "." || local === "./" || local.endsWith("/")) local += "index.html";
+  else if (!path.extname(local) && fs.existsSync(path.resolve(ROOT, `${local}.html`))) local += ".html";
   const file = path.resolve(ROOT, local);
   const relative = path.relative(ROOT, file);
   if (relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {

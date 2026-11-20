@@ -79,3 +79,15 @@ status source or a real service/backend and documenting its privacy, validation,
 access-control, retention, and abuse-protection behavior. Update the privacy and
 cookie policies if the site later adds analytics, cookies, forms, or third-party
 scripts.
+
+## Clean URLs (no `.html`)
+
+Internal links and canonical URLs are written without the `.html` extension
+(`/rules`, `/gallery`, `/media`). The host must serve `/rules` from `rules.html`:
+
+- **Netlify, Cloudflare Pages, GitHub Pages:** works automatically.
+- **Vercel:** works through the included `vercel.json` (`cleanUrls`).
+- **Apache/Nginx or other hosts:** add a rewrite from `/name` to `/name.html`.
+  Without it, links will 404.
+
+Old `.html` addresses keep working in the site's own navigation.

@@ -40,6 +40,17 @@ function getSiteOrigin() {
   return url.origin;
 }
 
+/* Clean URLs: "rules.html" -> "rules", "index.html" -> "./". */
+function cleanPath(p) {
+  const m = String(p).match(/^([\w-]+)\.html(#.*)?$/);
+  if (!m) return p;
+  return (m[1] === "index" ? "./" : m[1]) + (m[2] || "");
+}
+
+function cleanLinks(html) {
+  return html.replace(/href="([\w-]+\.html(?:#[^"]*)?)"/g, (_, h) => `href="${cleanPath(h)}"`);
+}
+
 function siteUrl(pathname) {
   const url = new URL(pathname, `${SITE_ORIGIN}/`);
   if (url.origin !== SITE_ORIGIN) {
@@ -206,12 +217,12 @@ partials.forEach((p) => { SHELL_CACHE[p] = read(p); });
 function render(pageFile, meta, body) {
   const nav = buildNav(pageFile);
   const footer = buildFooterLinks();
-  const canonicalPath = meta.canonical || `${pageFile}.html`;
+  const canonicalPath = cleanPath(meta.canonical || `${pageFile}.html`);
 
   let html = SHELL_CACHE["head.html"]
     .replace(/\{\{TITLE\}\}/g, esc(meta.title || "RenderFrost SMP"))
     .replace(/\{\{DESCRIPTION\}\}/g, esc(meta.description || ""))
-    .replace(/\{\{CANONICAL\}\}/g, esc(SITE_ORIGIN ? siteUrl(canonicalPath) : canonicalPath))
+    .replace(/\{\{CANONICAL\}\}/g, esc(SITE_ORIGIN ? siteUrl(canonicalPath === "./" ? "" : canonicalPath) : canonicalPath))
     .replace(/\{\{OG_IMAGE\}\}/g, esc(SITE_ORIGIN ? siteUrl("assets/img/background.jpg") : "assets/img/background.jpg"))
     .replace(/\{\{OG_TITLE\}\}/g, esc(meta.ogTitle || meta.title || "RenderFrost SMP"))
     .replace(/\{\{OG_DESCRIPTION\}\}/g, esc(meta.ogDescription || meta.description || ""));
@@ -225,7 +236,7 @@ function render(pageFile, meta, body) {
     .replace(/\{\{LEGAL_LINKS\}\}/g, footer.legal);
   html += "\n" + SHELL_CACHE["scripts.html"] + "\n";
 
-  return html;
+  return cleanLinks(html);
 }
 
 function writeSeoFiles() {
@@ -238,7 +249,8 @@ function writeSeoFiles() {
       .filter((page) => page !== "404" && fs.existsSync(path.join(PAGES, `${page}.html`)))
       .map((page) => {
         const { meta } = parseFrontMatter(fs.readFileSync(path.join(PAGES, `${page}.html`), "utf8"));
-        return siteUrl(meta.canonical || `${page}.html`);
+        const c = cleanPath(meta.canonical || `${page}.html`);
+        return siteUrl(c === "./" ? "" : c);
       });
     const xml = [
       '<?xml version="1.0" encoding="UTF-8"?>',

@@ -83,7 +83,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
       check(`${name}.html has its page title`, frontMatter.title !== "RenderFrost SMP", frontMatter.title);
       check(`${name}.html has the shared particle atmosphere`, frontMatter.particles, String(frontMatter.particles));
       check(`${name}.html displays no uppercase server address`, !frontMatter.upperCaseIp, String(frontMatter.upperCaseIp));
-      const cookieLink = await c.page.$('.footer__list a[href="cookies.html"]');
+      const cookieLink = await c.page.$('.footer__list a[href="cookies"]');
       check(`${name}.html links to the Cookie Policy`, !!cookieLink, String(!!cookieLink));
       await c.page.$eval(".footer__studio-logo", (img) => { img.loading = "eager"; });
       await c.page.waitForFunction(
@@ -296,7 +296,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
       await c.page.evaluate(() => { window.__audioBeforeNavigation = window.__rfAudio; });
       await c.page.evaluate(() => { window.__particlesBeforeNavigation = document.querySelector("[data-particles]"); });
-      await c.page.click(".nav__link[href=\"rules.html\"]");
+      await c.page.click(".nav__link[href=\"rules\"]");
       await wait(700);
       const afterNavigation = await c.page.evaluate(() => ({
         page: location.pathname.split("/").pop(),
@@ -307,21 +307,21 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
         current: document.querySelector(".nav__link[aria-current=\"page\"]")?.textContent.trim(),
         toast: Array.from(document.querySelectorAll(".toast")).pop()?.textContent.trim(),
       }));
-      check("page transition swaps content without reloading", afterNavigation.page === "rules.html", afterNavigation.page);
+      check("page transition swaps content without reloading", afterNavigation.page === "rules", afterNavigation.page);
       check("soundtrack keeps the same playing audio element", afterNavigation.sameAudio && afterNavigation.playing, JSON.stringify(afterNavigation));
       check("particle atmosphere persists across page transitions", afterNavigation.sameParticles, String(afterNavigation.sameParticles));
       check("navigation updates the active link and announces the page", afterNavigation.current === "Rules" && /Rules page/.test(afterNavigation.toast || ""), JSON.stringify(afterNavigation));
 
-      await c.page.click(".footer__list a[href=\"privacy.html\"]");
+      await c.page.click(".footer__list a[href=\"privacy\"]");
       await wait(700);
       const privacy = await c.page.evaluate(() => ({
         page: location.pathname.split("/").pop(),
         current: document.querySelector(".drawer__link[aria-current=\"page\"]")?.firstChild?.textContent.trim(),
         toast: Array.from(document.querySelectorAll(".toast")).pop()?.textContent.trim(),
       }));
-      check("legal page navigation announces Privacy Policy", privacy.page === "privacy.html" && /Privacy Policy page/.test(privacy.toast || ""), JSON.stringify(privacy));
+      check("legal page navigation announces Privacy Policy", privacy.page === "privacy" && /Privacy Policy page/.test(privacy.toast || ""), JSON.stringify(privacy));
       await c.page.evaluate(() => history.back());
-      await c.page.waitForFunction(() => location.pathname.endsWith("/rules.html"), { timeout: 5000 });
+      await c.page.waitForFunction(() => /\/rules(\.html)?$/.test(location.pathname), { timeout: 5000 });
       await wait(500);
       const returned = await c.page.evaluate(() => ({
         page: location.pathname.split("/").pop(),
@@ -329,7 +329,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
         heading: document.querySelector("#main h1")?.textContent.trim(),
         playing: !!window.__rfAudio && !window.__rfAudio.paused,
       }));
-      check("browser back restores page content without interrupting music", returned.page === "rules.html" && !!returned.heading && returned.playing, JSON.stringify(returned));
+      check("browser back restores page content without interrupting music", returned.page === "rules" && !!returned.heading && returned.playing, JSON.stringify(returned));
 
       await c.page.close();
     }
@@ -375,16 +375,16 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
       await c.page.click(".nav__toggle");
       await wait(300);
-      await c.page.click(".drawer__link[href=\"rules.html\"]");
+      await c.page.click(".drawer__link[href=\"rules\"]");
       await c.page.waitForFunction(
-        () => location.pathname.split("/").pop() === "rules.html",
+        () => location.pathname.split("/").pop().replace(/\.html$/, "") === "rules",
         { timeout: 10000 }
       );
       const afterNav = await c.page.evaluate(() => ({
         url: location.pathname.split("/").pop(),
         open: document.querySelector(".drawer").classList.contains("is-open"),
       }));
-      check("drawer link navigates", afterNav.url === "rules.html", afterNav.url);
+      check("drawer link navigates", afterNav.url === "rules", afterNav.url);
       check("drawer closes after navigating", afterNav.open === false, String(afterNav.open));
 
       await c.page.close();

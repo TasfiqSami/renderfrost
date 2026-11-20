@@ -588,22 +588,36 @@
       document.querySelectorAll(".nav__link, .drawer__link"),
       function (link) {
         var linkUrl = new URL(link.href, global.location.href);
-        if (linkUrl.pathname === url.pathname) link.setAttribute("aria-current", "page");
+        if (pageKey(linkUrl.pathname) === pageKey(url.pathname)) link.setAttribute("aria-current", "page");
         else link.removeAttribute("aria-current");
       }
     );
 
-    var file = url.pathname.split("/").pop() || "index.html";
+    var file = pageKey(url.pathname);
     var labels = {
-      "index.html": "Home",
-      "members.html": "Members",
-      "rules.html": "Rules",
-      "discord.html": "Discord",
-      "join.html": "Join",
-      "privacy.html": "Privacy Policy",
-      "terms.html": "Terms of Service"
+      "index": "Home",
+      "members": "Members",
+      "rules": "Rules",
+      "gallery": "Gallery",
+      "media": "Media",
+      "discord": "Discord",
+      "join": "Join",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
     };
-    return labels[file] || file.replace(/\.html?$/i, "").replace(/[-_]/g, " ");
+    return labels[file] || file.replace(/[-_]/g, " ");
+  }
+
+  /* "/rules", "/rules.html" and "/rules/" all identify the same page. */
+  function pageKey(pathname) {
+    var seg = pathname.replace(/\/+$/, "").split("/").pop() || "index";
+    return seg.replace(/\.html?$/i, "") || "index";
+  }
+
+  function isPagePath(pathname) {
+    var seg = pathname.replace(/\/+$/, "").split("/").pop();
+    return !seg || /\.html?$/i.test(seg) || /^[\w-]+$/.test(seg);
   }
 
   function scrollToTop() {
@@ -676,7 +690,7 @@
 
       var url = new URL(link.href, global.location.href);
       if (url.origin !== global.location.origin ||
-          !/\.html?$/i.test(url.pathname) ||
+          !isPagePath(url.pathname) ||
           (url.pathname === global.location.pathname && url.search === global.location.search)) return;
 
       e.preventDefault();
