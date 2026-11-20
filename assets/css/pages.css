@@ -322,3 +322,25 @@
   .lightbox[open] { animation: none; }
   .gallery__btn img, .gallery__item { transition: none; }
 }
+
+/* ------------------------------------------------- Sub-page polish layer */
+.crumbs { margin-bottom: clamp(1.25rem, 2.4vw, 2rem); }
+#media-news { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
+.media__card { min-height: 190px; }
+.media__card h3 { font-size: var(--fs-h3); line-height: 1.25; }
+.media__go { display: inline-flex; align-items: center; gap: 0.35rem; transition: gap var(--t-base) var(--ease); }
+.media__card:hover .media__go { gap: 0.65rem; }
+.media__card:focus-visible { outline: 2px solid var(--violet-400); outline-offset: 3px; }
+@media (min-width: 760px) {
+  .media__card:first-child {
+    grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 2rem;
+    padding: clamp(1.75rem, 3vw, 2.75rem); min-height: 0;
+    background:
+      radial-gradient(90% 140% at 0% 0%, rgba(139, 92, 246, 0.16), transparent 60%),
+      var(--surface-1);
+  }
+  .media__card:first-child h3 { font-size: clamp(1.5rem, 2.4vw, 2.1rem); flex: 1 1 0; margin: 0; }
+  .media__card:first-child .media__meta { order: -1; align-self: flex-start; }
+  .media__card:first-child p { flex: 1 1 0; max-width: 42ch; }
+  .media__card:first-child .media__go { margin: 0; padding: 0; white-space: nowrap; }
+}
