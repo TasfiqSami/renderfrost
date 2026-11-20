@@ -441,6 +441,25 @@
     if (el) el.textContent = String(new Date().getFullYear());
   }
 
+  /* ------------------------------------------------------------- Gallery */
+
+  function bindGallery() {
+    var dialog = document.querySelector(".lightbox");
+    if (!dialog || typeof dialog.showModal !== "function") return;
+    var img = dialog.querySelector(".lightbox__img");
+    var cap = dialog.querySelector(".lightbox__cap");
+    Array.prototype.forEach.call(document.querySelectorAll("[data-gallery-src]"), function (btn) {
+      btn.addEventListener("click", function () {
+        img.src = btn.getAttribute("data-gallery-src");
+        img.alt = btn.querySelector("img").alt;
+        cap.textContent = btn.getAttribute("data-gallery-caption") || "";
+        dialog.showModal();
+      });
+    });
+    dialog.querySelector(".lightbox__close").addEventListener("click", function () { dialog.close(); });
+    dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
+  }
+
   function initPage() {
     bindCopy();
     bindReveals();
@@ -449,6 +468,7 @@
     bindBackToTop();
     bindYear();
     bindFaq();
+    bindGallery();
   }
 
   function updatePageChrome(nextDocument, url) {

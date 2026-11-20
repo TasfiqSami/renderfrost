@@ -1,0 +1,4 @@
+{
+  "_help": "Drop screenshots (.jpg/.png/.webp) into this folder, add an entry per file below, then run: node tools/build.js",
+  "images": []
+}

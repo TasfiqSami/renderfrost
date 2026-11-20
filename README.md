@@ -41,3 +41,11 @@ Set `SITE_ORIGIN` to the real HTTPS website origin before building if you want a
 Copyright © 2026 Tasfiq Ahmed (RenderFrost SMP). **All Rights Reserved.**
 
 This project is proprietary. You may not copy, reuse, modify, redistribute, host or sell any part of it, under your own name or anyone else's, without written permission. See [`LICENSE`](LICENSE).
+
+## Adding gallery screenshots
+
+Put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
+
+```json
+{ "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "alt": "Spawn Village at dusk" } ] }
+```

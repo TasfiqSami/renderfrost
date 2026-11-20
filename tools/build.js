@@ -123,6 +123,41 @@ function buildFooterLinks() {
   return { explore, legal };
 }
 
+/* Gallery: built from assets/img/gallery/gallery.json. Only real files that
+   exist on disk are rendered; with none, an honest empty state is shown. */
+function buildGallery() {
+  const dir = path.join(ROOT, "assets", "img", "gallery");
+  let entries = [];
+  try {
+    entries = JSON.parse(fs.readFileSync(path.join(dir, "gallery.json"), "utf8")).images || [];
+  } catch (e) { entries = []; }
+  entries = entries.filter((e) => e && /^[\w .-]+\.(jpe?g|png|webp|avif)$/i.test(e.file || "") && fs.existsSync(path.join(dir, e.file)));
+
+  if (!entries.length) {
+    return `<div class="gallery__empty" data-reveal>
+      <p><strong>Screenshots are on the way.</strong> Staff will add real in-game
+      shots of the world and builds here. Until then, nothing is shown rather than
+      placeholder images.</p>
+    </div>`;
+  }
+  const items = entries.map((e) => {
+    const src = `assets/img/gallery/${encodeURI(e.file)}`;
+    const cap = e.caption ? esc(e.caption) : "";
+    const alt = esc(e.alt || e.caption || "RenderFrost SMP screenshot");
+    return `      <figure class="gallery__item" data-reveal>
+        <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" aria-label="View larger: ${alt}">
+          <img src="${src}" alt="${alt}" loading="lazy" decoding="async">
+        </button>${cap ? `\n        <figcaption>${cap}</figcaption>` : ""}
+      </figure>`;
+  }).join("\n");
+  return `<div class="gallery__grid">\n${items}\n    </div>
+    <dialog class="lightbox" aria-label="Image viewer">
+      <button type="button" class="lightbox__close" aria-label="Close image viewer">&times;</button>
+      <img class="lightbox__img" alt="">
+      <p class="lightbox__cap"></p>
+    </dialog>`;
+}
+
 const SHELL_CACHE = {};
 const partials = ["head.html", "nav.html", "drawer.html", "cta.html", "footer.html", "scripts.html"];
 partials.forEach((p) => { SHELL_CACHE[p] = read(p); });
@@ -142,7 +177,7 @@ function render(pageFile, meta, body) {
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
-  html += "\n\n<main id=\"main\">\n" + body.trim() + "\n</main>\n";
+  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()) + "\n</main>\n";
   html += SHELL_CACHE["cta.html"];
   html += "\n" + SHELL_CACHE["footer.html"]
     .replace(/\{\{EXPLORE_LINKS\}\}/g, footer.explore)
