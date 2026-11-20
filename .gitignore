@@ -1,0 +1,12 @@
+# Test tooling dependencies (installed locally, not part of the site)
+.bt/
+node_modules/
+
+# Debug / test output
+dbg.txt
+t.txt
+test-output.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
