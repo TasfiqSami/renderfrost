@@ -152,7 +152,7 @@ function buildGallery() {
     const credit = e.credit ? esc(e.credit) : "";
     const cap = e.caption ? esc(e.caption) : "";
     const alt = esc(e.alt || e.caption || "RenderFrost SMP screenshot");
-    return `      <figure class="gallery__item${idx === 0 ? " gallery__item--feature" : ""}" data-credit="${credit}" data-reveal>
+    return `      <figure class="gallery__item is-loading${idx === 0 ? " gallery__item--feature" : (idx % 6 === 5 ? " gallery__item--wide" : "")}" data-credit="${credit}" data-reveal>
         <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" data-gallery-credit="${credit}" aria-label="View larger: ${alt}">
           <img src="${src}" alt="${alt}" loading="${idx < 3 ? "eager" : "lazy"}" decoding="async" referrerpolicy="no-referrer">
           <span class="gallery__over">${cap ? `<span class="gallery__cap">${cap}</span>` : ""}${credit ? `<span class="gallery__by">Posted by <strong>${credit}</strong></span>` : ""}</span>
@@ -163,7 +163,7 @@ function buildGallery() {
   const filters = credits.length > 1
     ? `<div class="gallery__filters" role="group" aria-label="Filter by contributor">
       <button type="button" class="chip is-active" data-gallery-filter="" aria-pressed="true">All</button>
-${credits.map((c) => `      <button type="button" class="chip" data-gallery-filter="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join("\n")}
+${credits.map((c) => `      <button type="button" class="chip" data-gallery-filter="${esc(c)}" aria-pressed="false">${esc(c)} <span class="chip__n">${entries.filter((e) => e.credit === c).length}</span></button>`).join("\n")}
     </div>` : "";
   return `<div class="gallery__bar">
       <p class="gallery__count"><strong data-gallery-count>${entries.length}</strong> screenshots <span aria-hidden="true">·</span> ${credits.length} contributor${credits.length === 1 ? "" : "s"}</p>
@@ -176,6 +176,7 @@ ${credits.map((c) => `      <button type="button" class="chip" data-gallery-filt
       <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Next image">&#8250;</button>
       <img class="lightbox__img" alt="">
       <p class="lightbox__cap"><span class="lightbox__text"></span><span class="lightbox__count"></span></p>
+      <div class="lightbox__strip" aria-label="Thumbnails"></div>
     </dialog>`;
 }
 

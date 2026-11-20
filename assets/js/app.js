@@ -451,8 +451,10 @@
 
     items.forEach(function (item) {
       var img = item.querySelector("img");
-      var fail = function () { item.classList.add("is-broken"); };
-      if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) { if (img.complete) fail(); }
+      var done = function () { item.classList.remove("is-loading"); };
+      var fail = function () { done(); item.classList.add("is-broken"); };
+      if (img.complete) { if (img.naturalWidth === 0) fail(); else done(); }
+      img.addEventListener("load", done);
       img.addEventListener("error", fail);
     });
 
@@ -480,13 +482,42 @@
     var img = dialog.querySelector(".lightbox__img");
     var text = dialog.querySelector(".lightbox__text");
     var pos = dialog.querySelector(".lightbox__count");
+    var strip = dialog.querySelector(".lightbox__strip");
     var current = 0;
+    var list = [];
+
+    function buildStrip() {
+      strip.textContent = "";
+      list.forEach(function (item, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "lightbox__thumb";
+        b.setAttribute("aria-label", "Show image " + (i + 1));
+        var t = document.createElement("img");
+        t.src = item.querySelector("img").src;
+        t.alt = "";
+        t.referrerPolicy = "no-referrer";
+        b.appendChild(t);
+        b.addEventListener("click", function () { show(list, i); });
+        strip.appendChild(b);
+      });
+    }
 
     function visible() { return items.filter(function (i) { return !i.hidden; }); }
     function show(list, i) {
       current = (i + list.length) % list.length;
       var btn = list[current].querySelector("[data-gallery-src]");
+      img.classList.add("is-swap");
+      img.onload = function () { img.classList.remove("is-swap"); };
       img.src = btn.getAttribute("data-gallery-src");
+      [1, -1].forEach(function (d) {
+        var n = list[(current + d + list.length) % list.length].querySelector("[data-gallery-src]");
+        new Image().src = n.getAttribute("data-gallery-src");
+      });
+      Array.prototype.forEach.call(strip.children, function (t, k) {
+        t.classList.toggle("is-current", k === current);
+        if (k === current && t.scrollIntoView) t.scrollIntoView({ block: "nearest", inline: "center" });
+      });
       img.alt = btn.querySelector("img").alt;
       var by = btn.getAttribute("data-gallery-credit");
       var cap = btn.getAttribute("data-gallery-caption");
@@ -496,20 +527,28 @@
 
     items.forEach(function (item) {
       item.querySelector("[data-gallery-src]").addEventListener("click", function () {
-        var list = visible();
+        list = visible();
+        buildStrip();
         show(list, list.indexOf(item));
         dialog.showModal();
       });
     });
-    dialog.querySelector(".lightbox__nav--prev").addEventListener("click", function () { var l = visible(); show(l, current - 1); });
-    dialog.querySelector(".lightbox__nav--next").addEventListener("click", function () { var l = visible(); show(l, current + 1); });
+    dialog.querySelector(".lightbox__nav--prev").addEventListener("click", function () { show(list, current - 1); });
+    dialog.querySelector(".lightbox__nav--next").addEventListener("click", function () { show(list, current + 1); });
     dialog.querySelector(".lightbox__close").addEventListener("click", function () { dialog.close(); });
     dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
     dialog.addEventListener("keydown", function (e) {
-      var l = visible();
-      if (e.key === "ArrowLeft") show(l, current - 1);
-      else if (e.key === "ArrowRight") show(l, current + 1);
+      if (e.key === "ArrowLeft") show(list, current - 1);
+      else if (e.key === "ArrowRight") show(list, current + 1);
     });
+    var sx = null;
+    dialog.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    dialog.addEventListener("touchend", function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      sx = null;
+      if (Math.abs(dx) > 50) show(list, current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
   }
 
   function initPage() {
