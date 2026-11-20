@@ -444,20 +444,72 @@
   /* ------------------------------------------------------------- Gallery */
 
   function bindGallery() {
+    var grid = document.querySelector(".gallery__grid");
+    if (!grid) return;
+    var items = Array.prototype.slice.call(grid.querySelectorAll(".gallery__item"));
+    var count = document.querySelector("[data-gallery-count]");
+
+    items.forEach(function (item) {
+      var img = item.querySelector("img");
+      var fail = function () { item.classList.add("is-broken"); };
+      if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) { if (img.complete) fail(); }
+      img.addEventListener("error", fail);
+    });
+
+    var chips = document.querySelectorAll("[data-gallery-filter]");
+    Array.prototype.forEach.call(chips, function (chip) {
+      chip.addEventListener("click", function () {
+        var who = chip.getAttribute("data-gallery-filter");
+        Array.prototype.forEach.call(chips, function (c) {
+          var on = c === chip;
+          c.classList.toggle("is-active", on);
+          c.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        var shown = 0;
+        items.forEach(function (item) {
+          var match = !who || item.getAttribute("data-credit") === who;
+          item.hidden = !match;
+          if (match) shown++;
+        });
+        if (count) count.textContent = String(shown);
+      });
+    });
+
     var dialog = document.querySelector(".lightbox");
     if (!dialog || typeof dialog.showModal !== "function") return;
     var img = dialog.querySelector(".lightbox__img");
-    var cap = dialog.querySelector(".lightbox__cap");
-    Array.prototype.forEach.call(document.querySelectorAll("[data-gallery-src]"), function (btn) {
-      btn.addEventListener("click", function () {
-        img.src = btn.getAttribute("data-gallery-src");
-        img.alt = btn.querySelector("img").alt;
-        cap.textContent = btn.getAttribute("data-gallery-caption") || "";
+    var text = dialog.querySelector(".lightbox__text");
+    var pos = dialog.querySelector(".lightbox__count");
+    var current = 0;
+
+    function visible() { return items.filter(function (i) { return !i.hidden; }); }
+    function show(list, i) {
+      current = (i + list.length) % list.length;
+      var btn = list[current].querySelector("[data-gallery-src]");
+      img.src = btn.getAttribute("data-gallery-src");
+      img.alt = btn.querySelector("img").alt;
+      var by = btn.getAttribute("data-gallery-credit");
+      var cap = btn.getAttribute("data-gallery-caption");
+      text.textContent = [cap, by ? "Posted by " + by : ""].filter(Boolean).join(" \u00b7 ");
+      pos.textContent = (current + 1) + " / " + list.length;
+    }
+
+    items.forEach(function (item) {
+      item.querySelector("[data-gallery-src]").addEventListener("click", function () {
+        var list = visible();
+        show(list, list.indexOf(item));
         dialog.showModal();
       });
     });
+    dialog.querySelector(".lightbox__nav--prev").addEventListener("click", function () { var l = visible(); show(l, current - 1); });
+    dialog.querySelector(".lightbox__nav--next").addEventListener("click", function () { var l = visible(); show(l, current + 1); });
     dialog.querySelector(".lightbox__close").addEventListener("click", function () { dialog.close(); });
     dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener("keydown", function (e) {
+      var l = visible();
+      if (e.key === "ArrowLeft") show(l, current - 1);
+      else if (e.key === "ArrowRight") show(l, current + 1);
+    });
   }
 
   function initPage() {

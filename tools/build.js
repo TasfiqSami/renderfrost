@@ -145,22 +145,37 @@ function buildGallery() {
       placeholder images.</p>
     </div>`;
   }
-  const items = entries.map((e) => {
+  const credits = [];
+  entries.forEach((e) => { if (e.credit && credits.indexOf(e.credit) < 0) credits.push(e.credit); });
+  const items = entries.map((e, idx) => {
     const src = e.url ? esc(e.url) : `assets/img/gallery/${encodeURI(e.file)}`;
-    const credit = e.credit ? `Posted by ${esc(e.credit)}` : "";
-    const cap = [e.caption ? esc(e.caption) : "", credit].filter(Boolean).join(" · ");
+    const credit = e.credit ? esc(e.credit) : "";
+    const cap = e.caption ? esc(e.caption) : "";
     const alt = esc(e.alt || e.caption || "RenderFrost SMP screenshot");
-    return `      <figure class="gallery__item" data-reveal>
-        <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" aria-label="View larger: ${alt}">
-          <img src="${src}" alt="${alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-        </button>${cap ? `\n        <figcaption>${cap}</figcaption>` : ""}
+    return `      <figure class="gallery__item${idx === 0 ? " gallery__item--feature" : ""}" data-credit="${credit}" data-reveal>
+        <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" data-gallery-credit="${credit}" aria-label="View larger: ${alt}">
+          <img src="${src}" alt="${alt}" loading="${idx < 3 ? "eager" : "lazy"}" decoding="async" referrerpolicy="no-referrer">
+          <span class="gallery__over">${cap ? `<span class="gallery__cap">${cap}</span>` : ""}${credit ? `<span class="gallery__by">Posted by <strong>${credit}</strong></span>` : ""}</span>
+        </button>
+        <span class="gallery__missing" aria-hidden="true">Image unavailable</span>
       </figure>`;
   }).join("\n");
-  return `<div class="gallery__grid">\n${items}\n    </div>
+  const filters = credits.length > 1
+    ? `<div class="gallery__filters" role="group" aria-label="Filter by contributor">
+      <button type="button" class="chip is-active" data-gallery-filter="" aria-pressed="true">All</button>
+${credits.map((c) => `      <button type="button" class="chip" data-gallery-filter="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join("\n")}
+    </div>` : "";
+  return `<div class="gallery__bar">
+      <p class="gallery__count"><strong data-gallery-count>${entries.length}</strong> screenshots <span aria-hidden="true">·</span> ${credits.length} contributor${credits.length === 1 ? "" : "s"}</p>
+      ${filters}
+    </div>
+    <div class="gallery__grid">\n${items}\n    </div>
     <dialog class="lightbox" aria-label="Image viewer">
       <button type="button" class="lightbox__close" aria-label="Close image viewer">&times;</button>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="Previous image">&#8249;</button>
+      <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Next image">&#8250;</button>
       <img class="lightbox__img" alt="">
-      <p class="lightbox__cap"></p>
+      <p class="lightbox__cap"><span class="lightbox__text"></span><span class="lightbox__count"></span></p>
     </dialog>`;
 }
 
