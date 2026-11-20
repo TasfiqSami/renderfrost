@@ -133,7 +133,10 @@ function buildGallery() {
   try {
     entries = JSON.parse(fs.readFileSync(path.join(dir, "gallery.json"), "utf8")).images || [];
   } catch (e) { entries = []; }
-  entries = entries.filter((e) => e && /^[\w .-]+\.(jpe?g|png|webp|avif)$/i.test(e.file || "") && fs.existsSync(path.join(dir, e.file)));
+  entries = entries.filter((e) => e && (
+    (/^[\w .-]+\.(jpe?g|png|webp|avif)$/i.test(e.file || "") && fs.existsSync(path.join(dir, e.file))) ||
+    /^https:\/\/(cdn|media)\.discordapp\.(com|net)\//.test(e.url || "")
+  ));
 
   if (!entries.length) {
     return `<div class="gallery__empty" data-reveal>
@@ -143,13 +146,13 @@ function buildGallery() {
     </div>`;
   }
   const items = entries.map((e) => {
-    const src = `assets/img/gallery/${encodeURI(e.file)}`;
+    const src = e.url ? esc(e.url) : `assets/img/gallery/${encodeURI(e.file)}`;
     const credit = e.credit ? `Posted by ${esc(e.credit)}` : "";
     const cap = [e.caption ? esc(e.caption) : "", credit].filter(Boolean).join(" · ");
     const alt = esc(e.alt || e.caption || "RenderFrost SMP screenshot");
     return `      <figure class="gallery__item" data-reveal>
         <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" aria-label="View larger: ${alt}">
-          <img src="${src}" alt="${alt}" loading="lazy" decoding="async">
+          <img src="${src}" alt="${alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer">
         </button>${cap ? `\n        <figcaption>${cap}</figcaption>` : ""}
       </figure>`;
   }).join("\n");

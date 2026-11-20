@@ -287,7 +287,11 @@
         There are none. The website loads no analytics service, no social widgets, no
         advertising network, and no third-party JavaScript. Fonts are served from the
         same host as the pages rather than from an external font service, so loading
-        a page does not tell a third party that you visited.
+        a page does not tell a third party that you visited. The one exception is the
+        Gallery page, which displays community screenshots hosted on Discord's
+        content network (cdn.discordapp.com); loading that page makes your browser
+        request those images from Discord, which can see your IP address under its
+        own policies.
       </p>
 
       <h2 id="pp-9">9. Forms and personal information</h2>
