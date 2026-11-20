@@ -344,3 +344,8 @@
   .media__card:first-child p { flex: 1 1 0; max-width: 42ch; }
   .media__card:first-child .media__go { margin: 0; padding: 0; white-space: nowrap; }
 }
+
+/* ------------------------------------------------ Spacing refinements */
+.section-head > h2 + p:not(.eyebrow) { margin-top: 1rem; }
+.stack > h2 { margin-top: 0.75rem; }
+.stack > .notice + h2 { margin-top: 1.75rem; }

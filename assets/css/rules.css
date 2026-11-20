@@ -283,3 +283,7 @@ details.rules-jump .rules-toc__list {
   max-height: 46vh;
   overflow-y: auto;
 }
+
+/* Give each section heading breathing room above its first rule */
+.rules-section { margin-bottom: clamp(1.25rem, 2.5vw, 2rem); padding-bottom: 0.25rem; border-bottom: 1px solid var(--hairline); }
+.rules-section + .rule { padding-top: clamp(1rem, 2vw, 1.5rem); }
