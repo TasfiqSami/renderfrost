@@ -48,7 +48,7 @@ This project is proprietary. You may not copy, reuse, modify, redistribute, host
 On the **Gallery** page, put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
 
 ```json
-{ "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "alt": "Spawn Village at dusk" } ] }
+{ "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "credit": "ItzMelissa" } ] }
 ```
 
 ## News & media

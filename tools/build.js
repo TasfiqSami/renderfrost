@@ -144,7 +144,8 @@ function buildGallery() {
   }
   const items = entries.map((e) => {
     const src = `assets/img/gallery/${encodeURI(e.file)}`;
-    const cap = e.caption ? esc(e.caption) : "";
+    const credit = e.credit ? `Posted by ${esc(e.credit)}` : "";
+    const cap = [e.caption ? esc(e.caption) : "", credit].filter(Boolean).join(" · ");
     const alt = esc(e.alt || e.caption || "RenderFrost SMP screenshot");
     return `      <figure class="gallery__item" data-reveal>
         <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" aria-label="View larger: ${alt}">
