@@ -21,7 +21,7 @@ const P = require(require("path").join(__dirname, "..", ".bt", "node_modules", "
 
 const CHROME = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 const BASE = "http://127.0.0.1:8137";
-const PAGES = ["index", "members", "rules", "media", "discord", "join", "privacy", "terms", "cookies", "404"];
+const PAGES = ["index", "members", "rules", "gallery", "media", "discord", "join", "privacy", "terms", "cookies", "404"];
 
 let pass = 0;
 let fail = 0;

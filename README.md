@@ -10,7 +10,7 @@ Official website and rulebook for **RenderFrost SMP**, a whitelisted Minecraft J
 |---|---|
 | `SmpRules.md` | The official rulebook: 20 rules plus the Discord Community Conduct & Etiquette announcement |
 | `src/pages`, `src/partials` | Editable page sources |
-| `media.html` source: `src/pages/media.html` | Gallery and news page |
+| `src/pages/gallery.html`, `src/pages/media.html` | Gallery page and Media & News page |
 | `*.html` (root) | Generated, deployable pages (do not edit by hand) |
 | `assets/` | CSS, JavaScript, fonts, images and audio |
 | `tools/` | Build, verify and browser test scripts |
@@ -45,7 +45,7 @@ This project is proprietary. You may not copy, reuse, modify, redistribute, host
 
 ## Adding gallery screenshots
 
-On the **Media** page, put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
+On the **Gallery** page, put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
 
 ```json
 { "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "alt": "Spawn Village at dusk" } ] }

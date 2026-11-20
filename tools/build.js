@@ -19,7 +19,7 @@ const SRC = path.join(ROOT, "src");
 const PAGES = path.join(SRC, "pages");
 const PARTIALS = path.join(SRC, "partials");
 
-const PAGES_ORDER = ["index", "members", "rules", "media", "discord", "join", "privacy", "terms", "cookies", "404"];
+const PAGES_ORDER = ["index", "members", "rules", "gallery", "media", "discord", "join", "privacy", "terms", "cookies", "404"];
 const SITE_ORIGIN = getSiteOrigin();
 
 function getSiteOrigin() {
@@ -52,6 +52,7 @@ const NAV_ITEMS = [
   { file: "index", label: "Home" },
   { file: "members", label: "Members" },
   { file: "rules", label: "Rules" },
+  { file: "gallery", label: "Gallery" },
   { file: "media", label: "Media" },
   { file: "discord", label: "Discord" },
   { file: "join", label: "Join" },
