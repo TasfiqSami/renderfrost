@@ -427,11 +427,11 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
       const c = await newPage(browser, 1440, 900);
       await goto(c.page, "rules");
 
-      const count = await c.page.evaluate(() => document.querySelectorAll(".rules-toc .rules-toc__link").length);
-      check("contents lists all 16 rules", count === 16, `${count} links`);
+      const count = await c.page.evaluate(() => document.querySelectorAll(".rules-toc .rules-toc__link[href^=\"#rule-\"]").length);
+      check("contents lists all 20 rules", count === 20, `${count} links`);
 
       const ruleCount = await c.page.evaluate(() => document.querySelectorAll(".rule[id^=\"rule-\"]").length);
-      check("16 rule sections rendered", ruleCount === 16, `${ruleCount} sections`);
+      check("20 rule sections rendered", ruleCount === 20, `${ruleCount} sections`);
 
       const sticky = await c.page.evaluate(
         () => getComputedStyle(document.querySelector(".rules-toc")).position
@@ -570,9 +570,9 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
       const jumpOpen = await c.page.$eval(".rules-jump", (el) => el.open);
       check("jump menu expands accessibly", jumpOpen === true, String(jumpOpen));
       const jumpLinks = await c.page.evaluate(
-        () => document.querySelectorAll(".rules-jump .rules-toc__link").length
+        () => document.querySelectorAll(".rules-jump .rules-toc__link[href^=\"#rule-\"]").length
       );
-      check("jump menu lists all 16 rules", jumpLinks === 16, `${jumpLinks} links`);
+      check("jump menu lists all 20 rules", jumpLinks === 20, `${jumpLinks} links`);
       await c.page.close();
     }
 

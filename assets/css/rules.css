@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RenderFrost SMP — 11 Rules page
+   RenderFrost SMP — Rules page
    Built for extended reading: sticky contents rail + numbered rule blocks.
    ========================================================================== */
 
@@ -191,6 +191,46 @@
   color: var(--violet-300);
   font-family: var(--font-mono);
   font-size: 0.625rem;
+}
+
+/* Section groupings (contents rail + body headings) */
+.rules-toc__group {
+  margin: 0.9rem 0 0.25rem;
+  padding: 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--violet-300);
+}
+
+.rules-toc__list > .rules-toc__group:first-child { margin-top: 0; }
+
+.rules-section {
+  margin: 0 0 0.6rem;
+  padding-top: clamp(1.5rem, 3vw, 2.4rem);
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+
+.rules-body > .rules-section:first-child { padding-top: 0; }
+
+.rules-section__num {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.rules-section__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 1.4vw + 1.1rem, 2.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--frost-100);
 }
 
 /* Closing community statement */

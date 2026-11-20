@@ -172,24 +172,32 @@ function checkBalance(page, html) {
 function checkRules() {
   const html = readPage("rules");
   let anchors = 0;
-  for (let i = 1; i <= 16; i++) {
+  for (let i = 1; i <= 20; i++) {
     checks++;
     if (!html.includes(`id="rule-${i}"`)) fail("rules", `missing rule anchor #rule-${i}`);
     else anchors++;
   }
-  ok(`rules: ${anchors}/16 rule anchors present`);
+  ok(`rules: ${anchors}/20 rule anchors present`);
 
   const spot = [
     ["15 days", "15-day recommendation waiting period"],
     ["30 days", "30-day Elytra gift period"],
     ["3 Elytras", "three-Elytra ownership limit"],
     ["Litematica", "permitted modification"],
-    ["Tweakaroo", "permitted modification"],
+    ["Tweakeroo", "permitted modification"],
     ["Spawn Village", "protected spawn rule"],
     ["Channeling", "trident restriction"],
-    ["jail time", "stated consequence for rule 15"],
+    ["jail time", "stated consequence for rule 09"],
     ["Build the RenderFrost community together", "community statement"],
     ["Ignorance of the rules", "ignorance notice"],
+    ["Doxxing", "personal information rule"],
+    ["permanent ban", "doxxing penalty"],
+    ["Fraudulent Trading", "scamming rule"],
+    ["Alt Accounts", "alt account rule"],
+    ["Account Sharing", "account sharing rule"],
+    ["unloaded chunks", "farm limit"],
+    ["Rollback Policy", "unified rollback policy"],
+    ["Community Conduct", "Discord conduct announcement"],
   ];
   spot.forEach(([needle, label]) => {
     checks++;
