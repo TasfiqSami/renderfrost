@@ -2,7 +2,7 @@
 
 ## What is in this package
 
-This is a ready-to-upload static website. It contains the nine HTML pages, the
+This is a ready-to-upload static website. It contains the ten HTML pages, the
 complete `assets` folder, `robots.txt`, and `_headers`. No build step, database,
 backend, environment variables, or secrets are required to host this package.
 The footer credits SYXLOR Studios at `studios.syxlor.xyz` and the developer at
@@ -62,7 +62,7 @@ week. Keep this policy unless asset filenames become content-hashed.
 
 ## If something looks broken
 
-- Confirm all nine HTML files are at the site root.
+- Confirm all ten HTML files are at the site root.
 - Confirm the entire `assets` directory uploaded with its subfolders.
 - Check that file and folder name casing was preserved.
 - Clear the browser cache or test in a private window.

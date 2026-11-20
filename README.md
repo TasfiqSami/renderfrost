@@ -10,6 +10,7 @@ Official website and rulebook for **RenderFrost SMP**, a whitelisted Minecraft J
 |---|---|
 | `SmpRules.md` | The official rulebook: 20 rules plus the Discord Community Conduct & Etiquette announcement |
 | `src/pages`, `src/partials` | Editable page sources |
+| `media.html` source: `src/pages/media.html` | Gallery and news page |
 | `*.html` (root) | Generated, deployable pages (do not edit by hand) |
 | `assets/` | CSS, JavaScript, fonts, images and audio |
 | `tools/` | Build, verify and browser test scripts |
@@ -44,7 +45,7 @@ This project is proprietary. You may not copy, reuse, modify, redistribute, host
 
 ## Adding gallery screenshots
 
-Put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
+On the **Media** page, put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
 
 ```json
 { "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "alt": "Spawn Village at dusk" } ] }
@@ -52,4 +53,4 @@ Put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/
 
 ## News & media
 
-Edit `src/media.json` (title, description, link, platform) and run `node tools/build.js`. Items render as link cards that open in a new tab; nothing is embedded, so the site keeps loading no third-party scripts.
+On the **Media** page, edit `src/media.json` (title, description, link, platform) and run `node tools/build.js`. Items render as link cards that open in a new tab; nothing is embedded, so the site keeps loading no third-party scripts.
