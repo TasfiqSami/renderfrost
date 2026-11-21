@@ -558,6 +558,16 @@
     return d > 0 ? d + "d " + h + "h" : h > 0 ? h + "h " + m + "m" : Math.max(m, 1) + "m";
   }
 
+  function ago(iso) {
+    var t = Date.parse(iso);
+    if (isNaN(t)) return "";
+    var s = Math.max(0, Math.floor((Date.now() - t) / 1000));
+    if (s < 60) return "just now";
+    if (s < 3600) return Math.floor(s / 60) + " min ago";
+    if (s < 86400) return Math.floor(s / 3600) + " h ago";
+    return Math.floor(s / 86400) + " d ago";
+  }
+
   function bindStatus() {
     var box = document.querySelector("[data-status]");
     if (!box || !global.fetch) return;
@@ -576,6 +586,20 @@
 
       q("uptime-wrap").hidden = !(online && d.uptime > 0);
       if (online && d.uptime > 0) q("uptime").textContent = fmtUptime(d.uptime);
+
+      var ver = online && p && p.version;
+      q("version-wrap").hidden = !ver;
+      if (ver) q("version").textContent = p.version;
+
+      var bk = d.lastBackup ? ago(d.lastBackup) : "";
+      q("backup-wrap").hidden = !bk;
+      if (bk) q("backup").textContent = bk;
+
+      var motd = online && p && p.motd;
+      q("motd").hidden = !motd;
+      if (motd) q("motd").textContent = "\u201c" + p.motd + "\u201d";
+
+      q("updated").textContent = d.updated ? "Updated " + ago(d.updated) : "";
 
       var names = online && p && p.list && p.list.length ? p.list : null;
       q("online").hidden = !names;

@@ -176,9 +176,22 @@
         <dl class="srv-status__facts">
           <div data-status-players-wrap hidden><dt>Players online</dt><dd data-status-players></dd></div>
           <div data-status-uptime-wrap hidden><dt>Uptime</dt><dd data-status-uptime></dd></div>
+          <div data-status-version-wrap hidden><dt>Version</dt><dd data-status-version></dd></div>
+          <div data-status-backup-wrap hidden><dt>Last backup</dt><dd data-status-backup></dd></div>
           <div><dt>Address</dt><dd>play.renderfrost.com</dd></div>
         </dl>
+        <p class="srv-status__motd" data-status-motd hidden></p>
         <p class="srv-status__online" data-status-online hidden></p>
+        <div class="srv-status__foot">
+          <button class="btn btn--ghost" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2"/>
+              <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span class="copyip__label">Copy IP</span>
+          </button>
+          <span class="srv-status__updated" data-status-updated></span>
+        </div>
         <div data-status-members-wrap hidden>
           <h4>Whitelisted members <span data-status-members-count></span></h4>
           <ul class="srv-members" data-status-members></ul>

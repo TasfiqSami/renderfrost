@@ -42,7 +42,27 @@ async function getPlayers() {
     const list = Array.isArray(d.players.list)
       ? d.players.list.map((p) => String((p && p.name) || "")).filter(Boolean).slice(0, 100)
       : [];
-    return { online: d.players.online | 0, max: d.players.max | 0, list };
+    return {
+      online: d.players.online | 0,
+      max: d.players.max | 0,
+      list,
+      version: d.version ? String(d.version).slice(0, 40) : null,
+      motd: d.motd && Array.isArray(d.motd.clean) ? d.motd.clean.map(String).join(" ").trim().slice(0, 120) : null,
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function getLastBackup() {
+  try {
+    const rows = (await (await pteroGet("/backups")).json()).data || [];
+    const times = rows
+      .map((r) => r.attributes || {})
+      .filter((a) => a.is_successful && a.completed_at)
+      .map((a) => Date.parse(a.completed_at))
+      .filter((t) => !isNaN(t));
+    return times.length ? new Date(Math.max.apply(null, times)).toISOString() : null;
   } catch (e) {
     return null;
   }
@@ -73,7 +93,7 @@ module.exports = async (req, res) => {
     return;
   }
   try {
-    const [srv, players, members] = await Promise.all([getState(), getPlayers(), getMembers()]);
+    const [srv, players, members, lastBackup] = await Promise.all([getState(), getPlayers(), getMembers(), getLastBackup()]);
     res.setHeader("Cache-Control", "public, s-maxage=30, stale-while-revalidate=60");
     res.status(200).json({
       state: srv.state,
@@ -81,6 +101,7 @@ module.exports = async (req, res) => {
       uptime: srv.uptime,
       players,
       members,
+      lastBackup,
       updated: new Date().toISOString(),
     });
   } catch (e) {
