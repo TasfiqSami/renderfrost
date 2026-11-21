@@ -47,7 +47,7 @@ async function getPlayers() {
       max: d.players.max | 0,
       list,
       version: d.version ? String(d.version).slice(0, 40) : null,
-      motd: d.motd && Array.isArray(d.motd.clean) ? d.motd.clean.map(String).join(" ").trim().slice(0, 120) : null,
+      motd: d.motd && Array.isArray(d.motd.clean) ? d.motd.clean.map(String).join(" ").replace(/\s+/g, " ").trim().slice(0, 120) : null,
     };
   } catch (e) {
     return null;
