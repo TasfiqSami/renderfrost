@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Members — RenderFrost SMP</title>
-<meta name="description" content="How membership works on RenderFrost SMP: whitelist access, staff verification, the 15-day recommendation rule and how the community is structured.">
+<meta name="description" content="Meet the people of RenderFrost SMP: the owner, the community, who is online right now and how to join the whitelist.">
 <meta name="theme-color" content="#06050c">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="members">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="RenderFrost SMP">
 <meta property="og:title" content="Members — RenderFrost SMP">
-<meta property="og:description" content="How membership works on RenderFrost SMP, from first whitelist approval to recommending the next player.">
+<meta property="og:description" content="Meet the people of RenderFrost SMP and see who is online right now.">
 <meta property="og:image" content="assets/img/background.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -142,8 +142,8 @@
 </div>
 
 <main id="main">
-<!-- ============================= PAGE HEADER ============================= -->
-<section class="pagehead pagehead--art">
+<!-- ================================ HERO ================================ -->
+<section class="pagehead pagehead--art mh">
   <div class="shell">
     <nav aria-label="Breadcrumb">
       <ol class="crumbs">
@@ -152,134 +152,96 @@
       </ol>
     </nav>
     <div class="pagehead__inner">
-      <p class="eyebrow">The people of RenderFrost</p>
+      <p class="eyebrow">The community</p>
       <h1>Members.</h1>
-      <p class="pagehead__sub">
-        RenderFrost is a whitelisted community. Every member is approved by staff.
-        Here you can check the server's live status and see how joining works.
-      </p>
+      <p class="pagehead__sub">The people who call RenderFrost home.</p>
+    </div>
+
+    <div class="mstats" data-reveal>
+      <div class="mstat">
+        <span class="mstat__v">1</span>
+        <span class="mstat__k">Members listed</span>
+      </div>
+      <div class="mstat">
+        <span class="mstat__v">Apr 2025</span>
+        <span class="mstat__k">Community since</span>
+      </div>
+      <div class="mstat" data-live="players" hidden>
+        <span class="mstat__v" data-live-players></span>
+        <span class="mstat__k">Online now</span>
+      </div>
+      <div class="mstat" data-live="status" hidden>
+        <span class="mstat__v mstat__v--status"><span class="mstat__dot" data-live-dot aria-hidden="true"></span><span data-live-state></span></span>
+        <span class="mstat__k" data-live-sub>Server status</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============================== CONTENT =============================== -->
-<section class="section section--tight">
-  <div class="shell members-layout">
-
-    <div class="stack" data-reveal>
-      <section class="srv-status" data-status hidden aria-live="polite" aria-label="Live server status">
-        <div class="srv-status__head">
-          <span class="srv-status__dot" data-status-dot aria-hidden="true"></span>
-          <h3 data-status-title>Checking server&hellip;</h3>
-        </div>
-        <dl class="srv-status__facts">
-          <div data-status-players-wrap hidden><dt>Players online</dt><dd data-status-players></dd></div>
-          <div data-status-uptime-wrap hidden><dt>Uptime</dt><dd data-status-uptime></dd></div>
-          <div data-status-version-wrap hidden><dt>Version</dt><dd data-status-version></dd></div>
-          <div data-status-backup-wrap hidden><dt>Last backup</dt><dd data-status-backup></dd></div>
-          <div><dt>Address</dt><dd>play.renderfrost.com</dd></div>
-        </dl>
-        <p class="srv-status__motd" data-status-motd hidden></p>
-        <p class="srv-status__online" data-status-online hidden></p>
-        <div class="srv-status__foot">
-          <button class="btn btn--ghost" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="11" height="11" rx="2"/>
-              <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
-            </svg>
-            <span class="copyip__label">Copy IP</span>
-          </button>
-          <span class="srv-status__updated" data-status-updated></span>
-        </div>
-        <div data-status-members-wrap hidden>
-          <h4>Whitelisted members <span data-status-members-count></span></h4>
-          <ul class="srv-members" data-status-members></ul>
-        </div>
-      </section>
-
-      <div class="notice" data-status-fallback>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6v.4"/>
-        </svg>
-        <div>
-          <h3>Live status is temporarily unavailable</h3>
-          <p>
-            Please check back shortly, or ask in <a href="discord">Discord</a>.
-          </p>
-        </div>
-      </div>
-
-      <h2>How someone becomes a member</h2>
-      <p class="lead">
-        Nobody gets in by finding the address and typing it. Access runs through
-        staff, in a fixed order.
-      </p>
-
-      <ol class="rule__list rule__list--steps">
-        <li>A staff member is contacted and told who wants to join.</li>
-        <li>The prospective player completes the required verification process.</li>
-        <li>Staff review the application and make the decision.</li>
-        <li>Only then is whitelist access granted, and only by staff.</li>
-      </ol>
-
-      <p>
-        Players cannot add each other. Only staff can approve access, and their
-        decision is final.
-      </p>
-
-      <div class="btn-row">
-        <a class="btn btn--secondary" href="rules">Read the rules</a>
-        <a class="btn btn--ghost" href="discord">Join the Discord</a>
-      </div>
-    </div>
-
-    <aside class="side-panel" data-reveal>
-      <div class="card">
-        <h3>Membership at a glance</h3>
-        <ul class="factlist">
-          <li><span class="k">Access</span><span class="v">Whitelist only</span></li>
-          <li><span class="k">Added by</span><span class="v">Staff only</span></li>
-          <li><span class="k">Verification</span><span class="v">Required</span></li>
-          <li><span class="k">Recommend others after</span><span class="v">15 days</span></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Milestones</h3>
-        <ul class="factlist">
-          <li><span class="k">Day 15</span><span class="v">Can recommend a player</span></li>
-          <li><span class="k">Day 30</span><span class="v">Eligible for an Elytra gift</span></li>
-        </ul>
-      </div>
-
-      <a class="btn btn--secondary" href="join">
-        Request access
-        <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h13M13 6l6 6-6 6"/>
-        </svg>
-      </a>
-    </aside>
-  </div>
-</section>
-
-<!-- ================================ TEAM ================================ -->
-<section class="section section--tight" id="team">
+<!-- ============================ ONLINE NOW ============================== -->
+<section class="section section--tight monline" data-online-section hidden>
   <div class="shell">
     <div class="section-head" data-reveal>
-      <p class="eyebrow">The team</p>
-      <h2>People of RenderFrost.</h2>
+      <p class="eyebrow">Right now</p>
+      <h2>Online now.</h2>
     </div>
-    <div class="member-grid">
-      <article class="member" data-reveal>
-        <span class="member__head">
-          <span class="member__init" aria-hidden="true">S</span>
-          <img src="/api/head?name=SAGEKRAVE" alt="SAGEKRAVE's Minecraft head" width="64" height="64" loading="lazy" decoding="async" data-head>
+    <ul class="monline__list" data-online-list></ul>
+  </div>
+</section>
+
+<!-- ============================== DIRECTORY ============================= -->
+<section class="section section--tight" id="directory">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Directory</p>
+      <h2>Everyone on the whitelist.</h2>
+    </div>
+
+    <div class="mtools" data-reveal>
+      <label class="msearch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span class="sr-only">Search members</span>
+        <input type="search" placeholder="Search members" autocomplete="off" spellcheck="false" data-member-search>
+      </label>
+      <div class="mchips" role="group" aria-label="Filter members">
+        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true" aria-label="Show all members">All</button>
+        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false" aria-label="Show staff only">Staff</button>
+        <button type="button" class="chip" data-member-filter="member" aria-pressed="false" aria-label="Show regular members only">Members</button>
+      </div>
+    </div>
+
+    <div class="mgrid" data-member-grid>
+      <article class="mcard mcard--staff" data-name="sagekrave" data-kind="staff" data-reveal>
+        <span class="mcard__head">
+          <span class="mcard__init" aria-hidden="true">S</span>
+          <img src="/api/head?name=SAGEKRAVE" alt="SAGEKRAVE's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
+          <span class="mcard__online" aria-hidden="true"></span>
         </span>
-        <div class="member__body">
-          <h3>SAGEKRAVE <span class="member__role">Owner</span></h3>
-          <p>Joined the SMP <time datetime="2025-04-16T03:34:45+06:00">16 April 2025</time></p>
-        </div>
+        <h3 class="mcard__name">SAGEKRAVE</h3>
+        <span class="mcard__role">Owner</span>
+        <p class="mcard__date">Joined <time datetime="2025-04-16T03:34:45+06:00">16 April 2025</time></p>
       </article>
+    </div>
+    <p class="mempty" data-member-empty hidden>No members match your search.</p>
+  </div>
+</section>
+
+<!-- ============================== HOW TO JOIN =========================== -->
+<section class="section section--tight">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Become a member</p>
+      <h2>Joining takes four steps.</h2>
+    </div>
+    <ol class="msteps">
+      <li class="msteps__item" data-reveal><span class="msteps__n">1</span><h3>Contact staff</h3><p>Ask in Discord and tell us who you are.</p></li>
+      <li class="msteps__item" data-reveal><span class="msteps__n">2</span><h3>Verify</h3><p>Complete the verification process staff give you.</p></li>
+      <li class="msteps__item" data-reveal><span class="msteps__n">3</span><h3>Approval</h3><p>Staff review your request and decide.</p></li>
+      <li class="msteps__item" data-reveal><span class="msteps__n">4</span><h3>Whitelisted</h3><p>Connect with Java Edition and start building.</p></li>
+    </ol>
+    <div class="btn-row" data-reveal>
+      <a class="btn btn--primary" href="join">How to join</a>
+      <a class="btn btn--ghost" href="rules">Read the rules</a>
     </div>
   </div>
 </section>

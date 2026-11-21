@@ -553,91 +553,97 @@
 
   /* ----------------------------------------------------- Server status */
 
-  function fmtUptime(sec) {
-    var d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
-    return d > 0 ? d + "d " + h + "h" : h > 0 ? h + "h " + m + "m" : Math.max(m, 1) + "m";
-  }
+  function bindMembers() {
+    var grid = document.querySelector("[data-member-grid]");
+    var search = document.querySelector("[data-member-search]");
+    var chips = document.querySelectorAll("[data-member-filter]");
+    var empty = document.querySelector("[data-member-empty]");
+    var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll(".mcard")) : [];
+    var kind = "";
 
-  function ago(iso) {
-    var t = Date.parse(iso);
-    if (isNaN(t)) return "";
-    var s = Math.max(0, Math.floor((Date.now() - t) / 1000));
-    if (s < 60) return "just now";
-    if (s < 3600) return Math.floor(s / 60) + " min ago";
-    if (s < 86400) return Math.floor(s / 3600) + " h ago";
-    return Math.floor(s / 86400) + " d ago";
-  }
+    function apply() {
+      var q = search ? search.value.trim().toLowerCase() : "";
+      var shown = 0;
+      cards.forEach(function (c) {
+        var ok = (!q || c.getAttribute("data-name").indexOf(q) !== -1) &&
+                 (!kind || c.getAttribute("data-kind") === kind);
+        c.hidden = !ok;
+        if (ok) shown++;
+      });
+      if (empty) empty.hidden = shown !== 0 || !cards.length;
+    }
+    if (search) search.addEventListener("input", apply);
+    Array.prototype.forEach.call(chips, function (chip) {
+      chip.addEventListener("click", function () {
+        kind = chip.getAttribute("data-member-filter");
+        Array.prototype.forEach.call(chips, function (c) {
+          var on = c === chip;
+          c.classList.toggle("is-active", on);
+          c.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        apply();
+      });
+    });
 
-  function bindStatus() {
-    var box = document.querySelector("[data-status]");
-    if (!box || !global.fetch) return;
-    var fallback = document.querySelector("[data-status-fallback]");
-    var q = function (n) { return box.querySelector("[data-status-" + n + "]"); };
+    var hero = document.querySelector("[data-live=status]");
+    if (!hero || !global.fetch) return;
+    var q1 = function (n) { return document.querySelector("[data-live-" + n + "]"); };
 
     function render(d) {
-      var online = d && d.online === true;
-      var state = d && d.state;
-      box.setAttribute("data-state", online ? "online" : state === "starting" ? "starting" : "offline");
-      q("title").textContent = online ? "Server is online" : state === "starting" ? "Server is starting" : "Server is offline";
+      var online = d.online === true;
+      var state = d.state;
+      var cls = online ? "online" : state === "starting" ? "starting" : "offline";
+      hero.setAttribute("data-state", cls);
+      q1("state").textContent = online ? "Online" : state === "starting" ? "Starting" : "Offline";
+      var sub = ["Server status"];
+      if (online && d.players && d.players.version) sub = ["Version " + d.players.version];
+      q1("sub").textContent = sub[0];
+      hero.hidden = false;
 
       var p = d.players;
-      q("players-wrap").hidden = !(online && p);
-      if (online && p) q("players").textContent = p.online + (p.max ? " / " + p.max : "");
+      var pl = document.querySelector("[data-live=players]");
+      if (pl) {
+        pl.hidden = !(online && p);
+        if (online && p) q1("players").textContent = p.online + (p.max ? " / " + p.max : "");
+      }
 
-      q("uptime-wrap").hidden = !(online && d.uptime > 0);
-      if (online && d.uptime > 0) q("uptime").textContent = fmtUptime(d.uptime);
+      var names = online && p && p.list ? p.list : [];
+      var lower = names.map(function (n) { return n.toLowerCase(); });
+      cards.forEach(function (c) {
+        c.classList.toggle("is-online", lower.indexOf(c.getAttribute("data-name")) !== -1);
+      });
 
-      var ver = online && p && p.version;
-      q("version-wrap").hidden = !ver;
-      if (ver) q("version").textContent = p.version;
-
-      var bk = d.lastBackup ? ago(d.lastBackup) : "";
-      q("backup-wrap").hidden = !bk;
-      if (bk) q("backup").textContent = bk;
-
-      var motd = online && p && p.motd;
-      q("motd").hidden = !motd;
-      if (motd) q("motd").textContent = "\u201c" + p.motd + "\u201d";
-
-      q("updated").textContent = d.updated ? "Updated " + ago(d.updated) : "";
-
-      var names = online && p && p.list && p.list.length ? p.list : null;
-      q("online").hidden = !names;
-      if (names) q("online").textContent = "Online now: " + names.join(", ");
-
-      var wrap = q("members-wrap");
-      var list = q("members");
-      list.textContent = "";
-      var members = d.members && d.members.length ? d.members : null;
-      wrap.hidden = !members;
-      if (members) {
-        q("members-count").textContent = "(" + members.length + ")";
-        members.forEach(function (n) {
+      var section = document.querySelector("[data-online-section]");
+      var list = document.querySelector("[data-online-list]");
+      if (section && list) {
+        list.textContent = "";
+        names.forEach(function (n) {
           var li = document.createElement("li");
-          var av = document.createElement("span");
-          av.className = "srv-members__av";
-          av.setAttribute("aria-hidden", "true");
-          av.textContent = n.charAt(0).toUpperCase();
-          var nm = document.createElement("span");
-          nm.textContent = n;
-          li.appendChild(av);
-          li.appendChild(nm);
+          var im = document.createElement("img");
+          im.src = "/api/head?name=" + encodeURIComponent(n);
+          im.alt = "";
+          im.width = 40; im.height = 40;
+          im.loading = "lazy";
+          im.addEventListener("error", function () { im.hidden = true; });
+          var sp = document.createElement("span");
+          sp.textContent = n;
+          li.appendChild(im);
+          li.appendChild(sp);
           list.appendChild(li);
         });
+        section.hidden = names.length === 0;
       }
-      box.hidden = false;
-      if (fallback) fallback.hidden = true;
     }
 
     function load() {
       fetch("/api/status", { headers: { Accept: "application/json" }, cache: "no-store" })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (d) { if (d && typeof d === "object" && !d.error) render(d); })
-        .catch(function () { /* keep the static explanation */ });
+        .catch(function () { /* page stays fully usable without live data */ });
     }
     load();
     var t = global.setInterval(function () {
-      if (!document.body.contains(box)) { global.clearInterval(t); return; }
+      if (!document.body.contains(hero)) { global.clearInterval(t); return; }
       if (!document.hidden) load();
     }, 60000);
   }
@@ -659,7 +665,7 @@
     bindYear();
     bindFaq();
     bindGallery();
-    bindStatus();
+    bindMembers();
     bindHeads();
   }
 

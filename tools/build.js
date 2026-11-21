@@ -210,33 +210,49 @@ function buildMedia() {
   return `<div class="media__grid">\n${cards}\n    </div>`;
 }
 
-/* Team / member cards from src/members.json, oldest member first. */
-function buildTeam() {
+/* Member directory from src/members.json, oldest member first. */
+function loadMembers() {
   let list = [];
   try {
     list = JSON.parse(fs.readFileSync(path.join(SRC, "members.json"), "utf8")).members || [];
   } catch (e) { list = []; }
   list = list.filter((m) => m && /^[A-Za-z0-9_]{3,16}$/.test(m.name || ""));
   list.sort((a, b) => (Date.parse(a.joined) || Infinity) - (Date.parse(b.joined) || Infinity));
-  if (!list.length) return "";
-  const fmt = (iso) => {
-    const t = Date.parse(iso);
-    if (isNaN(t)) return "";
-    return new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Dhaka" });
-  };
+  return list;
+}
+
+function fmtDate(iso, opts) {
+  const t = Date.parse(iso);
+  if (isNaN(t)) return "";
+  return new Date(t).toLocaleDateString("en-GB", Object.assign({ timeZone: "Asia/Dhaka" }, opts));
+}
+
+function buildRoster() {
+  const list = loadMembers();
+  if (!list.length) {
+    return `<p class="mempty">The member list is being prepared. Check back soon.</p>`;
+  }
   const cards = list.map((m) => {
-    const when = fmt(m.joined);
-    return `      <article class="member" data-reveal>
-        <span class="member__head">
-          <span class="member__init" aria-hidden="true">${esc(m.name.charAt(0).toUpperCase())}</span>
-          <img src="/api/head?name=${encodeURIComponent(m.name)}" alt="${esc(m.name)}'s Minecraft head" width="64" height="64" loading="lazy" decoding="async" data-head>
+    const when = fmtDate(m.joined, { day: "numeric", month: "long", year: "numeric" });
+    const staff = !!m.role;
+    return `      <article class="mcard${staff ? " mcard--staff" : ""}" data-name="${esc(m.name.toLowerCase())}" data-kind="${staff ? "staff" : "member"}" data-reveal>
+        <span class="mcard__head">
+          <span class="mcard__init" aria-hidden="true">${esc(m.name.charAt(0).toUpperCase())}</span>
+          <img src="/api/head?name=${encodeURIComponent(m.name)}" alt="${esc(m.name)}'s Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
+          <span class="mcard__online" aria-hidden="true"></span>
         </span>
-        <div class="member__body">
-          <h3>${esc(m.name)}${m.role ? ` <span class="member__role">${esc(m.role)}</span>` : ""}</h3>${when ? `\n          <p>Joined the SMP <time datetime="${esc(m.joined)}">${esc(when)}</time></p>` : ""}
-        </div>
+        <h3 class="mcard__name">${esc(m.name)}</h3>
+        ${staff ? `<span class="mcard__role">${esc(m.role)}</span>` : `<span class="mcard__role mcard__role--plain">Member</span>`}${when ? `\n        <p class="mcard__date">Joined <time datetime="${esc(m.joined)}">${esc(when)}</time></p>` : ""}
       </article>`;
   }).join("\n");
-  return `<div class="member-grid">\n${cards}\n    </div>`;
+  return `<div class="mgrid" data-member-grid>\n${cards}\n    </div>`;
+}
+
+function memberCount() { return String(loadMembers().length); }
+
+function memberSince() {
+  const first = loadMembers().find((m) => !isNaN(Date.parse(m.joined)));
+  return first ? fmtDate(first.joined, { month: "short", year: "numeric" }) : "2025";
 }
 
 const SHELL_CACHE = {};
@@ -258,7 +274,7 @@ function render(pageFile, meta, body) {
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
-  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--TEAM-->", () => buildTeam()) + "\n</main>\n";
+  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--ROSTER-->", () => buildRoster()).replace("<!--MEMBER_COUNT-->", () => memberCount()).replace("<!--MEMBER_SINCE-->", () => memberSince()) + "\n</main>\n";
   html += SHELL_CACHE["cta.html"];
   html += "\n" + SHELL_CACHE["footer.html"]
     .replace(/\{\{EXPLORE_LINKS\}\}/g, footer.explore)
