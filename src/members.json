@@ -1,6 +1,178 @@
 {
-  "_help": "Add one entry per player. 'role' is optional. 'joined' is an ISO date/time (e.g. 2025-04-16T03:34:45+06:00). Then run: node tools/build.js",
+  "_help": "One entry per person. 'alias' = the person's other in-game name (shown as 'also known as'). 'role' is optional. 'joined' is ISO with +06:00. Then run: node tools/build.js",
   "members": [
-    { "name": "SAGEKRAVE", "role": "Owner", "joined": "2025-04-16T03:34:45+06:00" }
+    {
+      "name": "SAGEKRAVE",
+      "role": "Owner",
+      "joined": "2025-04-16T03:34:45+06:00"
+    },
+    {
+      "name": "SKRULLYT",
+      "alias": "ItZ_Me_ImTiAz",
+      "joined": "2025-04-16T14:02:37+06:00"
+    },
+    {
+      "name": "Aayan_efx",
+      "alias": "Kryptonite",
+      "joined": "2025-04-16T14:03:46+06:00"
+    },
+    {
+      "name": "Agent_Rakib",
+      "joined": "2025-04-16T19:55:46+06:00"
+    },
+    {
+      "name": "SfsNotHere",
+      "joined": "2025-04-17T22:52:57+06:00"
+    },
+    {
+      "name": "Junyed_69",
+      "alias": "not_r4czy",
+      "joined": "2025-04-18T14:28:19+06:00"
+    },
+    {
+      "name": "BS_Editz",
+      "alias": "not_rexo",
+      "joined": "2025-04-19T01:00:53+06:00"
+    },
+    {
+      "name": "OntorGamer999",
+      "joined": "2025-04-27T15:39:35+06:00"
+    },
+    {
+      "name": "XproSagor",
+      "joined": "2025-05-01T23:22:12+06:00"
+    },
+    {
+      "name": "ramim32ob",
+      "joined": "2025-05-04T10:41:01+06:00"
+    },
+    {
+      "name": "siuuuurup",
+      "joined": "2025-05-04T11:29:31+06:00"
+    },
+    {
+      "name": "Tasfiq",
+      "joined": "2025-05-09T22:32:51+06:00"
+    },
+    {
+      "name": "AgentAbrar7",
+      "joined": "2025-05-12T20:31:08+06:00"
+    },
+    {
+      "name": "Tabin_Gamer",
+      "joined": "2025-05-17T19:43:32+06:00"
+    },
+    {
+      "name": "Mrthgamer",
+      "joined": "2025-05-25T17:39:39+06:00"
+    },
+    {
+      "name": "jagu5819",
+      "joined": "2025-05-25T17:55:59+06:00"
+    },
+    {
+      "name": "WARCHAMPION",
+      "joined": "2025-06-05T18:32:10+06:00"
+    },
+    {
+      "name": "crazygamer022",
+      "joined": "2025-06-21T14:20:00+06:00"
+    },
+    {
+      "name": "Rishathassan999",
+      "joined": "2025-06-22T09:32:31+06:00"
+    },
+    {
+      "name": "maruf",
+      "joined": "2025-06-24T23:08:44+06:00"
+    },
+    {
+      "name": "Mahin",
+      "joined": "2025-07-15T23:37:20+06:00"
+    },
+    {
+      "name": "Hassan",
+      "joined": "2025-07-16T00:00:42+06:00"
+    },
+    {
+      "name": "Raihan",
+      "joined": "2025-07-17T23:27:20+06:00"
+    },
+    {
+      "name": "MMFARAZI",
+      "joined": "2025-07-18T00:06:38+06:00"
+    },
+    {
+      "name": "BdGhost",
+      "joined": "2025-07-20T18:48:46+06:00"
+    },
+    {
+      "name": "Mahafuj9",
+      "joined": "2025-07-30T21:06:09+06:00"
+    },
+    {
+      "name": "dewanduha",
+      "joined": "2025-10-21T17:57:42+06:00"
+    },
+    {
+      "name": "baria_dewan",
+      "joined": "2025-10-24T15:27:41+06:00"
+    },
+    {
+      "name": "brokeelonmusk1",
+      "joined": "2025-10-31T23:53:48+06:00"
+    },
+    {
+      "name": "Actionlix",
+      "joined": "2025-11-03T17:12:19+06:00"
+    },
+    {
+      "name": "Aohana",
+      "joined": "2025-12-02T18:36:35+06:00"
+    },
+    {
+      "name": "maruf_ferdous",
+      "joined": "2026-05-23T21:18:35+06:00"
+    },
+    {
+      "name": "ItzMelissa",
+      "joined": "2026-05-23T21:21:08+06:00"
+    },
+    {
+      "name": "ItzAnam_",
+      "joined": "2026-08-15T22:34:24+06:00"
+    },
+    {
+      "name": "Ms_Farhana",
+      "joined": "2026-08-27T21:42:35+06:00"
+    },
+    {
+      "name": "SporshoSnake",
+      "joined": "2026-11-13T15:20:15+06:00"
+    },
+    {
+      "name": "RIDDO",
+      "joined": "2026-11-13T15:23:23+06:00"
+    },
+    {
+      "name": "Jibon",
+      "joined": "2026-11-15T22:54:51+06:00"
+    },
+    {
+      "name": "asia334",
+      "joined": "2026-11-16T13:56:10+06:00"
+    },
+    {
+      "name": "M_BILLAH",
+      "joined": "2026-11-17T20:49:26+06:00"
+    },
+    {
+      "name": "Bushair25",
+      "joined": "2026-11-19T21:05:35+06:00"
+    },
+    {
+      "name": "Littel",
+      "joined": "2026-11-20T15:50:41+06:00"
+    }
   ]
 }

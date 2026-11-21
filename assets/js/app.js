@@ -606,7 +606,8 @@
       var names = online && p && p.list ? p.list : [];
       var lower = names.map(function (n) { return n.toLowerCase(); });
       cards.forEach(function (c) {
-        c.classList.toggle("is-online", lower.indexOf(c.getAttribute("data-name")) !== -1);
+        var igns = c.getAttribute("data-name").split(" ");
+        c.classList.toggle("is-online", lower.some(function (n) { return igns.indexOf(n) !== -1; }));
       });
 
       var section = document.querySelector("[data-online-section]");

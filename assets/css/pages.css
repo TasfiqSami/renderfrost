@@ -470,3 +470,6 @@
 .mcard__head img:-moz-broken, .monline__list img:-moz-broken { opacity: 0; }
 
 [hidden] { display: none !important; }
+
+.mcard__aka { margin: -0.15rem 0 0; color: var(--text-faint); font-size: var(--fs-label); }
+.mcard__aka strong { color: var(--text-secondary); font-weight: 500; }

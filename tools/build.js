@@ -217,6 +217,7 @@ function loadMembers() {
     list = JSON.parse(fs.readFileSync(path.join(SRC, "members.json"), "utf8")).members || [];
   } catch (e) { list = []; }
   list = list.filter((m) => m && /^[A-Za-z0-9_]{3,16}$/.test(m.name || ""));
+  list.forEach((m) => { if (m.alias && !/^[A-Za-z0-9_]{3,16}$/.test(m.alias)) delete m.alias; });
   list.sort((a, b) => (Date.parse(a.joined) || Infinity) - (Date.parse(b.joined) || Infinity));
   return list;
 }
@@ -235,13 +236,15 @@ function buildRoster() {
   const cards = list.map((m) => {
     const when = fmtDate(m.joined, { day: "numeric", month: "long", year: "numeric" });
     const staff = !!m.role;
-    return `      <article class="mcard${staff ? " mcard--staff" : ""}" data-name="${esc(m.name.toLowerCase())}" data-kind="${staff ? "staff" : "member"}" data-reveal>
+    const names = [m.name].concat(m.alias ? [m.alias] : []);
+    const headUrl = `/api/head?name=${encodeURIComponent(m.name)}${m.alias ? `&alt=${encodeURIComponent(m.alias)}` : ""}`;
+    return `      <article class="mcard${staff ? " mcard--staff" : ""}" data-name="${esc(names.join(" ").toLowerCase())}" data-kind="${staff ? "staff" : "member"}" data-reveal>
         <span class="mcard__head">
           <span class="mcard__init" aria-hidden="true">${esc(m.name.charAt(0).toUpperCase())}</span>
-          <img src="/api/head?name=${encodeURIComponent(m.name)}" alt="${esc(m.name)}'s Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
+          <img src="${headUrl}" alt="${esc(m.name)}'s Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
           <span class="mcard__online" aria-hidden="true"></span>
         </span>
-        <h3 class="mcard__name">${esc(m.name)}</h3>
+        <h3 class="mcard__name">${esc(m.name)}</h3>${m.alias ? `\n        <p class="mcard__aka">Also known as <strong>${esc(m.alias)}</strong></p>` : ""}
         ${staff ? `<span class="mcard__role">${esc(m.role)}</span>` : `<span class="mcard__role mcard__role--plain">Member</span>`}${when ? `\n        <p class="mcard__date">Joined <time datetime="${esc(m.joined)}">${esc(when)}</time></p>` : ""}
       </article>`;
   }).join("\n");
