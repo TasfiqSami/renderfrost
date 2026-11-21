@@ -7,70 +7,64 @@ canonical: members.html
 }}
 
 <!-- ================================ HERO ================================ -->
-<section class="pagehead pagehead--art mh">
-  <div class="shell">
-    <nav aria-label="Breadcrumb">
-      <ol class="crumbs">
-        <li><a href="index.html">Home</a></li>
-        <li><span aria-current="page">Members</span></li>
-      </ol>
-    </nav>
-    <div class="pagehead__inner">
+<section class="mhero">
+  <div class="shell mhero__grid">
+    <div class="mhero__copy">
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="index.html">Home</a></li>
+          <li><span aria-current="page">Members</span></li>
+        </ol>
+      </nav>
       <p class="eyebrow">The community</p>
-      <h1>Members.</h1>
-      <p class="pagehead__sub">The people who call RenderFrost home.</p>
+      <h1 class="mhero__title">Roll call.</h1>
+      <p class="mhero__sub"><strong><!--MEMBER_COUNT--></strong> players on the whitelist, building together since <strong><!--MEMBER_SINCE--></strong>.</p>
+      <div class="copyip">
+        <span class="copyip__addr"><span class="copyip__dot" aria-hidden="true"></span><span>play.renderfrost.com</span></span>
+        <button class="copyip__btn" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg>
+          <span class="copyip__label">Copy IP</span>
+        </button>
+      </div>
     </div>
 
-    <div class="mstats" data-reveal>
-      <div class="mstat">
-        <span class="mstat__v"><!--MEMBER_COUNT--></span>
-        <span class="mstat__k">Members listed</span>
+    <aside class="panel" data-live="panel" data-state="unknown" aria-label="Live server status">
+      <div class="panel__top">
+        <span class="panel__state"><span class="panel__dot" aria-hidden="true"></span><span data-live-state>Checking server</span></span>
+        <span class="panel__tag">Live</span>
       </div>
-      <div class="mstat">
-        <span class="mstat__v"><!--MEMBER_SINCE--></span>
-        <span class="mstat__k">Community since</span>
-      </div>
-      <div class="mstat" data-live="players" hidden>
-        <span class="mstat__v" data-live-players></span>
-        <span class="mstat__k">Online now</span>
-      </div>
-      <div class="mstat" data-live="status" hidden>
-        <span class="mstat__v mstat__v--status"><span class="mstat__dot" data-live-dot aria-hidden="true"></span><span data-live-state></span></span>
-        <span class="mstat__k" data-live-sub>Server status</span>
-      </div>
-    </div>
+      <p class="panel__count"><span data-live-players>&ndash;</span><small>players online</small></p>
+      <ul class="panel__online" data-online-list aria-label="Players online"></ul>
+      <p class="panel__none" data-online-none hidden>Nobody is online right now.</p>
+      <dl class="panel__facts">
+        <div><dt>Version</dt><dd data-live-version>&ndash;</dd></div>
+        <div><dt>Uptime</dt><dd data-live-uptime>&ndash;</dd></div>
+      </dl>
+    </aside>
   </div>
 </section>
 
-<!-- ============================ ONLINE NOW ============================== -->
-<section class="section section--tight monline" data-online-section hidden>
+<!-- =============================== FOUNDER ============================== -->
+<section class="section section--tight">
   <div class="shell">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Right now</p>
-      <h2>Online now.</h2>
-    </div>
-    <ul class="monline__list" data-online-list></ul>
+    <!--FOUNDER-->
   </div>
 </section>
 
 <!-- ============================== DIRECTORY ============================= -->
 <section class="section section--tight" id="directory">
   <div class="shell">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Directory</p>
-      <h2>Everyone on the whitelist.</h2>
-    </div>
-
-    <div class="mtools" data-reveal>
+    <div class="mbar" data-reveal>
       <label class="msearch">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <span class="sr-only">Search members</span>
-        <input type="search" placeholder="Search members" autocomplete="off" spellcheck="false" data-member-search>
+        <input type="search" placeholder="Search by name or old name" autocomplete="off" spellcheck="false" data-member-search>
       </label>
       <div class="mchips" role="group" aria-label="Filter members">
-        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true" aria-label="Show all members">All</button>
-        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false" aria-label="Show staff only">Staff</button>
-        <button type="button" class="chip" data-member-filter="member" aria-pressed="false" aria-label="Show regular members only">Members</button>
+        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false">Staff</button>
+        <button type="button" class="chip" data-member-filter="member" aria-pressed="false">Members</button>
+        <button type="button" class="chip chip--sort" data-member-sort aria-label="Reverse the order">Oldest first</button>
       </div>
     </div>
 
@@ -79,22 +73,18 @@ canonical: members.html
   </div>
 </section>
 
-<!-- ============================== HOW TO JOIN =========================== -->
+<!-- ============================== JOIN BAND ============================= -->
 <section class="section section--tight">
   <div class="shell">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Become a member</p>
-      <h2>Joining takes four steps.</h2>
-    </div>
-    <ol class="msteps">
-      <li class="msteps__item" data-reveal><span class="msteps__n">1</span><h3>Contact staff</h3><p>Ask in Discord and tell us who you are.</p></li>
-      <li class="msteps__item" data-reveal><span class="msteps__n">2</span><h3>Verify</h3><p>Complete the verification process staff give you.</p></li>
-      <li class="msteps__item" data-reveal><span class="msteps__n">3</span><h3>Approval</h3><p>Staff review your request and decide.</p></li>
-      <li class="msteps__item" data-reveal><span class="msteps__n">4</span><h3>Whitelisted</h3><p>Connect with Java Edition and start building.</p></li>
-    </ol>
-    <div class="btn-row" data-reveal>
-      <a class="btn btn--primary" href="join.html">How to join</a>
-      <a class="btn btn--ghost" href="rules.html">Read the rules</a>
+    <div class="mjoin" data-reveal>
+      <div>
+        <h2>Want your name on this list?</h2>
+        <p>Ask staff in Discord, verify, get approved, and you are whitelisted.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="join.html">How to join</a>
+        <a class="btn btn--ghost" href="rules.html">Read the rules</a>
+      </div>
     </div>
   </div>
 </section>

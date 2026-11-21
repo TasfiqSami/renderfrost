@@ -143,519 +143,381 @@
 
 <main id="main">
 <!-- ================================ HERO ================================ -->
-<section class="pagehead pagehead--art mh">
-  <div class="shell">
-    <nav aria-label="Breadcrumb">
-      <ol class="crumbs">
-        <li><a href="./">Home</a></li>
-        <li><span aria-current="page">Members</span></li>
-      </ol>
-    </nav>
-    <div class="pagehead__inner">
+<section class="mhero">
+  <div class="shell mhero__grid">
+    <div class="mhero__copy">
+      <nav aria-label="Breadcrumb">
+        <ol class="crumbs">
+          <li><a href="./">Home</a></li>
+          <li><span aria-current="page">Members</span></li>
+        </ol>
+      </nav>
       <p class="eyebrow">The community</p>
-      <h1>Members.</h1>
-      <p class="pagehead__sub">The people who call RenderFrost home.</p>
+      <h1 class="mhero__title">Roll call.</h1>
+      <p class="mhero__sub"><strong>42</strong> players on the whitelist, building together since <strong>Apr 2025</strong>.</p>
+      <div class="copyip">
+        <span class="copyip__addr"><span class="copyip__dot" aria-hidden="true"></span><span>play.renderfrost.com</span></span>
+        <button class="copyip__btn" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg>
+          <span class="copyip__label">Copy IP</span>
+        </button>
+      </div>
     </div>
 
-    <div class="mstats" data-reveal>
-      <div class="mstat">
-        <span class="mstat__v">42</span>
-        <span class="mstat__k">Members listed</span>
+    <aside class="panel" data-live="panel" data-state="unknown" aria-label="Live server status">
+      <div class="panel__top">
+        <span class="panel__state"><span class="panel__dot" aria-hidden="true"></span><span data-live-state>Checking server</span></span>
+        <span class="panel__tag">Live</span>
       </div>
-      <div class="mstat">
-        <span class="mstat__v">Apr 2025</span>
-        <span class="mstat__k">Community since</span>
-      </div>
-      <div class="mstat" data-live="players" hidden>
-        <span class="mstat__v" data-live-players></span>
-        <span class="mstat__k">Online now</span>
-      </div>
-      <div class="mstat" data-live="status" hidden>
-        <span class="mstat__v mstat__v--status"><span class="mstat__dot" data-live-dot aria-hidden="true"></span><span data-live-state></span></span>
-        <span class="mstat__k" data-live-sub>Server status</span>
-      </div>
-    </div>
+      <p class="panel__count"><span data-live-players>&ndash;</span><small>players online</small></p>
+      <ul class="panel__online" data-online-list aria-label="Players online"></ul>
+      <p class="panel__none" data-online-none hidden>Nobody is online right now.</p>
+      <dl class="panel__facts">
+        <div><dt>Version</dt><dd data-live-version>&ndash;</dd></div>
+        <div><dt>Uptime</dt><dd data-live-uptime>&ndash;</dd></div>
+      </dl>
+    </aside>
   </div>
 </section>
 
-<!-- ============================ ONLINE NOW ============================== -->
-<section class="section section--tight monline" data-online-section hidden>
+<!-- =============================== FOUNDER ============================== -->
+<section class="section section--tight">
   <div class="shell">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Right now</p>
-      <h2>Online now.</h2>
+    <p class="eyebrow">The team</p>
+    <div class="team">
+      <article class="tcard tcard--lead" data-reveal>
+        <span class="face face--132"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=SAGEKRAVE" alt="" width="132" height="132" loading="lazy" decoding="async" data-head></span>
+        <div class="tcard__text">
+          <p class="tcard__role">Owner</p>
+          <h3 class="tcard__name">SAGEKRAVE</h3>
+          <p class="tcard__meta">First to join the SMP, 16 April 2025</p>
+        </div>
+      </article>
+      <div class="team__side">
+      <article class="tcard" data-reveal>
+        <span class="face face--72"><span class="face__init" aria-hidden="true">B</span><img src="/api/head?name=BS_Editz&alt=not_rexo" alt="" width="72" height="72" loading="lazy" decoding="async" data-head></span>
+        <div class="tcard__text">
+          <p class="tcard__role">Chief Staff</p>
+          <h3 class="tcard__name">BS_Editz</h3>
+          <p class="tcard__meta">Joined 19 April 2025</p>
+        </div>
+      </article>
+      <article class="tcard" data-reveal>
+        <span class="face face--72"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=SfsNotHere" alt="" width="72" height="72" loading="lazy" decoding="async" data-head></span>
+        <div class="tcard__text">
+          <p class="tcard__role">Manager</p>
+          <h3 class="tcard__name">SfsNotHere</h3>
+          <p class="tcard__meta">Joined 17 April 2025</p>
+        </div>
+      </article>
+      <article class="tcard" data-reveal>
+        <span class="face face--72"><span class="face__init" aria-hidden="true">T</span><img src="/api/head?name=Tasfiq" alt="" width="72" height="72" loading="lazy" decoding="async" data-head></span>
+        <div class="tcard__text">
+          <p class="tcard__role">Dev/Admin</p>
+          <h3 class="tcard__name">Tasfiq</h3>
+          <p class="tcard__meta">Joined 9 May 2025</p>
+        </div>
+      </article>
+      </div>
     </div>
-    <ul class="monline__list" data-online-list></ul>
   </div>
 </section>
 
 <!-- ============================== DIRECTORY ============================= -->
 <section class="section section--tight" id="directory">
   <div class="shell">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Directory</p>
-      <h2>Everyone on the whitelist.</h2>
-    </div>
-
-    <div class="mtools" data-reveal>
+    <div class="mbar" data-reveal>
       <label class="msearch">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <span class="sr-only">Search members</span>
-        <input type="search" placeholder="Search members" autocomplete="off" spellcheck="false" data-member-search>
+        <input type="search" placeholder="Search by name or old name" autocomplete="off" spellcheck="false" data-member-search>
       </label>
       <div class="mchips" role="group" aria-label="Filter members">
-        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true" aria-label="Show all members">All</button>
-        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false" aria-label="Show staff only">Staff</button>
-        <button type="button" class="chip" data-member-filter="member" aria-pressed="false" aria-label="Show regular members only">Members</button>
+        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false">Staff</button>
+        <button type="button" class="chip" data-member-filter="member" aria-pressed="false">Members</button>
+        <button type="button" class="chip chip--sort" data-member-sort aria-label="Reverse the order">Oldest first</button>
       </div>
     </div>
 
-    <div class="mgrid" data-member-grid>
-      <article class="mcard mcard--staff" data-name="sagekrave" data-kind="staff" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">S</span>
-          <img src="/api/head?name=SAGEKRAVE" alt="SAGEKRAVE's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">SAGEKRAVE</h3>
-        <span class="mcard__role">Owner</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-16T03:34:45+06:00">16 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="skrullyt itz_me_imtiaz" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">S</span>
-          <img src="/api/head?name=SKRULLYT&alt=ItZ_Me_ImTiAz" alt="SKRULLYT's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">SKRULLYT</h3>
-        <p class="mcard__aka">Also known as <strong>ItZ_Me_ImTiAz</strong></p>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-16T14:02:37+06:00">16 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="aayan_efx kryptonite" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">A</span>
-          <img src="/api/head?name=Aayan_efx&alt=Kryptonite" alt="Aayan_efx's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Aayan_efx</h3>
-        <p class="mcard__aka">Also known as <strong>Kryptonite</strong></p>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-16T14:03:46+06:00">16 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="agent_rakib" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">A</span>
-          <img src="/api/head?name=Agent_Rakib" alt="Agent_Rakib's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Agent_Rakib</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-16T19:55:46+06:00">16 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="sfsnothere" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">S</span>
-          <img src="/api/head?name=SfsNotHere" alt="SfsNotHere's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">SfsNotHere</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-17T22:52:57+06:00">17 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="junyed_69 not_r4czy" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">J</span>
-          <img src="/api/head?name=Junyed_69&alt=not_r4czy" alt="Junyed_69's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Junyed_69</h3>
-        <p class="mcard__aka">Also known as <strong>not_r4czy</strong></p>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-18T14:28:19+06:00">18 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="bs_editz not_rexo" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">B</span>
-          <img src="/api/head?name=BS_Editz&alt=not_rexo" alt="BS_Editz's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">BS_Editz</h3>
-        <p class="mcard__aka">Also known as <strong>not_rexo</strong></p>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-19T01:00:53+06:00">19 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="ontorgamer999" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">O</span>
-          <img src="/api/head?name=OntorGamer999" alt="OntorGamer999's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">OntorGamer999</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-04-27T15:39:35+06:00">27 April 2025</time></p>
-      </article>
-      <article class="mcard" data-name="xprosagor" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">X</span>
-          <img src="/api/head?name=XproSagor" alt="XproSagor's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">XproSagor</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-01T23:22:12+06:00">1 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="ramim32ob" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">R</span>
-          <img src="/api/head?name=ramim32ob" alt="ramim32ob's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">ramim32ob</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-04T10:41:01+06:00">4 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="siuuuurup" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">S</span>
-          <img src="/api/head?name=siuuuurup" alt="siuuuurup's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">siuuuurup</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-04T11:29:31+06:00">4 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="tasfiq" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">T</span>
-          <img src="/api/head?name=Tasfiq" alt="Tasfiq's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Tasfiq</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-09T22:32:51+06:00">9 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="agentabrar7" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">A</span>
-          <img src="/api/head?name=AgentAbrar7" alt="AgentAbrar7's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">AgentAbrar7</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-12T20:31:08+06:00">12 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="tabin_gamer" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">T</span>
-          <img src="/api/head?name=Tabin_Gamer" alt="Tabin_Gamer's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Tabin_Gamer</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-17T19:43:32+06:00">17 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="mrthgamer" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=Mrthgamer" alt="Mrthgamer's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Mrthgamer</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-25T17:39:39+06:00">25 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="jagu5819" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">J</span>
-          <img src="/api/head?name=jagu5819" alt="jagu5819's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">jagu5819</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-05-25T17:55:59+06:00">25 May 2025</time></p>
-      </article>
-      <article class="mcard" data-name="warchampion" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">W</span>
-          <img src="/api/head?name=WARCHAMPION" alt="WARCHAMPION's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">WARCHAMPION</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-06-05T18:32:10+06:00">5 June 2025</time></p>
-      </article>
-      <article class="mcard" data-name="crazygamer022" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">C</span>
-          <img src="/api/head?name=crazygamer022" alt="crazygamer022's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">crazygamer022</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-06-21T14:20:00+06:00">21 June 2025</time></p>
-      </article>
-      <article class="mcard" data-name="rishathassan999" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">R</span>
-          <img src="/api/head?name=Rishathassan999" alt="Rishathassan999's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Rishathassan999</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-06-22T09:32:31+06:00">22 June 2025</time></p>
-      </article>
-      <article class="mcard" data-name="maruf" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=maruf" alt="maruf's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">maruf</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-06-24T23:08:44+06:00">24 June 2025</time></p>
-      </article>
-      <article class="mcard" data-name="mahin" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=Mahin" alt="Mahin's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Mahin</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-07-15T23:37:20+06:00">15 July 2025</time></p>
-      </article>
-      <article class="mcard" data-name="hassan" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">H</span>
-          <img src="/api/head?name=Hassan" alt="Hassan's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Hassan</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-07-16T00:00:42+06:00">16 July 2025</time></p>
-      </article>
-      <article class="mcard" data-name="raihan" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">R</span>
-          <img src="/api/head?name=Raihan" alt="Raihan's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Raihan</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-07-17T23:27:20+06:00">17 July 2025</time></p>
-      </article>
-      <article class="mcard" data-name="mmfarazi" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=MMFARAZI" alt="MMFARAZI's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">MMFARAZI</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-07-18T00:06:38+06:00">18 July 2025</time></p>
-      </article>
-      <article class="mcard" data-name="bdghost" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">B</span>
-          <img src="/api/head?name=BdGhost" alt="BdGhost's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">BdGhost</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-07-20T18:48:46+06:00">20 July 2025</time></p>
-      </article>
-      <article class="mcard" data-name="mahafuj9" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=Mahafuj9" alt="Mahafuj9's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Mahafuj9</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-07-30T21:06:09+06:00">30 July 2025</time></p>
-      </article>
-      <article class="mcard" data-name="dewanduha" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">D</span>
-          <img src="/api/head?name=dewanduha" alt="dewanduha's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">dewanduha</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-10-21T17:57:42+06:00">21 October 2025</time></p>
-      </article>
-      <article class="mcard" data-name="baria_dewan" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">B</span>
-          <img src="/api/head?name=baria_dewan" alt="baria_dewan's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">baria_dewan</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-10-24T15:27:41+06:00">24 October 2025</time></p>
-      </article>
-      <article class="mcard" data-name="brokeelonmusk1" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">B</span>
-          <img src="/api/head?name=brokeelonmusk1" alt="brokeelonmusk1's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">brokeelonmusk1</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-10-31T23:53:48+06:00">31 October 2025</time></p>
-      </article>
-      <article class="mcard" data-name="actionlix" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">A</span>
-          <img src="/api/head?name=Actionlix" alt="Actionlix's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Actionlix</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-11-03T17:12:19+06:00">3 November 2025</time></p>
-      </article>
-      <article class="mcard" data-name="aohana" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">A</span>
-          <img src="/api/head?name=Aohana" alt="Aohana's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Aohana</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2025-12-02T18:36:35+06:00">2 December 2025</time></p>
-      </article>
-      <article class="mcard" data-name="maruf_ferdous" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=maruf_ferdous" alt="maruf_ferdous's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">maruf_ferdous</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-05-23T21:18:35+06:00">23 May 2026</time></p>
-      </article>
-      <article class="mcard" data-name="itzmelissa" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">I</span>
-          <img src="/api/head?name=ItzMelissa" alt="ItzMelissa's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">ItzMelissa</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-05-23T21:21:08+06:00">23 May 2026</time></p>
-      </article>
-      <article class="mcard" data-name="itzanam_" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">I</span>
-          <img src="/api/head?name=ItzAnam_" alt="ItzAnam_'s Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">ItzAnam_</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-08-15T22:34:24+06:00">15 August 2026</time></p>
-      </article>
-      <article class="mcard" data-name="ms_farhana" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=Ms_Farhana" alt="Ms_Farhana's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Ms_Farhana</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-08-27T21:42:35+06:00">27 August 2026</time></p>
-      </article>
-      <article class="mcard" data-name="sporshosnake" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">S</span>
-          <img src="/api/head?name=SporshoSnake" alt="SporshoSnake's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">SporshoSnake</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-13T15:20:15+06:00">13 November 2026</time></p>
-      </article>
-      <article class="mcard" data-name="riddo" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">R</span>
-          <img src="/api/head?name=RIDDO" alt="RIDDO's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">RIDDO</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-13T15:23:23+06:00">13 November 2026</time></p>
-      </article>
-      <article class="mcard" data-name="jibon" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">J</span>
-          <img src="/api/head?name=Jibon" alt="Jibon's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Jibon</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-15T22:54:51+06:00">15 November 2026</time></p>
-      </article>
-      <article class="mcard" data-name="asia334" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">A</span>
-          <img src="/api/head?name=asia334" alt="asia334's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">asia334</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-16T13:56:10+06:00">16 November 2026</time></p>
-      </article>
-      <article class="mcard" data-name="m_billah" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">M</span>
-          <img src="/api/head?name=M_BILLAH" alt="M_BILLAH's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">M_BILLAH</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-17T20:49:26+06:00">17 November 2026</time></p>
-      </article>
-      <article class="mcard" data-name="bushair25" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">B</span>
-          <img src="/api/head?name=Bushair25" alt="Bushair25's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Bushair25</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-19T21:05:35+06:00">19 November 2026</time></p>
-      </article>
-      <article class="mcard" data-name="littel" data-kind="member" data-reveal>
-        <span class="mcard__head">
-          <span class="mcard__init" aria-hidden="true">L</span>
-          <img src="/api/head?name=Littel" alt="Littel's Minecraft head" width="80" height="80" loading="lazy" decoding="async" data-head>
-          <span class="mcard__online" aria-hidden="true"></span>
-        </span>
-        <h3 class="mcard__name">Littel</h3>
-        <span class="mcard__role mcard__role--plain">Member</span>
-        <p class="mcard__date">Joined <time datetime="2026-11-20T15:50:41+06:00">20 November 2026</time></p>
-      </article>
+    <div class="mledger" data-member-grid>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">April 2025 <span>8</span></h3>
+      <ul class="mlist">
+        <li class="mrow mrow--staff" data-name="sagekrave" data-kind="staff">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=SAGEKRAVE" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">SAGEKRAVE</strong></span>
+          <span class="mrow__role">Owner</span><time class="mrow__date" datetime="2025-04-16T03:34:45+06:00">16 Apr</time>
+        </li>
+        <li class="mrow" data-name="skrullyt itz_me_imtiaz" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=SKRULLYT&alt=ItZ_Me_ImTiAz" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">SKRULLYT</strong><span class="mrow__aka">aka ItZ_Me_ImTiAz</span></span>
+          <time class="mrow__date" datetime="2025-04-16T14:02:37+06:00">16 Apr</time>
+        </li>
+        <li class="mrow" data-name="aayan_efx kryptonite" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">A</span><img src="/api/head?name=Aayan_efx&alt=Kryptonite" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Aayan_efx</strong><span class="mrow__aka">aka Kryptonite</span></span>
+          <time class="mrow__date" datetime="2025-04-16T14:03:46+06:00">16 Apr</time>
+        </li>
+        <li class="mrow" data-name="agent_rakib" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">A</span><img src="/api/head?name=Agent_Rakib" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Agent_Rakib</strong></span>
+          <time class="mrow__date" datetime="2025-04-16T19:55:46+06:00">16 Apr</time>
+        </li>
+        <li class="mrow mrow--staff" data-name="sfsnothere" data-kind="staff">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=SfsNotHere" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">SfsNotHere</strong></span>
+          <span class="mrow__role">Manager</span><time class="mrow__date" datetime="2025-04-17T22:52:57+06:00">17 Apr</time>
+        </li>
+        <li class="mrow" data-name="junyed_69 not_r4czy" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">J</span><img src="/api/head?name=Junyed_69&alt=not_r4czy" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Junyed_69</strong><span class="mrow__aka">aka not_r4czy</span></span>
+          <time class="mrow__date" datetime="2025-04-18T14:28:19+06:00">18 Apr</time>
+        </li>
+        <li class="mrow mrow--staff" data-name="bs_editz not_rexo" data-kind="staff">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">B</span><img src="/api/head?name=BS_Editz&alt=not_rexo" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">BS_Editz</strong><span class="mrow__aka">aka not_rexo</span></span>
+          <span class="mrow__role">Chief Staff</span><time class="mrow__date" datetime="2025-04-19T01:00:53+06:00">19 Apr</time>
+        </li>
+        <li class="mrow" data-name="ontorgamer999" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">O</span><img src="/api/head?name=OntorGamer999" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">OntorGamer999</strong></span>
+          <time class="mrow__date" datetime="2025-04-27T15:39:35+06:00">27 Apr</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">May 2025 <span>8</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="xprosagor" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">X</span><img src="/api/head?name=XproSagor" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">XproSagor</strong></span>
+          <time class="mrow__date" datetime="2025-05-01T23:22:12+06:00">1 May</time>
+        </li>
+        <li class="mrow" data-name="ramim32ob" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">R</span><img src="/api/head?name=ramim32ob" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">ramim32ob</strong></span>
+          <time class="mrow__date" datetime="2025-05-04T10:41:01+06:00">4 May</time>
+        </li>
+        <li class="mrow" data-name="siuuuurup" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=siuuuurup" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">siuuuurup</strong></span>
+          <time class="mrow__date" datetime="2025-05-04T11:29:31+06:00">4 May</time>
+        </li>
+        <li class="mrow mrow--staff" data-name="tasfiq" data-kind="staff">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">T</span><img src="/api/head?name=Tasfiq" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Tasfiq</strong></span>
+          <span class="mrow__role">Dev/Admin</span><time class="mrow__date" datetime="2025-05-09T22:32:51+06:00">9 May</time>
+        </li>
+        <li class="mrow" data-name="agentabrar7" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">A</span><img src="/api/head?name=AgentAbrar7" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">AgentAbrar7</strong></span>
+          <time class="mrow__date" datetime="2025-05-12T20:31:08+06:00">12 May</time>
+        </li>
+        <li class="mrow" data-name="tabin_gamer" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">T</span><img src="/api/head?name=Tabin_Gamer" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Tabin_Gamer</strong></span>
+          <time class="mrow__date" datetime="2025-05-17T19:43:32+06:00">17 May</time>
+        </li>
+        <li class="mrow" data-name="mrthgamer" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=Mrthgamer" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Mrthgamer</strong></span>
+          <time class="mrow__date" datetime="2025-05-25T17:39:39+06:00">25 May</time>
+        </li>
+        <li class="mrow" data-name="jagu5819" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">J</span><img src="/api/head?name=jagu5819" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">jagu5819</strong></span>
+          <time class="mrow__date" datetime="2025-05-25T17:55:59+06:00">25 May</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">June 2025 <span>4</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="warchampion" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">W</span><img src="/api/head?name=WARCHAMPION" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">WARCHAMPION</strong></span>
+          <time class="mrow__date" datetime="2025-06-05T18:32:10+06:00">5 Jun</time>
+        </li>
+        <li class="mrow" data-name="crazygamer022" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">C</span><img src="/api/head?name=crazygamer022" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">crazygamer022</strong></span>
+          <time class="mrow__date" datetime="2025-06-21T14:20:00+06:00">21 Jun</time>
+        </li>
+        <li class="mrow" data-name="rishathassan999" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">R</span><img src="/api/head?name=Rishathassan999" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Rishathassan999</strong></span>
+          <time class="mrow__date" datetime="2025-06-22T09:32:31+06:00">22 Jun</time>
+        </li>
+        <li class="mrow" data-name="maruf" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=maruf" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">maruf</strong></span>
+          <time class="mrow__date" datetime="2025-06-24T23:08:44+06:00">24 Jun</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">July 2025 <span>6</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="mahin" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=Mahin" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Mahin</strong></span>
+          <time class="mrow__date" datetime="2025-07-15T23:37:20+06:00">15 Jul</time>
+        </li>
+        <li class="mrow" data-name="hassan" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">H</span><img src="/api/head?name=Hassan" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Hassan</strong></span>
+          <time class="mrow__date" datetime="2025-07-16T00:00:42+06:00">16 Jul</time>
+        </li>
+        <li class="mrow" data-name="raihan" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">R</span><img src="/api/head?name=Raihan" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Raihan</strong></span>
+          <time class="mrow__date" datetime="2025-07-17T23:27:20+06:00">17 Jul</time>
+        </li>
+        <li class="mrow" data-name="mmfarazi" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=MMFARAZI" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">MMFARAZI</strong></span>
+          <time class="mrow__date" datetime="2025-07-18T00:06:38+06:00">18 Jul</time>
+        </li>
+        <li class="mrow" data-name="bdghost" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">B</span><img src="/api/head?name=BdGhost" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">BdGhost</strong></span>
+          <time class="mrow__date" datetime="2025-07-20T18:48:46+06:00">20 Jul</time>
+        </li>
+        <li class="mrow" data-name="mahafuj9" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=Mahafuj9" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Mahafuj9</strong></span>
+          <time class="mrow__date" datetime="2025-07-30T21:06:09+06:00">30 Jul</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">October 2025 <span>3</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="dewanduha" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">D</span><img src="/api/head?name=dewanduha" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">dewanduha</strong></span>
+          <time class="mrow__date" datetime="2025-10-21T17:57:42+06:00">21 Oct</time>
+        </li>
+        <li class="mrow" data-name="baria_dewan" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">B</span><img src="/api/head?name=baria_dewan" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">baria_dewan</strong></span>
+          <time class="mrow__date" datetime="2025-10-24T15:27:41+06:00">24 Oct</time>
+        </li>
+        <li class="mrow" data-name="brokeelonmusk1" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">B</span><img src="/api/head?name=brokeelonmusk1" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">brokeelonmusk1</strong></span>
+          <time class="mrow__date" datetime="2025-10-31T23:53:48+06:00">31 Oct</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">November 2025 <span>1</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="actionlix" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">A</span><img src="/api/head?name=Actionlix" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Actionlix</strong></span>
+          <time class="mrow__date" datetime="2025-11-03T17:12:19+06:00">3 Nov</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">December 2025 <span>1</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="aohana" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">A</span><img src="/api/head?name=Aohana" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Aohana</strong></span>
+          <time class="mrow__date" datetime="2025-12-02T18:36:35+06:00">2 Dec</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">May 2026 <span>2</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="maruf_ferdous" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=maruf_ferdous" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">maruf_ferdous</strong></span>
+          <time class="mrow__date" datetime="2026-05-23T21:18:35+06:00">23 May</time>
+        </li>
+        <li class="mrow" data-name="itzmelissa" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">I</span><img src="/api/head?name=ItzMelissa" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">ItzMelissa</strong></span>
+          <time class="mrow__date" datetime="2026-05-23T21:21:08+06:00">23 May</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">August 2026 <span>2</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="itzanam_" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">I</span><img src="/api/head?name=ItzAnam_" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">ItzAnam_</strong></span>
+          <time class="mrow__date" datetime="2026-08-15T22:34:24+06:00">15 Aug</time>
+        </li>
+        <li class="mrow" data-name="ms_farhana" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=Ms_Farhana" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Ms_Farhana</strong></span>
+          <time class="mrow__date" datetime="2026-08-27T21:42:35+06:00">27 Aug</time>
+        </li>
+      </ul>
+    </section>
+    <section class="mgroup" data-group>
+      <h3 class="mgroup__label">November 2026 <span>7</span></h3>
+      <ul class="mlist">
+        <li class="mrow" data-name="sporshosnake" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">S</span><img src="/api/head?name=SporshoSnake" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">SporshoSnake</strong></span>
+          <time class="mrow__date" datetime="2026-11-13T15:20:15+06:00">13 Nov</time>
+        </li>
+        <li class="mrow" data-name="riddo" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">R</span><img src="/api/head?name=RIDDO" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">RIDDO</strong></span>
+          <time class="mrow__date" datetime="2026-11-13T15:23:23+06:00">13 Nov</time>
+        </li>
+        <li class="mrow" data-name="jibon" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">J</span><img src="/api/head?name=Jibon" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Jibon</strong></span>
+          <time class="mrow__date" datetime="2026-11-15T22:54:51+06:00">15 Nov</time>
+        </li>
+        <li class="mrow" data-name="asia334" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">A</span><img src="/api/head?name=asia334" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">asia334</strong></span>
+          <time class="mrow__date" datetime="2026-11-16T13:56:10+06:00">16 Nov</time>
+        </li>
+        <li class="mrow" data-name="m_billah" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">M</span><img src="/api/head?name=M_BILLAH" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">M_BILLAH</strong></span>
+          <time class="mrow__date" datetime="2026-11-17T20:49:26+06:00">17 Nov</time>
+        </li>
+        <li class="mrow" data-name="bushair25" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">B</span><img src="/api/head?name=Bushair25" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Bushair25</strong></span>
+          <time class="mrow__date" datetime="2026-11-19T21:05:35+06:00">19 Nov</time>
+        </li>
+        <li class="mrow" data-name="littel" data-kind="member">
+          <span class="face face--40"><span class="face__init" aria-hidden="true">L</span><img src="/api/head?name=Littel" alt="" width="40" height="40" loading="lazy" decoding="async" data-head></span><span class="mrow__live" aria-hidden="true"></span>
+          <span class="mrow__who"><strong class="mrow__name">Littel</strong></span>
+          <time class="mrow__date" datetime="2026-11-20T15:50:41+06:00">20 Nov</time>
+        </li>
+      </ul>
+    </section>
     </div>
     <p class="mempty" data-member-empty hidden>No members match your search.</p>
   </div>
 </section>
 
-<!-- ============================== HOW TO JOIN =========================== -->
+<!-- ============================== JOIN BAND ============================= -->
 <section class="section section--tight">
   <div class="shell">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Become a member</p>
-      <h2>Joining takes four steps.</h2>
-    </div>
-    <ol class="msteps">
-      <li class="msteps__item" data-reveal><span class="msteps__n">1</span><h3>Contact staff</h3><p>Ask in Discord and tell us who you are.</p></li>
-      <li class="msteps__item" data-reveal><span class="msteps__n">2</span><h3>Verify</h3><p>Complete the verification process staff give you.</p></li>
-      <li class="msteps__item" data-reveal><span class="msteps__n">3</span><h3>Approval</h3><p>Staff review your request and decide.</p></li>
-      <li class="msteps__item" data-reveal><span class="msteps__n">4</span><h3>Whitelisted</h3><p>Connect with Java Edition and start building.</p></li>
-    </ol>
-    <div class="btn-row" data-reveal>
-      <a class="btn btn--primary" href="join">How to join</a>
-      <a class="btn btn--ghost" href="rules">Read the rules</a>
+    <div class="mjoin" data-reveal>
+      <div>
+        <h2>Want your name on this list?</h2>
+        <p>Ask staff in Discord, verify, get approved, and you are whitelisted.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="join">How to join</a>
+        <a class="btn btn--ghost" href="rules">Read the rules</a>
+      </div>
     </div>
   </div>
 </section>
