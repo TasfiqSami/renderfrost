@@ -29,29 +29,93 @@ async function getState() {
   };
 }
 
+/* ---- Minecraft server list ping (direct TCP, no third party) ---------- */
+const net = require("net");
+const dns = require("dns").promises;
+
+function varint(n) {
+  const out = [];
+  do { let b = n & 0x7f; n >>>= 7; if (n) b |= 0x80; out.push(b); } while (n);
+  return Buffer.from(out);
+}
+
+function ping(host, port, timeout) {
+  return new Promise((resolve, reject) => {
+    const sock = net.connect({ host, port });
+    let buf = Buffer.alloc(0);
+    const done = (err, val) => { sock.destroy(); err ? reject(err) : resolve(val); };
+    sock.setTimeout(timeout, () => done(new Error("timeout")));
+    sock.on("error", done);
+    sock.on("connect", () => {
+      const h = Buffer.from(host, "utf8");
+      const port2 = Buffer.alloc(2); port2.writeUInt16BE(port);
+      const body = Buffer.concat([varint(0), varint(767), varint(h.length), h, port2, varint(1)]);
+      sock.write(Buffer.concat([varint(body.length), body, Buffer.from([1, 0])]));
+    });
+    sock.on("data", (chunk) => {
+      buf = Buffer.concat([buf, chunk]);
+      try {
+        let i = 0;
+        const readVar = () => { let r = 0, sh = 0, b; do { if (i >= buf.length) throw 0; b = buf[i++]; r |= (b & 0x7f) << sh; sh += 7; } while (b & 0x80); return r; };
+        const len = readVar();
+        if (buf.length - i < len) return;
+        readVar(); // packet id
+        const jl = readVar();
+        if (buf.length - i < jl) return;
+        done(null, JSON.parse(buf.slice(i, i + jl).toString("utf8")));
+      } catch (e) {
+        if (e !== 0) done(e instanceof Error ? e : new Error("bad response"));
+      }
+    });
+  });
+}
+
+function plain(m) {
+  if (!m) return "";
+  if (typeof m === "string") return m;
+  return String(m.text || "") + (Array.isArray(m.extra) ? m.extra.map(plain).join("") : "");
+}
+
+async function viaPing(host) {
+  let target = host, port = 25565;
+  try {
+    const srv = await dns.resolveSrv("_minecraft._tcp." + host);
+    if (srv && srv.length) { target = srv[0].name; port = srv[0].port; }
+  } catch (e) { /* no SRV record: default port */ }
+  const d = await ping(target, port, 5000);
+  const p = d.players || {};
+  return {
+    online: p.online | 0,
+    max: p.max | 0,
+    list: Array.isArray(p.sample) ? p.sample.map((x) => String((x && x.name) || "")).filter((n) => /^[A-Za-z0-9_]{3,16}$/.test(n)) : [],
+    version: d.version && d.version.name ? String(d.version.name).slice(0, 40) : null,
+    motd: plain(d.description).replace(/\u00a7./g, "").replace(/\s+/g, " ").trim().slice(0, 120) || null,
+  };
+}
+
+async function viaApi(host) {
+  const res = await fetch(`https://api.mcstatus.io/v2/status/java/${encodeURIComponent(host)}`, {
+    headers: { "User-Agent": "RenderFrostStatus/1.0" },
+    signal: AbortSignal.timeout(6000),
+  });
+  const d = await res.json();
+  if (!d.online || !d.players) throw new Error("offline");
+  return {
+    online: d.players.online | 0,
+    max: d.players.max | 0,
+    list: (d.players.list || []).map((p) => String((p && p.name_clean) || "")).filter(Boolean).slice(0, 100),
+    version: d.version && d.version.name_clean ? String(d.version.name_clean).slice(0, 40) : null,
+    motd: d.motd && d.motd.clean ? String(d.motd.clean).replace(/\s+/g, " ").trim().slice(0, 120) : null,
+  };
+}
+
 async function getPlayers() {
   const host = process.env.MC_HOST;
   if (!host) return null;
-  try {
-    const res = await fetch(`https://api.mcsrvstat.us/3/${encodeURIComponent(host)}`, {
-      headers: { "User-Agent": "RenderFrostStatus/1.0" },
-      signal: AbortSignal.timeout(6000),
-    });
-    const d = await res.json();
-    if (!d.online || !d.players) return null;
-    const list = Array.isArray(d.players.list)
-      ? d.players.list.map((p) => String((p && p.name) || "")).filter(Boolean).slice(0, 100)
-      : [];
-    return {
-      online: d.players.online | 0,
-      max: d.players.max | 0,
-      list,
-      version: d.version ? String(d.version).slice(0, 40) : null,
-      motd: d.motd && Array.isArray(d.motd.clean) ? d.motd.clean.map(String).join(" ").replace(/\s+/g, " ").trim().slice(0, 120) : null,
-    };
-  } catch (e) {
-    return null;
+  for (const fn of [viaPing, viaApi]) {
+    try { return await fn(host); } catch (e) { console.error("players via " + fn.name + " failed:", e && e.message); }
   }
+  return null;
 }
 
 async function getLastBackup() {
