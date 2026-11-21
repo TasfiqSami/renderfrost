@@ -28,7 +28,7 @@ Read the full text in [`SmpRules.md`](SmpRules.md).
 
 ## Build
 
-This is a static site. The only server-side piece is the optional status proxy in `worker/` (see `worker/README.md`); the API key lives only there, as a Worker secret, never in the site.
+This is a static site. The only server-side piece is the status function in `api/status.js`; the panel API key lives only in the Vercel project environment, never in the site.
 
 ```bash
 node tools/build.js     # render src/pages into root HTML files

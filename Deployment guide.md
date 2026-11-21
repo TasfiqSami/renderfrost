@@ -91,3 +91,11 @@ Internal links and canonical URLs are written without the `.html` extension
   Without it, links will 404.
 
 Old `.html` addresses keep working in the site's own navigation.
+
+## Live status (`/api/status`)
+
+`api/status.js` is a Vercel serverless function used by the Members page. It reads
+these environment variables (Vercel project settings): `PTERO_API_KEY` (sensitive),
+`PTERO_URL`, `PTERO_SERVER_ID`, `MC_HOST`, `SHOW_WHITELIST`.
+Set `SHOW_WHITELIST` to `true` to publish whitelisted names on the Members page.
+If the function or panel is unreachable, the page falls back to its static text.
