@@ -422,40 +422,40 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
     }
 
     /* --------------------------------------------- 7. Rules page contents */
-    console.log("\n[7] Rules contents navigation\n");
+    console.log("\n[7] Rules search, filters and anchors\n");
     {
       const c = await newPage(browser, 1440, 900);
       await goto(c.page, "rules");
 
-      const count = await c.page.evaluate(() => document.querySelectorAll(".rules-toc .rules-toc__link[href^=\"#rule-\"]").length);
-      check("contents lists all 20 rules", count === 20, `${count} links`);
+      const ruleCount = await c.page.evaluate(() => document.querySelectorAll(".rcard[id^=\"rule-\"]").length);
+      check("20 rule cards rendered", ruleCount === 20, `${ruleCount} cards`);
 
-      const ruleCount = await c.page.evaluate(() => document.querySelectorAll(".rule[id^=\"rule-\"]").length);
-      check("20 rule sections rendered", ruleCount === 20, `${ruleCount} sections`);
+      const sticky = await c.page.evaluate(() => getComputedStyle(document.querySelector(".rbar")).position);
+      check("filter bar is sticky", sticky === "sticky", sticky);
 
-      const sticky = await c.page.evaluate(
-        () => getComputedStyle(document.querySelector(".rules-toc")).position
-      );
-      check("desktop contents rail is sticky", sticky === "sticky", sticky);
+      await c.page.type("[data-rules-search]", "pvp");
+      await wait(200);
+      const pvp = await c.page.$eval("[data-rules-count]", (el) => Number(el.textContent));
+      check("search narrows the rules", pvp > 0 && pvp < 20, String(pvp));
 
-      await c.page.evaluate(() => {
-        document.getElementById("rule-12").scrollIntoView({ behavior: "instant" });
-      });
-      await wait(900);
+      await c.page.$eval("[data-rules-search]", (el) => { el.value = ""; el.dispatchEvent(new Event("input", { bubbles: true })); });
+      await c.page.click("[data-rules-filter=\"3\"]");
+      await wait(200);
+      const sec3 = await c.page.$eval("[data-rules-count]", (el) => Number(el.textContent));
+      check("section filter shows its 4 rules", sec3 === 4, String(sec3));
 
-      const current = await c.page.evaluate(() => {
-        const el = document.querySelector(".rules-toc__link.is-current");
-        return el ? el.getAttribute("href") : null;
-      });
-      check("contents highlights the rule in view", current === "#rule-12", String(current));
+      await c.page.click("[data-rules-filter=\"\"]");
+      await wait(200);
+      const all = await c.page.$eval("[data-rules-count]", (el) => Number(el.textContent));
+      check("All restores every rule", all === 20, String(all));
 
-      await c.page.click(".rules-toc__link[href=\"#rule-4\"]");
+      await c.page.click(".rquick__item[href=\"#rule-9\"]");
       await wait(900);
       const jumped = await c.page.evaluate(() => ({
         hash: location.hash,
-        top: document.getElementById("rule-4").getBoundingClientRect().top,
+        top: document.getElementById("rule-9").getBoundingClientRect().top,
       }));
-      check("anchor link jumps to the rule", jumped.hash === "#rule-4" && jumped.top < 200, JSON.stringify(jumped));
+      check("quick reference link jumps to the rule", jumped.hash === "#rule-9" && jumped.top < 300, JSON.stringify(jumped));
 
       await c.page.close();
     }
@@ -553,26 +553,14 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
         }
       }
 
-      // Mobile rules jump menu replaces the sticky rail.
+      // Rules toolbar must stay usable on a phone.
       const c = await newPage(browser, 390, 844);
       await goto(c.page, "rules");
-      const railHidden = await c.page.evaluate(
-        () => getComputedStyle(document.querySelector(".rules-toc")).display
-      );
-      const jumpShown = await c.page.evaluate(
-        () => getComputedStyle(document.querySelector(".rules-toc__mobile")).display
-      );
-      check("sticky rail hidden on mobile", railHidden === "none", railHidden);
-      check("expandable jump menu shown instead", jumpShown !== "none", jumpShown);
-
-      await c.page.click(".rules-jump > summary");
-      await wait(300);
-      const jumpOpen = await c.page.$eval(".rules-jump", (el) => el.open);
-      check("jump menu expands accessibly", jumpOpen === true, String(jumpOpen));
-      const jumpLinks = await c.page.evaluate(
-        () => document.querySelectorAll(".rules-jump .rules-toc__link[href^=\"#rule-\"]").length
-      );
-      check("jump menu lists all 20 rules", jumpLinks === 20, `${jumpLinks} links`);
+      const barOk = await c.page.evaluate(() => {
+        const bar = document.querySelector(".rbar");
+        return !!bar && bar.getBoundingClientRect().right <= innerWidth + 1;
+      });
+      check("rules toolbar fits a phone screen", barOk === true, String(barOk));
       await c.page.close();
     }
 

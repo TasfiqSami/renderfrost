@@ -336,70 +336,66 @@
     });
   }
 
-  /* -------------------------------------------- Rules page navigation */
+  /* ------------------------------------------------- Rules page: filter */
 
   function bindRulesNav() {
-    if (rulesObserver) rulesObserver.disconnect();
-    rulesObserver = null;
-    if (rulesScrollHandler) {
-      global.removeEventListener("scroll", rulesScrollHandler);
-      global.removeEventListener("resize", rulesScrollHandler);
-      rulesScrollHandler = null;
-    }
-    if (rulesScrollRaf) {
-      global.cancelAnimationFrame(rulesScrollRaf);
-      rulesScrollRaf = 0;
-    }
+    var bar = document.querySelector("[data-rules-bar]");
+    if (!bar) return;
+    var search = bar.querySelector("[data-rules-search]");
+    var chips = bar.querySelectorAll("[data-rules-filter]");
+    var count = bar.querySelector("[data-rules-count]");
+    var empty = document.querySelector("[data-rules-empty]");
+    var sections = Array.prototype.slice.call(document.querySelectorAll(".rsec"));
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".rcard"));
+    var which = "";
 
-    var rail = document.querySelector(".rules-toc");
-    if (!rail) return;
-
-    var links = Array.prototype.slice.call(rail.querySelectorAll(".rules-toc__link"));
-    var sections = links
-      .map(function (l) { return document.getElementById(l.getAttribute("href").slice(1)); })
-      .filter(Boolean);
-
-    if (!sections.length) return;
-
-    var current = null;
-    function repaint() {
-      var line = global.innerHeight * 0.65;
-      var atPageEnd =
-        global.scrollY + global.innerHeight >= document.documentElement.scrollHeight - 2;
-      var active = atPageEnd ? sections[sections.length - 1] : sections[0];
-      if (!atPageEnd) {
-        sections.forEach(function (section) {
-          if (section.getBoundingClientRect().top <= line) active = section;
+    function apply() {
+      var q = search.value.trim().toLowerCase();
+      var terms = q ? q.split(/\s+/) : [];
+      var shownRules = 0;
+      sections.forEach(function (sec) {
+        var inSection = !which || sec.getAttribute("data-section") === which;
+        var any = 0;
+        Array.prototype.forEach.call(sec.querySelectorAll(".rcard"), function (c) {
+          var hay = c.getAttribute("data-search") || "";
+          var ok = inSection && terms.every(function (t) { return hay.indexOf(t) !== -1; });
+          c.hidden = !ok;
+          if (ok) { any++; if (/^rule-/.test(c.id)) shownRules++; }
         });
-      }
-      var id = active && active.id;
-      if (!id || id === current) return;
-      current = id;
-      links.forEach(function (l) {
-        l.classList.toggle("is-current", l.getAttribute("href") === "#" + id);
+        sec.hidden = any === 0;
       });
+      if (count) count.textContent = String(shownRules);
+      if (empty) empty.hidden = sections.some(function (s) { return !s.hidden; });
     }
 
-    rulesScrollHandler = function () {
-      if (rulesScrollRaf) return;
-      rulesScrollRaf = global.requestAnimationFrame(function () {
-        rulesScrollRaf = 0;
-        repaint();
+    search.addEventListener("input", apply);
+    Array.prototype.forEach.call(chips, function (chip) {
+      chip.addEventListener("click", function () {
+        which = chip.getAttribute("data-rules-filter");
+        Array.prototype.forEach.call(chips, function (c) {
+          var on = c === chip;
+          c.classList.toggle("is-active", on);
+          c.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        apply();
+        if (which) {
+          var top = document.querySelector(".rbody");
+          if (top && global.scrollY > top.offsetTop) top.scrollIntoView({ block: "start" });
+        }
       });
-    };
-    global.addEventListener("scroll", rulesScrollHandler, { passive: true });
-    global.addEventListener("resize", rulesScrollHandler, { passive: true });
+    });
 
-    if ("IntersectionObserver" in global) {
-      rulesObserver = new IntersectionObserver(function (entries) {
-        if (entries.length) repaint();
-      }, { rootMargin: "-5% 0px -35% 0px", threshold: 0 });
-      sections.forEach(function (s) { rulesObserver.observe(s); });
+    /* Deep links (#rule-9): make sure the rule is visible and briefly flash it. */
+    function flash() {
+      var id = global.location.hash.slice(1);
+      var el = id && document.getElementById(id);
+      if (!el || !el.classList.contains("rcard")) return;
+      el.classList.add("is-flash");
+      global.setTimeout(function () { el.classList.remove("is-flash"); }, 2200);
     }
-    repaint();
+    global.addEventListener("hashchange", flash);
+    flash();
   }
-
-  /* --------------------------------------------------------- Back to top */
 
   function bindBackToTop() {
     var link = document.querySelector(".backtotop");

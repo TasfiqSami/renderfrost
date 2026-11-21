@@ -2,11 +2,11 @@
 title: Server Rules — RenderFrost SMP
 description: The complete 20-rule code for RenderFrost SMP: conduct, privacy, griefing, trading, PvP consent, cheating, accounts, Elytra limit, building limits, whitelist, rollback policy and Discord conduct.
 ogTitle: Server Rules — RenderFrost SMP
-ogDescription: All 20 RenderFrost SMP rules in full, plus Discord community conduct, with a contents list you can jump straight into.
+ogDescription: All 20 RenderFrost SMP rules in full, plus Discord community conduct. Search, filter and jump straight to any rule.
 canonical: rules.html
 }}
 
-<!-- ============================= PAGE HEADER ============================= -->
+<!-- ================================ HERO ================================ -->
 <section class="pagehead pagehead--art">
   <div class="shell">
     <nav aria-label="Breadcrumb">
@@ -20,100 +20,76 @@ canonical: rules.html
       <h1>The RenderFrost code.</h1>
       <p class="pagehead__sub">
         Twenty rules in five sections, built on trust, fairness, creativity and
-        respect. Read them before your first session &mdash; by playing on
-        RenderFrost SMP you agree to follow them and to cooperate with the staff
-        team.
+        respect. By playing on RenderFrost SMP you agree to follow them and to
+        cooperate with the staff team.
       </p>
+    </div>
+
+    <div class="rquick" data-reveal>
+      <a class="rquick__item rquick__item--danger" href="#rule-2">
+        <span class="rquick__k">Permanent ban</span>
+        <span class="rquick__v">Doxxing and real-world threats</span>
+        <span class="rquick__r">Rule 02</span>
+      </a>
+      <a class="rquick__item rquick__item--warn" href="#rule-3">
+        <span class="rquick__k">Mute</span>
+        <span class="rquick__v">Spam, flooding and advertising</span>
+        <span class="rquick__r">Rule 03</span>
+      </a>
+      <a class="rquick__item rquick__item--warn" href="#rule-9">
+        <span class="rquick__k">Jail time</span>
+        <span class="rquick__v">Interrupting friendly PvP</span>
+        <span class="rquick__r">Rule 09</span>
+      </a>
+      <a class="rquick__item" href="#rule-4">
+        <span class="rquick__k">Appeals</span>
+        <span class="rquick__v">Through the official ticket channel</span>
+        <span class="rquick__r">Rule 04</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- =============================== RULES ================================= -->
-<section class="section section--tight">
+<!-- ============================== TOOLBAR =============================== -->
+<div class="rbar" data-rules-bar>
+  <div class="shell rbar__inner">
+    <label class="msearch rbar__search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span class="sr-only">Search the rules</span>
+      <input type="search" placeholder="Search the rules (e.g. PvP, Elytra, ban)" autocomplete="off" spellcheck="false" data-rules-search>
+    </label>
+    <div class="rbar__chips" role="group" aria-label="Filter by section">
+      <button type="button" class="chip is-active" data-rules-filter="" aria-pressed="true" aria-label="Show all sections">All</button>
+      <button type="button" class="chip" data-rules-filter="1" aria-pressed="false" aria-label="Show section I: Conduct">Conduct</button>
+      <button type="button" class="chip" data-rules-filter="2" aria-pressed="false" aria-label="Show section II: Property &amp; Combat">Property &amp; Combat</button>
+      <button type="button" class="chip" data-rules-filter="3" aria-pressed="false" aria-label="Show section III: Fair Play">Fair Play</button>
+      <button type="button" class="chip" data-rules-filter="4" aria-pressed="false" aria-label="Show section IV: World">World</button>
+      <button type="button" class="chip" data-rules-filter="5" aria-pressed="false" aria-label="Show section V: Whitelist">Whitelist</button>
+      <button type="button" class="chip" data-rules-filter="discord" aria-pressed="false" aria-label="Show Discord conduct">Discord</button>
+    </div>
+    <p class="rbar__count" aria-live="polite"><strong data-rules-count>20</strong> rules shown</p>
+  </div>
+</div>
+
+<!-- ================================ RULES =============================== -->
+<section class="section section--tight rbody">
   <div class="shell">
-    <div class="rules-layout">
 
-      <!-- Contents (desktop rail) -->
-      <aside class="rules-toc" aria-label="Rules contents">
-        <p class="rules-toc__title" id="contents">Contents</p>
-        <ul class="rules-toc__list">
-          <li class="rules-toc__group">I &middot; Community Conduct &amp; Safety</li>
-          <li><a class="rules-toc__link" href="#rule-1"><b>01</b><span>Be Kind &amp; Respectful</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-2"><b>02</b><span>Protect Personal Information</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-3"><b>03</b><span>No Advertising or Spam</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-4"><b>04</b><span>Respect Staff Decisions</span></a></li>
-          <li class="rules-toc__group">II &middot; Property, Trading &amp; Combat</li>
-          <li><a class="rules-toc__link" href="#rule-5"><b>05</b><span>No Griefing or Stealing</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-6"><b>06</b><span>Respect Private Storage</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-7"><b>07</b><span>No Scamming or Fraud</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-8"><b>08</b><span>No Unconsented PvP</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-9"><b>09</b><span>Do Not Interrupt Friendly PvP</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-10"><b>10</b><span>Explosives &amp; Channeling</span></a></li>
-          <li class="rules-toc__group">III &middot; Fair Play, Accounts &amp; Item Limits</li>
-          <li><a class="rules-toc__link" href="#rule-11"><b>11</b><span>No Hacks, X-Ray or Duplication</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-12"><b>12</b><span>No Alt Account Abuse</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-13"><b>13</b><span>No Account Sharing or Selling</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-14"><b>14</b><span>Elytra Ownership Limit</span></a></li>
-          <li class="rules-toc__group">IV &middot; World Preservation &amp; Server Performance</li>
-          <li><a class="rules-toc__link" href="#rule-15"><b>15</b><span>Do Not Modify Spawn Village</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-16"><b>16</b><span>Building, Redstone &amp; Farms</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-17"><b>17</b><span>Do Not Mine Straight Down</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-18"><b>18</b><span>Finish Chopping Trees</span></a></li>
-          <li class="rules-toc__group">V &middot; Whitelist Access &amp; Rollback Policy</li>
-          <li><a class="rules-toc__link" href="#rule-19"><b>19</b><span>Whitelist &amp; Recommendations</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-20"><b>20</b><span>Rollback Policy</span></a></li>
-          <li class="rules-toc__group">Discord server</li>
-          <li><a class="rules-toc__link" href="#discord-conduct"><b>DC</b><span>Discord Conduct</span></a></li>
-        </ul>
-      </aside>
-
-      <!-- Contents (mobile, accessible) -->
-      <details class="rules-toc__mobile rules-jump">
-        <summary>Jump to a rule</summary>
-        <ul class="rules-toc__list">
-          <li class="rules-toc__group">I &middot; Community Conduct &amp; Safety</li>
-          <li><a class="rules-toc__link" href="#rule-1"><b>01</b><span>Be Kind &amp; Respectful</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-2"><b>02</b><span>Protect Personal Information</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-3"><b>03</b><span>No Advertising or Spam</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-4"><b>04</b><span>Respect Staff Decisions</span></a></li>
-          <li class="rules-toc__group">II &middot; Property, Trading &amp; Combat</li>
-          <li><a class="rules-toc__link" href="#rule-5"><b>05</b><span>No Griefing or Stealing</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-6"><b>06</b><span>Respect Private Storage</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-7"><b>07</b><span>No Scamming or Fraud</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-8"><b>08</b><span>No Unconsented PvP</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-9"><b>09</b><span>Do Not Interrupt Friendly PvP</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-10"><b>10</b><span>Explosives &amp; Channeling</span></a></li>
-          <li class="rules-toc__group">III &middot; Fair Play, Accounts &amp; Item Limits</li>
-          <li><a class="rules-toc__link" href="#rule-11"><b>11</b><span>No Hacks, X-Ray or Duplication</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-12"><b>12</b><span>No Alt Account Abuse</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-13"><b>13</b><span>No Account Sharing or Selling</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-14"><b>14</b><span>Elytra Ownership Limit</span></a></li>
-          <li class="rules-toc__group">IV &middot; World Preservation &amp; Server Performance</li>
-          <li><a class="rules-toc__link" href="#rule-15"><b>15</b><span>Do Not Modify Spawn Village</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-16"><b>16</b><span>Building, Redstone &amp; Farms</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-17"><b>17</b><span>Do Not Mine Straight Down</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-18"><b>18</b><span>Finish Chopping Trees</span></a></li>
-          <li class="rules-toc__group">V &middot; Whitelist Access &amp; Rollback Policy</li>
-          <li><a class="rules-toc__link" href="#rule-19"><b>19</b><span>Whitelist &amp; Recommendations</span></a></li>
-          <li><a class="rules-toc__link" href="#rule-20"><b>20</b><span>Rollback Policy</span></a></li>
-          <li class="rules-toc__group">Discord server</li>
-          <li><a class="rules-toc__link" href="#discord-conduct"><b>DC</b><span>Discord Conduct</span></a></li>
-        </ul>
-      </details>
-
-      <div class="rules-body">
-
-        <header class="rules-section" id="section-1">
-          <p class="rules-section__num">Section I</p>
-          <h2 class="rules-section__title">Community Conduct &amp; Safety</h2>
-        </header>
-
-        <article class="rule" id="rule-1">
-          <header class="rule__head">
-            <span class="rule__num">01</span>
-            <h3 class="rule__title">Be Kind &amp; Respectful</h3>
+    <section class="rsec" id="section-1" data-section="1">
+      <header class="rsec__head" data-reveal>
+        <span class="rsec__num">I</span>
+        <div>
+          <p class="rsec__eyebrow">Section I &middot; 4 rules</p>
+          <h2 class="rsec__title">Community Conduct &amp; Safety</h2>
+        </div>
+      </header>
+      <div class="rgrid">
+        <article class="rcard" id="rule-1" data-search="1 be kind &amp; respectful every player deserves to feel welcome and respected within the renderfrost community. prohibited behaviour hate speech, discriminatory remarks and slurs. harassment, targeted abuse or deliberate humiliation. excessive vulgarity. any conduct intended to make another player’s experience hostile. remember: disagreements are normal, but personal attacks are strictly unacceptable." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">01</span>
+            <h3 class="rcard__title">Be Kind &amp; Respectful</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Every player deserves to feel welcome and respected within the RenderFrost community.</p>
             <p class="rule__sub">Prohibited behaviour</p>
             <ul class="rule__list">
@@ -127,13 +103,12 @@ canonical: rules.html
             </div>
           </div>
         </article>
-
-        <article class="rule" id="rule-2">
-          <header class="rule__head">
-            <span class="rule__num">02</span>
-            <h3 class="rule__title">Protect Personal Information</h3>
+        <article class="rcard" id="rule-2" data-search="2 protect personal information strictly prohibited doxxing. sharing another player’s private or real-world details. threatening real-world harm. penalty: immediate permanent ban." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">02</span>
+            <h3 class="rcard__title">Protect Personal Information</h3><span class="rtag rtag--danger">Permanent ban</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p class="rule__sub">Strictly prohibited</p>
             <ul class="rule__list">
               <li>Doxxing.</li>
@@ -145,26 +120,24 @@ canonical: rules.html
             </div>
           </div>
         </article>
-
-        <article class="rule" id="rule-3">
-          <header class="rule__head">
-            <span class="rule__num">03</span>
-            <h3 class="rule__title">No Advertising or Spam</h3>
+        <article class="rcard" id="rule-3" data-search="3 no advertising or spam do not advertise other servers, websites or external services in chat, on signs or in books. repeated chat spam, flooding or disruptive messaging will result in a mute." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">03</span>
+            <h3 class="rcard__title">No Advertising or Spam</h3><span class="rtag rtag--warn">Mute</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <ul class="rule__list">
               <li>Do not advertise other servers, websites or external services in chat, on signs or in books.</li>
               <li>Repeated chat spam, flooding or disruptive messaging will result in a mute.</li>
             </ul>
           </div>
         </article>
-
-        <article class="rule" id="rule-4">
-          <header class="rule__head">
-            <span class="rule__num">04</span>
-            <h3 class="rule__title">Respect the Staff&rsquo;s Decisions</h3>
+        <article class="rcard" id="rule-4" data-search="4 respect the staff’s decisions moderation decisions are final. if you wish to contest a punishment, submit an appeal through the official support or ticket channel. arguing in public chat or harassing staff will result in additional penalties." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">04</span>
+            <h3 class="rcard__title">Respect the Staff&rsquo;s Decisions</h3><span class="rtag rtag--info">Final decisions</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <ul class="rule__list">
               <li>Moderation decisions are final.</li>
               <li>If you wish to contest a punishment, submit an appeal through the official support or ticket channel.</li>
@@ -174,18 +147,24 @@ canonical: rules.html
             </div>
           </div>
         </article>
+      </div>
+    </section>
 
-        <header class="rules-section" id="section-2">
-          <p class="rules-section__num">Section II</p>
-          <h2 class="rules-section__title">Property, Trading &amp; Combat</h2>
-        </header>
-
-        <article class="rule" id="rule-5">
-          <header class="rule__head">
-            <span class="rule__num">05</span>
-            <h3 class="rule__title">No Griefing or Stealing</h3>
+    <section class="rsec" id="section-2" data-section="2">
+      <header class="rsec__head" data-reveal>
+        <span class="rsec__num">II</span>
+        <div>
+          <p class="rsec__eyebrow">Section II &middot; 6 rules</p>
+          <h2 class="rsec__title">Property, Trading &amp; Combat</h2>
+        </div>
+      </header>
+      <div class="rgrid">
+        <article class="rcard" id="rule-5" data-search="5 no griefing or stealing every player’s property, builds and possessions must be respected — even if a base is unattended or a container is unlocked. strictly prohibited breaking, modifying or damaging another player’s blocks, builds, farms or infrastructure without permission. stealing items from chests, barrels, shulker boxes or other storage." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">05</span>
+            <h3 class="rcard__title">No Griefing or Stealing</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Every player&rsquo;s property, builds and possessions must be respected &mdash; even if a base is unattended or a container is unlocked.</p>
             <p class="rule__sub">Strictly prohibited</p>
             <ul class="rule__list">
@@ -194,13 +173,12 @@ canonical: rules.html
             </ul>
           </div>
         </article>
-
-        <article class="rule" id="rule-6">
-          <header class="rule__head">
-            <span class="rule__num">06</span>
-            <h3 class="rule__title">Respect Private Storage &amp; Restricted Areas</h3>
+        <article class="rcard" id="rule-6" data-search="6 respect private storage &amp; restricted areas do not enter another player’s private storage room without explicit permission. staff-only areas entering staff-only storage halls, accessing restricted containers or taking staff materials is strictly prohibited and is treated as severe griefing or theft ." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">06</span>
+            <h3 class="rcard__title">Respect Private Storage &amp; Restricted Areas</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <ul class="rule__list">
               <li>Do not enter another player&rsquo;s private storage room without explicit permission.</li>
             </ul>
@@ -208,26 +186,24 @@ canonical: rules.html
             <p>Entering staff-only storage halls, accessing restricted containers or taking staff materials is strictly prohibited and is treated as <strong>severe griefing or theft</strong>.</p>
           </div>
         </article>
-
-        <article class="rule" id="rule-7">
-          <header class="rule__head">
-            <span class="rule__num">07</span>
-            <h3 class="rule__title">No Scamming or Fraudulent Trading</h3>
+        <article class="rcard" id="rule-7" data-search="7 no scamming or fraudulent trading scamming other players in trades, player shops or item exchanges is strictly prohibited. all trades are considered final once both parties confirm the exchange." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">07</span>
+            <h3 class="rcard__title">No Scamming or Fraudulent Trading</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <ul class="rule__list">
               <li>Scamming other players in trades, player shops or item exchanges is strictly prohibited.</li>
               <li>All trades are considered final once both parties confirm the exchange.</li>
             </ul>
           </div>
         </article>
-
-        <article class="rule" id="rule-8">
-          <header class="rule__head">
-            <span class="rule__num">08</span>
-            <h3 class="rule__title">No Unconsented PvP or Player Harm</h3>
+        <article class="rcard" id="rule-8" data-search="8 no unconsented pvp or player harm pvp is disabled by default and permitted only when all involved players explicitly agree. prohibited behaviour attacking players without consent. trapping players in enclosed spaces. using lava, dripstone or other hazards to endanger others. engineering “accidental” deaths. consent to one fight does not grant permission for future or unrelated attacks." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">08</span>
+            <h3 class="rcard__title">No Unconsented PvP or Player Harm</h3><span class="rtag rtag--info">Consent required</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>PvP is disabled by default and permitted <strong>only</strong> when all involved players explicitly agree.</p>
             <p class="rule__sub">Prohibited behaviour</p>
             <ul class="rule__list">
@@ -239,26 +215,24 @@ canonical: rules.html
             <p>Consent to one fight does not grant permission for future or unrelated attacks.</p>
           </div>
         </article>
-
-        <article class="rule" id="rule-9">
-          <header class="rule__head">
-            <span class="rule__num">09</span>
-            <h3 class="rule__title">Do Not Interrupt Ongoing Friendly PvP</h3>
+        <article class="rcard" id="rule-9" data-search="9 do not interrupt ongoing friendly pvp when players are engaged in an agreed-upon friendly pvp session, do not run into the fight, obstruct the participants or distract them. penalty: intentional disruption may result in several hours of jail time." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">09</span>
+            <h3 class="rcard__title">Do Not Interrupt Ongoing Friendly PvP</h3><span class="rtag rtag--warn">Jail time</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>When players are engaged in an agreed-upon friendly PvP session, do not run into the fight, obstruct the participants or distract them.</p>
             <div class="rule__warn">
               <strong>Penalty:</strong> intentional disruption may result in several hours of jail time.
             </div>
           </div>
         </article>
-
-        <article class="rule" id="rule-10">
-          <header class="rule__head">
-            <span class="rule__num">10</span>
-            <h3 class="rule__title">Limits on Explosives &amp; Channeling Tridents</h3>
+        <article class="rcard rcard--wide" id="rule-10" data-search="10 limits on explosives &amp; channeling tridents explosives tnt, creepers and end crystals must not be used near other players’ builds or the spawn area — even during consent-based pvp. channeling tridents do not use channeling-enchanted tridents near another player’s base or structures during thunderstorms. damage caused “as a joke” is treated as griefing and is not eligible for staff repair." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">10</span>
+            <h3 class="rcard__title">Limits on Explosives &amp; Channeling Tridents</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p class="rule__sub">Explosives</p>
             <p>TNT, creepers and end crystals must <strong>not</strong> be used near other players&rsquo; builds or the Spawn area &mdash; even during consent-based PvP.</p>
             <p class="rule__sub">Channeling tridents</p>
@@ -268,18 +242,24 @@ canonical: rules.html
             </div>
           </div>
         </article>
+      </div>
+    </section>
 
-        <header class="rules-section" id="section-3">
-          <p class="rules-section__num">Section III</p>
-          <h2 class="rules-section__title">Fair Play, Accounts &amp; Item Limits</h2>
-        </header>
-
-        <article class="rule" id="rule-11">
-          <header class="rule__head">
-            <span class="rule__num">11</span>
-            <h3 class="rule__title">No Hacks, X-Ray or Duplication Exploits</h3>
+    <section class="rsec" id="section-3" data-section="3">
+      <header class="rsec__head" data-reveal>
+        <span class="rsec__num">III</span>
+        <div>
+          <p class="rsec__eyebrow">Section III &middot; 4 rules</p>
+          <h2 class="rsec__title">Fair Play, Accounts &amp; Item Limits</h2>
+        </div>
+      </header>
+      <div class="rgrid">
+        <article class="rcard rcard--wide" id="rule-11" data-search="11 no hacks, x-ray or duplication exploits any client, mod, resource pack or exploit that provides an unfair gameplay advantage is strictly forbidden. prohibited x-ray packs and mods. hacked clients (for example, meteor client). seed crackers. resource locators. item duplication glitches. permitted mods litematica tweakeroo litematica and tweakeroo are allowed when used strictly within their legitimate building and quality-of-life functionality. exploiting bugs or abusive features within these mods remains prohibited." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">11</span>
+            <h3 class="rcard__title">No Hacks, X-Ray or Duplication Exploits</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Any client, mod, resource pack or exploit that provides an unfair gameplay advantage is strictly forbidden.</p>
             <p class="rule__sub">Prohibited</p>
             <ul class="rule__list">
@@ -299,13 +279,12 @@ canonical: rules.html
             <p>Litematica and Tweakeroo are allowed when used strictly within their legitimate building and quality-of-life functionality. Exploiting bugs or abusive features within these mods remains prohibited.</p>
           </div>
         </article>
-
-        <article class="rule" id="rule-12">
-          <header class="rule__head">
-            <span class="rule__num">12</span>
-            <h3 class="rule__title">No Alt Accounts for Advantage or Ban Evasion</h3>
+        <article class="rcard" id="rule-12" data-search="12 no alt accounts for advantage or ban evasion using alternate accounts to bypass punishments or bans, bypass the elytra ownership limit, or grant unfair gameplay advantages to your main account is prohibited. exception. alt accounts are permitted strictly for afk or chunk-loading farm operations, provided they comply with the server performance rules." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">12</span>
+            <h3 class="rcard__title">No Alt Accounts for Advantage or Ban Evasion</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <ul class="rule__list">
               <li>Using alternate accounts to bypass punishments or bans, bypass the Elytra ownership limit, or grant unfair gameplay advantages to your main account is prohibited.</li>
             </ul>
@@ -314,26 +293,24 @@ canonical: rules.html
             </div>
           </div>
         </article>
-
-        <article class="rule" id="rule-13">
-          <header class="rule__head">
-            <span class="rule__num">13</span>
-            <h3 class="rule__title">No Account Sharing or Selling</h3>
+        <article class="rcard" id="rule-13" data-search="13 no account sharing or selling buying, selling, trading or sharing minecraft accounts is prohibited. you are fully responsible for all actions and rule violations committed on your account." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">13</span>
+            <h3 class="rcard__title">No Account Sharing or Selling</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <ul class="rule__list">
               <li>Buying, selling, trading or sharing Minecraft accounts is prohibited.</li>
               <li>You are fully responsible for all actions and rule violations committed on your account.</li>
             </ul>
           </div>
         </article>
-
-        <article class="rule" id="rule-14">
-          <header class="rule__head">
-            <span class="rule__num">14</span>
-            <h3 class="rule__title">Elytra Ownership Limit</h3>
+        <article class="rcard" id="rule-14" data-search="14 elytra ownership limit each player may own and possess a maximum of 3 elytras at any given time. hoarding extra elytras is prohibited. using other players or alts to bypass this limit is prohibited. new player gift. established new players are eligible to receive 1 free elytra from staff after completing 30 days on the server, subject to staff conditions. this gift still counts toward your 3-elytra maximum." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">14</span>
+            <h3 class="rcard__title">Elytra Ownership Limit</h3><span class="rtag rtag--info">Max 3 Elytra</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Each player may own and possess a maximum of <strong>3 Elytras</strong> at any given time.</p>
             <ul class="rule__list">
               <li>Hoarding extra Elytras is prohibited.</li>
@@ -344,18 +321,24 @@ canonical: rules.html
             </div>
           </div>
         </article>
+      </div>
+    </section>
 
-        <header class="rules-section" id="section-4">
-          <p class="rules-section__num">Section IV</p>
-          <h2 class="rules-section__title">World Preservation &amp; Server Performance</h2>
-        </header>
-
-        <article class="rule" id="rule-15">
-          <header class="rule__head">
-            <span class="rule__num">15</span>
-            <h3 class="rule__title">Do Not Modify Spawn Village</h3>
+    <section class="rsec" id="section-4" data-section="4">
+      <header class="rsec__head" data-reveal>
+        <span class="rsec__num">IV</span>
+        <div>
+          <p class="rsec__eyebrow">Section IV &middot; 4 rules</p>
+          <h2 class="rsec__title">World Preservation &amp; Server Performance</h2>
+        </div>
+      </header>
+      <div class="rgrid">
+        <article class="rcard" id="rule-15" data-search="15 do not modify spawn village spawn village is a protected community hub. without explicit staff approval, you must not break, place, obstruct, alter or remove any blocks, structures or decorations within the spawn area. spawn village is protected. do not modify it without staff approval." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">15</span>
+            <h3 class="rcard__title">Do Not Modify Spawn Village</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Spawn Village is a protected community hub.</p>
             <p class="rule__sub">Without explicit staff approval, you must not</p>
             <ul class="rule__list">
@@ -366,13 +349,12 @@ canonical: rules.html
             </div>
           </div>
         </article>
-
-        <article class="rule" id="rule-16">
-          <header class="rule__head">
-            <span class="rule__num">16</span>
-            <h3 class="rule__title">Responsible Building, Redstone &amp; Farm Limits</h3>
+        <article class="rcard rcard--wide" id="rule-16" data-search="16 responsible building, redstone &amp; farm limits build creatively, but do not compromise server tps for everyone else. automated farms and redstone machines must not run constantly in unloaded chunks or generate excessive entity or processing lag. maintain reasonable spacing between massive lag-inducing projects. if a build degrades server performance, you must cooperate with staff to optimise, disable or remove it." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">16</span>
+            <h3 class="rcard__title">Responsible Building, Redstone &amp; Farm Limits</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Build creatively, but do not compromise server TPS for everyone else.</p>
             <ul class="rule__list">
               <li>Automated farms and redstone machines must <strong>not</strong> run constantly in unloaded chunks or generate excessive entity or processing lag.</li>
@@ -381,13 +363,12 @@ canonical: rules.html
             </ul>
           </div>
         </article>
-
-        <article class="rule" id="rule-17">
-          <header class="rule__head">
-            <span class="rule__num">17</span>
-            <h3 class="rule__title">Do Not Mine Straight Down</h3>
+        <article class="rcard" id="rule-17" data-search="17 do not mine straight down mining directly downward is strictly prohibited on renderfrost smp, to prevent accidental lava and fall deaths and hazardous terrain traps. always use staircase or safe horizontal mining methods. claiming a fall was accidental does not excuse a violation." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">17</span>
+            <h3 class="rcard__title">Do Not Mine Straight Down</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Mining directly downward is strictly prohibited on RenderFrost SMP, to prevent accidental lava and fall deaths and hazardous terrain traps.</p>
             <ul class="rule__list">
               <li>Always use staircase or safe horizontal mining methods.</li>
@@ -397,28 +378,33 @@ canonical: rules.html
             </div>
           </div>
         </article>
-
-        <article class="rule" id="rule-18">
-          <header class="rule__head">
-            <span class="rule__num">18</span>
-            <h3 class="rule__title">Finish Chopping Trees</h3>
+        <article class="rcard" id="rule-18" data-search="18 finish chopping trees keep the landscape clean: always chop down the entire tree and remove all remaining floating logs before moving on." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">18</span>
+            <h3 class="rcard__title">Finish Chopping Trees</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Keep the landscape clean: always chop down the entire tree and remove all remaining floating logs before moving on.</p>
           </div>
         </article>
+      </div>
+    </section>
 
-        <header class="rules-section" id="section-5">
-          <p class="rules-section__num">Section V</p>
-          <h2 class="rules-section__title">Whitelist Access &amp; Rollback Policy</h2>
-        </header>
-
-        <article class="rule" id="rule-19">
-          <header class="rule__head">
-            <span class="rule__num">19</span>
-            <h3 class="rule__title">Whitelist &amp; Player Recommendations</h3>
+    <section class="rsec" id="section-5" data-section="5">
+      <header class="rsec__head" data-reveal>
+        <span class="rsec__num">V</span>
+        <div>
+          <p class="rsec__eyebrow">Section V &middot; 2 rules</p>
+          <h2 class="rsec__title">Whitelist Access &amp; Rollback Policy</h2>
+        </div>
+      </header>
+      <div class="rgrid">
+        <article class="rcard" id="rule-19" data-search="19 whitelist &amp; player recommendations only authorised staff members can approve and add players to the whitelist. 15-day rule: new players must spend at least 15 days on renderfrost smp from their first login before they can recommend a friend for whitelist consideration. recommended players must still complete the official verification process; meeting the 15-day requirement does not guarantee approval." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">19</span>
+            <h3 class="rcard__title">Whitelist &amp; Player Recommendations</h3><span class="rtag rtag--info">15-day rule</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Only authorised staff members can approve and add players to the whitelist.</p>
             <ul class="rule__list">
               <li><strong>15-day rule:</strong> new players must spend at least <strong>15 days</strong> on RenderFrost SMP from their first login before they can recommend a friend for whitelist consideration.</li>
@@ -426,22 +412,21 @@ canonical: rules.html
             </ul>
           </div>
         </article>
-
-        <article class="rule" id="rule-20">
-          <header class="rule__head">
-            <span class="rule__num">20</span>
-            <h3 class="rule__title">Unified Rollback Policy (World &amp; Inventory)</h3>
+        <article class="rcard rcard--wide" id="rule-20" data-search="20 unified rollback policy (world &amp; inventory) rollbacks and inventory restorations are not automatic guarantees. they are considered only when the loss is directly caused by a verified server-side issue, or by confirmed griefing with sufficient staff evidence. potentially eligible verified server crashes. severe server lag directly causing the loss. unexpected server-side disconnections. staff-confirmed griefing. not eligible normal gameplay deaths. accidental falls or lava deaths. hostile mob or entity damage. ordinary item loss unrelated to a proven technical failure. to request a review, submit a ticket explaining what happened, when it occurred, and any supporting evidence." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">20</span>
+            <h3 class="rcard__title">Unified Rollback Policy (World &amp; Inventory)</h3><span class="rtag rtag--info">Not guaranteed</span>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>Rollbacks and inventory restorations are <strong>not</strong> automatic guarantees. They are considered <strong>only</strong> when the loss is directly caused by a verified server-side issue, or by confirmed griefing with sufficient staff evidence.</p>
-            <p class="rule__sub">Potentially eligible</p>
+            <p class="rule__sub rule__sub--ok">Potentially eligible</p>
             <ul class="rule__list">
               <li>Verified server crashes.</li>
               <li>Severe server lag directly causing the loss.</li>
               <li>Unexpected server-side disconnections.</li>
               <li>Staff-confirmed griefing.</li>
             </ul>
-            <p class="rule__sub">Not eligible</p>
+            <p class="rule__sub rule__sub--no">Not eligible</p>
             <ul class="rule__list">
               <li>Normal gameplay deaths.</li>
               <li>Accidental falls or lava deaths.</li>
@@ -451,19 +436,24 @@ canonical: rules.html
             <p>To request a review, submit a ticket explaining what happened, when it occurred, and any supporting evidence.</p>
           </div>
         </article>
+      </div>
+    </section>
 
-        <!-- ======================= DISCORD CONDUCT ======================= -->
-        <header class="rules-section" id="section-discord">
-          <p class="rules-section__num">Discord server</p>
-          <h2 class="rules-section__title">Community Conduct &amp; Etiquette</h2>
-        </header>
-
-        <article class="rule" id="discord-conduct">
-          <header class="rule__head">
-            <span class="rule__num">DC</span>
-            <h3 class="rule__title">Official Discord server announcement</h3>
+    <section class="rsec" id="section-discord" data-section="discord">
+      <header class="rsec__head" data-reveal>
+        <span class="rsec__num rsec__num--dc">DC</span>
+        <div>
+          <p class="rsec__eyebrow">Discord server</p>
+          <h2 class="rsec__title">Community Conduct &amp; Etiquette</h2>
+        </div>
+      </header>
+      <div class="rgrid">
+        <article class="rcard rcard--wide" id="discord-conduct" data-search="discord conduct to maintain a respectful, dignified and welcoming environment for all members of the discord server, the administration enforces strict guidelines on language and shared media. they are effective immediately, and adherence is mandatory for every member. 1. zero tolerance for profanity &amp; cuss words respect for seniors &amp; women: using cuss words, profanity or vulgar language in the presence of fellow seniors or women is strictly prohibited across all text and voice channels. general decorum: all members are expected to uphold a high standard of respectful communication at all times. 2. prohibition of inappropriate content &amp; entertainment no sexism or discrimination: any form of sexist remarks, gender-based disparagement or disrespectful humour is forbidden. no sexually explicit material: sharing sexually explicit jokes, suggestive gifs, nsfw media or any similar form of inappropriate entertainment is strictly disallowed. enforcement &amp; consequences violations of these rules will be taken seriously. any member found disregarding these standards will face immediate moderation action, including formal warnings, temporary mutes or permanent removal from the server. thank you for your cooperation in keeping this community respectful and safe for everyone." data-reveal>
+          <header class="rcard__head">
+            <span class="rcard__num">DC</span>
+            <h3 class="rcard__title">Official Discord server announcement</h3>
           </header>
-          <div class="rule__body">
+          <div class="rcard__body">
             <p>To maintain a respectful, dignified and welcoming environment for all
             members of the Discord server, the administration enforces strict guidelines
             on language and shared media. They are effective immediately, and adherence
@@ -492,20 +482,13 @@ canonical: rules.html
             safe for everyone.</p>
           </div>
         </article>
+      </div>
+    </section>
 
-        <!-- ======================= COMMUNITY STATEMENT ======================= -->
-        <div class="divider-orn" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/>
-          </svg>
-        </div>
+    <p class="rempty" data-rules-empty hidden>No rules match your search.</p>
 
-        <article class="rule rule--statement" id="community">
-          <header class="rule__head">
-            <span class="rule__num">&mdash;</span>
-            <h2 class="rule__title">Build the RenderFrost community together</h2>
-          </header>
-          <div class="rule__body">
+    <article class="rfinal" id="community" data-reveal>
+      <h2 class="rfinal__title">Build the RenderFrost community together</h2>
             <p>RenderFrost SMP is built on trust, fairness, creativity and respect.
             Every player contributes to the environment we share, and following these
             rules helps ensure that everyone can enjoy their adventure.</p>
@@ -520,10 +503,10 @@ canonical: rules.html
             <p class="rule__thanks">Thank you for being part
             of RenderFrost SMP. Let&rsquo;s keep our world fair, welcoming and enjoyable
             for everyone.</p>
-          </div>
-        </article>
-
-      </div><!-- /rules-body -->
-    </div><!-- /rules-layout -->
+      <div class="btn-row">
+        <a class="btn btn--primary" href="join.html">How to join</a>
+        <a class="btn btn--ghost" href="discord.html">Ask staff on Discord</a>
+      </div>
+    </article>
   </div>
 </section>
