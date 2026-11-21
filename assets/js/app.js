@@ -551,6 +551,73 @@
     }, { passive: true });
   }
 
+  /* ----------------------------------------------------- Server status */
+
+  function fmtUptime(sec) {
+    var d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600), m = Math.floor((sec % 3600) / 60);
+    return d > 0 ? d + "d " + h + "h" : h > 0 ? h + "h " + m + "m" : Math.max(m, 1) + "m";
+  }
+
+  function bindStatus() {
+    var box = document.querySelector("[data-status]");
+    if (!box || !global.fetch) return;
+    var fallback = document.querySelector("[data-status-fallback]");
+    var q = function (n) { return box.querySelector("[data-status-" + n + "]"); };
+
+    function render(d) {
+      var online = d && d.online === true;
+      var state = d && d.state;
+      box.setAttribute("data-state", online ? "online" : state === "starting" ? "starting" : "offline");
+      q("title").textContent = online ? "Server is online" : state === "starting" ? "Server is starting" : "Server is offline";
+
+      var p = d.players;
+      q("players-wrap").hidden = !(online && p);
+      if (online && p) q("players").textContent = p.online + (p.max ? " / " + p.max : "");
+
+      q("uptime-wrap").hidden = !(online && d.uptime > 0);
+      if (online && d.uptime > 0) q("uptime").textContent = fmtUptime(d.uptime);
+
+      var names = online && p && p.list && p.list.length ? p.list : null;
+      q("online").hidden = !names;
+      if (names) q("online").textContent = "Online now: " + names.join(", ");
+
+      var wrap = q("members-wrap");
+      var list = q("members");
+      list.textContent = "";
+      var members = d.members && d.members.length ? d.members : null;
+      wrap.hidden = !members;
+      if (members) {
+        q("members-count").textContent = "(" + members.length + ")";
+        members.forEach(function (n) {
+          var li = document.createElement("li");
+          var av = document.createElement("span");
+          av.className = "srv-members__av";
+          av.setAttribute("aria-hidden", "true");
+          av.textContent = n.charAt(0).toUpperCase();
+          var nm = document.createElement("span");
+          nm.textContent = n;
+          li.appendChild(av);
+          li.appendChild(nm);
+          list.appendChild(li);
+        });
+      }
+      box.hidden = false;
+      if (fallback) fallback.hidden = true;
+    }
+
+    function load() {
+      fetch("/api/status", { headers: { Accept: "application/json" }, cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) { if (d && typeof d === "object" && !d.error) render(d); })
+        .catch(function () { /* keep the static explanation */ });
+    }
+    load();
+    var t = global.setInterval(function () {
+      if (!document.body.contains(box)) { global.clearInterval(t); return; }
+      if (!document.hidden) load();
+    }, 60000);
+  }
+
   function initPage() {
     bindCopy();
     bindReveals();
@@ -560,6 +627,7 @@
     bindYear();
     bindFaq();
     bindGallery();
+    bindStatus();
   }
 
   function updatePageChrome(nextDocument, url) {

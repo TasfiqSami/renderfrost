@@ -28,7 +28,7 @@ Read the full text in [`SmpRules.md`](SmpRules.md).
 
 ## Build
 
-This is a static site with no backend, database or secrets.
+This is a static site. The only server-side piece is the optional status proxy in `worker/` (see `worker/README.md`); the API key lives only there, as a Worker secret, never in the site.
 
 ```bash
 node tools/build.js     # render src/pages into root HTML files

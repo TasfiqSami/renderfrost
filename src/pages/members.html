@@ -32,18 +32,33 @@ canonical: members.html
   <div class="shell members-layout">
 
     <div class="stack" data-reveal>
-      <div class="notice">
+      <section class="srv-status" data-status hidden aria-live="polite" aria-label="Live server status">
+        <div class="srv-status__head">
+          <span class="srv-status__dot" data-status-dot aria-hidden="true"></span>
+          <h3 data-status-title>Checking server&hellip;</h3>
+        </div>
+        <dl class="srv-status__facts">
+          <div data-status-players-wrap hidden><dt>Players online</dt><dd data-status-players></dd></div>
+          <div data-status-uptime-wrap hidden><dt>Uptime</dt><dd data-status-uptime></dd></div>
+          <div><dt>Address</dt><dd>play.renderfrost.com</dd></div>
+        </dl>
+        <p class="srv-status__online" data-status-online hidden></p>
+        <div data-status-members-wrap hidden>
+          <h4>Whitelisted members <span data-status-members-count></span></h4>
+          <ul class="srv-members" data-status-members></ul>
+        </div>
+      </section>
+
+      <div class="notice" data-status-fallback>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6v.4"/>
         </svg>
         <div>
-          <h3>There is no live member list here</h3>
+          <h3>Live status is not available right now</h3>
           <p>
-            This website has no connection to the Minecraft server, so it cannot show
-            who is online, who has joined, or what anyone is building. Rather than
-            invent players and fake online indicators, this page describes how
-            membership genuinely works. For anything live, ask in
-            <a href="discord.html">Discord</a>.
+            The server status could not be loaded, so nothing is shown rather than
+            guessing. This page explains how membership genuinely works. For anything
+            live, ask in <a href="discord.html">Discord</a>.
           </p>
         </div>
       </div>

@@ -197,7 +197,10 @@
         each of which handles data under its own terms and systems.
       </p>
       <p>
-        The website is a static site: it has no user accounts, no login, no payment
+        The Members page asks this site's own status service (/api/status) whether the
+        server is online and, if enabled, who is online and whitelisted. That service
+        talks to the game server's control panel; no visitor information is sent to
+        it or stored. The website is otherwise a static site: it has no user accounts, no login, no payment
         processing, no private messaging, and no database of visitors. Nothing you do
         here creates a profile about you.
       </p>

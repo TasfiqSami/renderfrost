@@ -349,3 +349,35 @@
 .section-head > h2 + p:not(.eyebrow) { margin-top: 1rem; }
 .stack > h2 { margin-top: 0.75rem; }
 .stack > .notice + h2 { margin-top: 1.75rem; }
+
+/* -------------------------------------------------- Live server status */
+.srv-status {
+  margin-bottom: 1.75rem; padding: clamp(1.1rem, 2vw, 1.5rem);
+  border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+  background: var(--surface-1);
+}
+.srv-status[hidden] { display: none; }
+.srv-status__head { display: flex; align-items: center; gap: 0.7rem; }
+.srv-status__head h3 { margin: 0; }
+.srv-status__dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--text-faint); box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05); }
+.srv-status[data-state="online"] .srv-status__dot { background: #3ddc97; box-shadow: 0 0 0 4px rgba(61, 220, 151, 0.18), 0 0 14px rgba(61, 220, 151, 0.55); }
+.srv-status[data-state="starting"] .srv-status__dot { background: #f5b942; box-shadow: 0 0 0 4px rgba(245, 185, 66, 0.18); }
+.srv-status[data-state="offline"] .srv-status__dot { background: #ef5b6b; box-shadow: 0 0 0 4px rgba(239, 91, 107, 0.16); }
+.srv-status__facts { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; margin: 1rem 0 0; }
+.srv-status__facts div[hidden] { display: none; }
+.srv-status__facts dt { font-family: var(--font-mono); font-size: var(--fs-eyebrow); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
+.srv-status__facts dd { margin: 0.15rem 0 0; font-family: var(--font-mono); color: var(--text-primary); }
+.srv-status__online { margin: 0.9rem 0 0; color: var(--text-muted); font-size: var(--fs-small); }
+.srv-status [hidden] { display: none; }
+.srv-status h4 { margin: 1.25rem 0 0.6rem; font-size: var(--fs-small); color: var(--text-secondary); }
+.srv-status h4 span { color: var(--text-faint); font-family: var(--font-mono); }
+.srv-members { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+.srv-members li {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.75rem 0.25rem 0.3rem;
+  border: 1px solid var(--glass-border); border-radius: 999px; background: var(--surface-2);
+  font-size: var(--fs-small); color: var(--text-secondary);
+}
+.srv-members__av {
+  display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  background: var(--violet-600); color: #fff; font-size: 0.72rem; font-weight: 600;
+}
