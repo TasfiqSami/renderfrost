@@ -642,6 +642,14 @@
     }, 60000);
   }
 
+  function bindHeads() {
+    Array.prototype.forEach.call(document.querySelectorAll("img[data-head]"), function (img) {
+      var fail = function () { img.hidden = true; };
+      if (img.complete && img.naturalWidth === 0) fail();
+      img.addEventListener("error", fail);
+    });
+  }
+
   function initPage() {
     bindCopy();
     bindReveals();
@@ -652,6 +660,7 @@
     bindFaq();
     bindGallery();
     bindStatus();
+    bindHeads();
   }
 
   function updatePageChrome(nextDocument, url) {

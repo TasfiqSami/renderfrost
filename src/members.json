@@ -1,0 +1,6 @@
+{
+  "_help": "Add one entry per player. 'role' is optional. 'joined' is an ISO date/time (e.g. 2025-04-16T03:34:45+06:00). Then run: node tools/build.js",
+  "members": [
+    { "name": "SageKrave", "role": "Owner", "joined": "2025-04-16T03:34:45+06:00" }
+  ]
+}

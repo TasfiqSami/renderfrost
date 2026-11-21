@@ -73,7 +73,7 @@ function checkLinks(page, html) {
 
   let checked = 0;
   refs.forEach((ref) => {
-    if (/^(https?:|mailto:|tel:|data:|#)/.test(ref)) return;
+    if (/^(https?:|mailto:|tel:|data:|#|\/api\/)/.test(ref)) return;
     checked++;
     if (!fileExists(ref)) fail(page, `broken reference -> ${ref}`);
   });

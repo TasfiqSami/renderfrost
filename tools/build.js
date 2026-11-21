@@ -210,6 +210,35 @@ function buildMedia() {
   return `<div class="media__grid">\n${cards}\n    </div>`;
 }
 
+/* Team / member cards from src/members.json, oldest member first. */
+function buildTeam() {
+  let list = [];
+  try {
+    list = JSON.parse(fs.readFileSync(path.join(SRC, "members.json"), "utf8")).members || [];
+  } catch (e) { list = []; }
+  list = list.filter((m) => m && /^[A-Za-z0-9_]{3,16}$/.test(m.name || ""));
+  list.sort((a, b) => (Date.parse(a.joined) || Infinity) - (Date.parse(b.joined) || Infinity));
+  if (!list.length) return "";
+  const fmt = (iso) => {
+    const t = Date.parse(iso);
+    if (isNaN(t)) return "";
+    return new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Dhaka" });
+  };
+  const cards = list.map((m) => {
+    const when = fmt(m.joined);
+    return `      <article class="member" data-reveal>
+        <span class="member__head">
+          <span class="member__init" aria-hidden="true">${esc(m.name.charAt(0).toUpperCase())}</span>
+          <img src="/api/head?name=${encodeURIComponent(m.name)}" alt="${esc(m.name)}'s Minecraft head" width="64" height="64" loading="lazy" decoding="async" data-head>
+        </span>
+        <div class="member__body">
+          <h3>${esc(m.name)}${m.role ? ` <span class="member__role">${esc(m.role)}</span>` : ""}</h3>${when ? `\n          <p>Joined the SMP <time datetime="${esc(m.joined)}">${esc(when)}</time></p>` : ""}
+        </div>
+      </article>`;
+  }).join("\n");
+  return `<div class="member-grid">\n${cards}\n    </div>`;
+}
+
 const SHELL_CACHE = {};
 const partials = ["head.html", "nav.html", "drawer.html", "cta.html", "footer.html", "scripts.html"];
 partials.forEach((p) => { SHELL_CACHE[p] = read(p); });
@@ -229,7 +258,7 @@ function render(pageFile, meta, body) {
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
-  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()) + "\n</main>\n";
+  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--TEAM-->", () => buildTeam()) + "\n</main>\n";
   html += SHELL_CACHE["cta.html"];
   html += "\n" + SHELL_CACHE["footer.html"]
     .replace(/\{\{EXPLORE_LINKS\}\}/g, footer.explore)

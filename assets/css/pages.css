@@ -387,3 +387,27 @@
 .srv-status__updated { color: var(--text-faint); font-size: var(--fs-label); font-family: var(--font-mono); }
 
 [hidden] { display: none !important; }
+
+/* ------------------------------------------------------------ Team cards */
+.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1rem; }
+.member {
+  display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.25rem;
+  border: 1px solid var(--glass-border); border-radius: var(--r-lg); background: var(--surface-1);
+  transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
+}
+.member:hover { border-color: var(--glass-border-strong); transform: translateY(-2px); }
+.member__head {
+  position: relative; flex: 0 0 auto; display: block; width: 64px; height: 64px;
+  border-radius: var(--r-md); overflow: hidden; background: var(--surface-2);
+  box-shadow: 0 0 0 1px var(--glass-border);
+}
+.member__head img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.member__init { position: absolute; inset: 0; display: grid; place-items: center; background: var(--violet-600); color: #fff; font-size: 1.6rem; font-weight: 600; }
+.member__head img:not([hidden]) { background: var(--surface-2); }
+.member__body h3 { margin: 0; font-size: var(--fs-h3); display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.member__body p { margin: 0.25rem 0 0; color: var(--text-muted); font-size: var(--fs-small); }
+.member__role {
+  padding: 0.12rem 0.55rem; border: 1px solid var(--violet-500); border-radius: 999px;
+  color: var(--violet-300); font-family: var(--font-mono); font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+}
