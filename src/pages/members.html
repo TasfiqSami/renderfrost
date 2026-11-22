@@ -62,10 +62,10 @@ canonical: members.html
         <input type="search" placeholder="Search by name or old name" autocomplete="off" spellcheck="false" data-member-search>
       </label>
       <div class="mchips" role="group" aria-label="Filter members">
-        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true">All</button>
-        <button type="button" class="chip" data-member-filter="online" aria-pressed="false" data-online-chip hidden>Online</button>
-        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false">Staff</button>
-        <button type="button" class="chip" data-member-filter="member" aria-pressed="false">Members</button>
+        <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true" aria-label="Show all members">All</button>
+        <button type="button" class="chip" data-member-filter="online" aria-pressed="false" aria-label="Show players online now" data-online-chip hidden>Online</button>
+        <button type="button" class="chip" data-member-filter="staff" aria-pressed="false" aria-label="Show staff only">Staff</button>
+        <button type="button" class="chip" data-member-filter="member" aria-pressed="false" aria-label="Show regular members only">Members</button>
         <button type="button" class="chip chip--sort" data-member-sort aria-label="Change the order">Oldest first</button>
       </div>
     </div>
