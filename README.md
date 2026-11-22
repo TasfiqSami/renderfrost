@@ -45,11 +45,10 @@ This project is proprietary. You may not copy, reuse, modify, redistribute, host
 
 ## Adding gallery screenshots
 
-On the **Gallery** page, put real screenshots in `assets/img/gallery/`, add an entry for each in `assets/img/gallery/gallery.json`, then run `node tools/build.js`:
-
-```json
-{ "images": [ { "file": "spawn.jpg", "caption": "Spawn Village at dusk", "credit": "ItzMelissa" } ] }
-```
+1. Put the originals in `assets/img/gallery/_raw/<Photographer name>/` (this folder is git-ignored, so the big files never get deployed).
+2. Run `python3 tools/gallery-import.py` (needs Pillow). It writes a 1600px and a 640px WebP for each picture, plus `assets/img/gallery/gallery.json`.
+3. Optional: in `gallery.json` give a picture a `"caption"`, or give up to five pictures a `"featured"` rank (1 to 5) to choose the highlight tiles.
+4. Run `node tools/build.js`, then commit the new WebP files and `gallery.json`.
 
 ## News & media
 

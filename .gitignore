@@ -10,3 +10,6 @@ test-output.txt
 # OS / editor
 .DS_Store
 Thumbs.db
+
+# raw gallery originals (use tools/gallery-import.py)
+assets/img/gallery/_raw/

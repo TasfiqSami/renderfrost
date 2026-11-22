@@ -440,110 +440,98 @@
   /* ------------------------------------------------------------- Gallery */
 
   function bindGallery() {
-    var grid = document.querySelector(".gallery__grid");
-    if (!grid) return;
-    var items = Array.prototype.slice.call(grid.querySelectorAll(".gallery__item"));
-    var count = document.querySelector("[data-gallery-count]");
+    var root = document.querySelector("[data-gx]");
+    if (!root) return;
+    var tiles = Array.prototype.slice.call(root.querySelectorAll(".gx-tile"));
+    var months = root.querySelectorAll("[data-gx-month]");
+    var people = root.querySelectorAll("[data-gx-who]");
+    var hl = root.querySelector("[data-gx-hl]");
+    var count = root.querySelector("[data-gx-count]");
 
-    items.forEach(function (item) {
-      var img = item.querySelector("img");
-      var done = function () { item.classList.remove("is-loading"); };
-      var fail = function () { done(); item.classList.add("is-broken"); };
-      if (img.complete) { if (img.naturalWidth === 0) fail(); else done(); }
-      img.addEventListener("load", done);
-      img.addEventListener("error", fail);
+    tiles.forEach(function (t) {
+      var img = t.querySelector("img");
+      var ready = function () { t.classList.add("is-ready"); };
+      if (img.complete) ready();
+      img.addEventListener("load", ready);
+      img.addEventListener("error", ready);
     });
 
-    var chips = document.querySelectorAll("[data-gallery-filter]");
-    Array.prototype.forEach.call(chips, function (chip) {
-      chip.addEventListener("click", function () {
-        var who = chip.getAttribute("data-gallery-filter");
-        Array.prototype.forEach.call(chips, function (c) {
-          var on = c === chip;
-          c.classList.toggle("is-active", on);
-          c.setAttribute("aria-pressed", on ? "true" : "false");
-        });
+    Array.prototype.forEach.call(people, function (btn) {
+      btn.addEventListener("click", function () {
+        var who = btn.getAttribute("data-gx-who");
+        Array.prototype.forEach.call(people, function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
         var shown = 0;
-        items.forEach(function (item) {
-          var match = !who || item.getAttribute("data-credit") === who;
-          item.hidden = !match;
-          if (match) shown++;
+        tiles.forEach(function (t) {
+          var ok = !who || t.getAttribute("data-credit") === who;
+          t.hidden = !ok;
+          if (ok) shown++;
         });
+        Array.prototype.forEach.call(months, function (m) { m.hidden = !m.querySelector(".gx-tile:not([hidden])"); });
+        if (hl) hl.hidden = !!who;
         if (count) count.textContent = String(shown);
       });
     });
 
-    var dialog = document.querySelector(".lightbox");
-    if (!dialog || typeof dialog.showModal !== "function") return;
-    var img = dialog.querySelector(".lightbox__img");
-    var text = dialog.querySelector(".lightbox__text");
-    var pos = dialog.querySelector(".lightbox__count");
-    var strip = dialog.querySelector(".lightbox__strip");
-    var current = 0;
-    var list = [];
+    var dlg = root.querySelector(".gx-viewer");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    var img = dlg.querySelector(".gx-viewer__img");
+    var head = dlg.querySelector(".gx-viewer__who img");
+    var nameEl = dlg.querySelector("[data-gx-name]");
+    var metaEl = dlg.querySelector("[data-gx-meta]");
+    var posEl = dlg.querySelector("[data-gx-pos]");
+    var link = dlg.querySelector("[data-gx-link]");
+    var list = [], cur = 0;
 
-    function buildStrip() {
-      strip.textContent = "";
-      list.forEach(function (item, i) {
-        var b = document.createElement("button");
-        b.type = "button";
-        b.className = "lightbox__thumb";
-        b.setAttribute("aria-label", "Show image " + (i + 1));
-        var t = document.createElement("img");
-        t.src = item.querySelector("img").src;
-        t.alt = "";
-        t.referrerPolicy = "no-referrer";
-        b.appendChild(t);
-        b.addEventListener("click", function () { show(list, i); });
-        strip.appendChild(b);
-      });
-    }
-
-    function visible() { return items.filter(function (i) { return !i.hidden; }); }
-    function show(list, i) {
-      current = (i + list.length) % list.length;
-      var btn = list[current].querySelector("[data-gallery-src]");
+    function visible() { return tiles.filter(function (t) { return !t.hidden; }); }
+    function btnOf(t) { return t.querySelector("[data-gx-full]"); }
+    function show(i) {
+      cur = (i + list.length) % list.length;
+      var b = btnOf(list[cur]);
+      var src = b.getAttribute("data-gx-full");
       img.classList.add("is-swap");
       img.onload = function () { img.classList.remove("is-swap"); };
-      img.src = btn.getAttribute("data-gallery-src");
-      [1, -1].forEach(function (d) {
-        var n = list[(current + d + list.length) % list.length].querySelector("[data-gallery-src]");
-        new Image().src = n.getAttribute("data-gallery-src");
-      });
-      Array.prototype.forEach.call(strip.children, function (t, k) {
-        t.classList.toggle("is-current", k === current);
-        if (k === current && t.scrollIntoView) t.scrollIntoView({ block: "nearest", inline: "center" });
-      });
-      img.alt = btn.querySelector("img").alt;
-      var by = btn.getAttribute("data-gallery-credit");
-      var cap = btn.getAttribute("data-gallery-caption");
-      text.textContent = [cap, by ? "Posted by " + by : ""].filter(Boolean).join(" \u00b7 ");
-      pos.textContent = (current + 1) + " / " + list.length;
+      img.src = src;
+      img.alt = b.querySelector("img").alt;
+      var who = b.getAttribute("data-gx-credit");
+      nameEl.textContent = who || "Unknown";
+      metaEl.textContent = [b.getAttribute("data-gx-cap"), b.getAttribute("data-gx-date")].filter(Boolean).join(" \u00b7 ");
+      head.hidden = false;
+      head.src = "/api/head?name=" + encodeURIComponent(/^[A-Za-z0-9_]{3,16}$/.test(who) ? who : "Steve");
+      posEl.textContent = (cur + 1) + " / " + list.length;
+      link.href = src;
+      [1, -1].forEach(function (d) { new Image().src = btnOf(list[(cur + d + list.length) % list.length]).getAttribute("data-gx-full"); });
     }
+    function open(tile) {
+      list = visible();
+      var i = list.indexOf(tile);
+      if (i < 0) { list = tiles; i = tiles.indexOf(tile); }
+      show(i);
+      dlg.showModal();
+    }
+    head.addEventListener("error", function () { head.hidden = true; });
 
-    items.forEach(function (item) {
-      item.querySelector("[data-gallery-src]").addEventListener("click", function () {
-        list = visible();
-        buildStrip();
-        show(list, list.indexOf(item));
-        dialog.showModal();
+    tiles.forEach(function (t) { btnOf(t).addEventListener("click", function () { open(t); }); });
+    Array.prototype.forEach.call(root.querySelectorAll("[data-gx-open]"), function (b) {
+      b.addEventListener("click", function () {
+        var id = b.getAttribute("data-gx-open");
+        open(tiles.filter(function (t) { return t.getAttribute("data-id") === id; })[0]);
       });
     });
-    dialog.querySelector(".lightbox__nav--prev").addEventListener("click", function () { show(list, current - 1); });
-    dialog.querySelector(".lightbox__nav--next").addEventListener("click", function () { show(list, current + 1); });
-    dialog.querySelector(".lightbox__close").addEventListener("click", function () { dialog.close(); });
-    dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
-    dialog.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") show(list, current - 1);
-      else if (e.key === "ArrowRight") show(list, current + 1);
+    dlg.querySelector(".gx-viewer__nav--prev").addEventListener("click", function () { show(cur - 1); });
+    dlg.querySelector(".gx-viewer__nav--next").addEventListener("click", function () { show(cur + 1); });
+    dlg.querySelector(".gx-viewer__close").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg || e.target.classList.contains("gx-viewer__stage")) dlg.close(); });
+    dlg.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") show(cur - 1);
+      else if (e.key === "ArrowRight") show(cur + 1);
     });
     var sx = null;
-    dialog.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
-    dialog.addEventListener("touchend", function (e) {
+    dlg.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    dlg.addEventListener("touchend", function (e) {
       if (sx === null) return;
       var dx = e.changedTouches[0].clientX - sx;
       sx = null;
-      if (Math.abs(dx) > 50) show(list, current + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
     }, { passive: true });
   }
 

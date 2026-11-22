@@ -138,57 +138,106 @@ function buildFooterLinks() {
 
 /* Gallery: built from assets/img/gallery/gallery.json. Only real files that
    exist on disk are rendered; with none, an honest empty state is shown. */
-function buildGallery() {
+function galleryEntries() {
   const dir = path.join(ROOT, "assets", "img", "gallery");
   let entries = [];
   try {
     entries = JSON.parse(fs.readFileSync(path.join(dir, "gallery.json"), "utf8")).images || [];
   } catch (e) { entries = []; }
-  entries = entries.filter((e) => e && (
-    (/^[\w .-]+\.(jpe?g|png|webp|avif)$/i.test(e.file || "") && fs.existsSync(path.join(dir, e.file))) ||
-    /^https:\/\/(cdn|media)\.discordapp\.(com|net)\//.test(e.url || "")
-  ));
+  const ok = /^[\w .\/-]+\.(jpe?g|png|webp|avif)$/i;
+  return entries.filter((e) => e && ok.test(e.file || "") && fs.existsSync(path.join(dir, e.file)) &&
+    (!e.thumb || (ok.test(e.thumb) && fs.existsSync(path.join(dir, e.thumb)))));
+}
 
-  if (!entries.length) {
-    return `<div class="gallery__empty" data-reveal>
-      <p><strong>Screenshots are on the way.</strong> Staff will add real in-game
-      shots of the world and builds here. Until then, nothing is shown rather than
-      placeholder images.</p>
+function buildGalleryStats() {
+  const list = galleryEntries();
+  if (!list.length) return "";
+  const who = new Set(list.map((e) => e.credit).filter(Boolean));
+  const dates = list.map((e) => e.date).filter(Boolean).sort();
+  const since = dates.length ? fmtDate(dates[0], { month: "short", year: "numeric" }) : "";
+  return `<div class="gx-stats">
+      <div><b>${list.length}</b><span>Screenshots</span></div>
+      <div><b>${who.size}</b><span>Photographers</span></div>${since ? `\n      <div><b>${esc(since)}</b><span>Since</span></div>` : ""}
     </div>`;
+}
+
+function buildGallery() {
+  const list = galleryEntries();
+  if (!list.length) {
+    return `<div class="gx-empty"><strong>Screenshots are on the way.</strong> Add pictures with tools/gallery-import.py and they appear here.</div>`;
   }
-  const credits = [];
-  entries.forEach((e) => { if (e.credit && credits.indexOf(e.credit) < 0) credits.push(e.credit); });
-  const items = entries.map((e, idx) => {
-    const src = e.url ? esc(e.url) : `assets/img/gallery/${encodeURI(e.file)}`;
-    const credit = e.credit ? esc(e.credit) : "";
-    const cap = e.caption ? esc(e.caption) : "";
-    const alt = esc(e.alt || e.caption || "RenderFrost SMP screenshot");
-    return `      <figure class="gallery__item is-loading${idx === 0 ? " gallery__item--feature" : (idx % 6 === 5 ? " gallery__item--wide" : "")}" data-credit="${credit}" data-reveal>
-        <button type="button" class="gallery__btn" data-gallery-src="${src}" data-gallery-caption="${cap}" data-gallery-credit="${credit}" aria-label="View larger: ${alt}">
-          <img src="${src}" alt="${alt}" loading="${idx < 3 ? "eager" : "lazy"}" decoding="async" referrerpolicy="no-referrer">
-          <span class="gallery__over">${cap ? `<span class="gallery__cap">${cap}</span>` : ""}${credit ? `<span class="gallery__by">Posted by <strong>${credit}</strong></span>` : ""}</span>
-        </button>
-        <span class="gallery__missing" aria-hidden="true">Image unavailable</span>
-      </figure>`;
-  }).join("\n");
-  const filters = credits.length > 1
-    ? `<div class="gallery__filters" role="group" aria-label="Filter by contributor">
-      <button type="button" class="chip is-active" data-gallery-filter="" aria-pressed="true">All</button>
-${credits.map((c) => `      <button type="button" class="chip" data-gallery-filter="${esc(c)}" aria-pressed="false">${esc(c)} <span class="chip__n">${entries.filter((e) => e.credit === c).length}</span></button>`).join("\n")}
+  const url = (f) => "assets/img/gallery/" + f.split("/").map(encodeURIComponent).join("/");
+  const entries = list.map((e, i) => Object.assign({}, e, {
+    id: i,
+    nice: fmtDate(e.date, { day: "numeric", month: "long", year: "numeric" }),
+    month: fmtDate(e.date, { month: "long", year: "numeric" }) || "Undated",
+  }));
+
+  // Highlights: the most striking shots, at most two per photographer.
+  const per = {};
+  const picked = entries.filter((e) => e.featured).sort((a, b) => a.featured - b.featured).slice(0, 5);
+  const hl = picked.length >= 5 ? picked : entries.filter((e) => e.w >= 1600 && e.h >= 800)
+    .sort((a, b) => (b.score || 0) - (a.score || 0)).filter((e) => {
+      per[e.credit] = (per[e.credit] || 0) + 1;
+      return per[e.credit] <= 2;
+    }).slice(0, 5);
+
+  const people = [];
+  entries.forEach((e) => { if (e.credit && !people.find((p) => p.name === e.credit)) people.push({ name: e.credit, n: 0 }); });
+  people.forEach((p) => { p.n = entries.filter((e) => e.credit === p.name).length; });
+  people.sort((a, b) => b.n - a.n);
+
+  const alt = (e) => esc(`Screenshot by ${e.credit || "a player"}${e.nice ? ", " + e.nice : ""}`);
+
+  const hlHtml = hl.length >= 5 ? `<div class="gx-hl" data-gx-hl>
+${hl.map((e) => `      <button type="button" class="gx-hl__item" data-gx-open="${e.id}">
+        <img src="${esc(url(e.thumb || e.file))}" alt="${alt(e)}" width="640" height="360" loading="lazy" decoding="async">
+        <span class="gx-hl__cap"><small>${esc(e.credit || "")}</small>${esc(e.caption || e.nice || "")}</span>
+      </button>`).join("\n")}
     </div>` : "";
-  return `<div class="gallery__bar">
-      <p class="gallery__count"><strong data-gallery-count>${entries.length}</strong> screenshots <span aria-hidden="true">·</span> ${credits.length} contributor${credits.length === 1 ? "" : "s"}</p>
-      ${filters}
-    </div>
-    <div class="gallery__grid">\n${items}\n    </div>
-    <dialog class="lightbox" aria-label="Image viewer">
-      <button type="button" class="lightbox__close" aria-label="Close image viewer">&times;</button>
-      <button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="Previous image">&#8249;</button>
-      <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Next image">&#8250;</button>
-      <img class="lightbox__img" alt="">
-      <p class="lightbox__cap"><span class="lightbox__text"></span><span class="lightbox__count"></span></p>
-      <div class="lightbox__strip" aria-label="Thumbnails"></div>
-    </dialog>`;
+
+  const peopleHtml = `<div class="gx-people" role="group" aria-label="Filter by photographer">
+      <button type="button" class="gx-person" data-gx-who="" aria-pressed="true"><span class="gx-person__all" aria-hidden="true">All</span><b>Everyone</b><small>${entries.length}</small></button>
+${people.map((p) => `      <button type="button" class="gx-person" data-gx-who="${esc(p.name)}" aria-pressed="false"><img src="/api/head?name=${encodeURIComponent(/^[A-Za-z0-9_]{3,16}$/.test(p.name) ? p.name : "Steve")}" alt="" width="30" height="30" loading="lazy" data-head><b>${esc(p.name)}</b><small>${p.n}</small></button>`).join("\n")}
+    </div>`;
+
+  const months = [];
+  entries.forEach((e) => {
+    let m = months[months.length - 1];
+    if (!m || m.name !== e.month) { m = { name: e.month, items: [] }; months.push(m); }
+    m.items.push(e);
+  });
+  const monthsHtml = months.map((m) => `    <section class="gx-month" data-gx-month>
+      <h3 class="gx-month__h">${esc(m.name)} <span>${m.items.length}</span></h3>
+      <div class="gx-grid">
+${m.items.map((e, k) => `        <figure class="gx-tile" data-id="${e.id}" data-credit="${esc(e.credit || "")}">
+          <button type="button" class="gx-tile__btn" data-gx-full="${esc(url(e.file))}" data-gx-credit="${esc(e.credit || "")}" data-gx-date="${esc(e.nice)}" data-gx-cap="${esc(e.caption || "")}" aria-label="View larger: ${alt(e)}">
+            <img src="${esc(url(e.thumb || e.file))}" alt="${alt(e)}" width="640" height="${Math.round(640 * (e.h || 9) / (e.w || 16))}" loading="lazy" decoding="async">
+            <span class="gx-tile__by">${esc(e.credit || "")}${e.nice ? " · " + esc(e.nice) : ""}</span>
+          </button>
+        </figure>`).join("\n")}
+      </div>
+    </section>`).join("\n");
+
+  return `<div data-gx>
+    ${hlHtml}
+    ${peopleHtml}
+    <p class="sr-only" aria-live="polite"><span data-gx-count>${entries.length}</span> screenshots shown</p>
+${monthsHtml}
+    <dialog class="gx-viewer" aria-label="Image viewer">
+      <button type="button" class="gx-viewer__close" aria-label="Close viewer">&times;</button>
+      <div class="gx-viewer__stage">
+        <button type="button" class="gx-viewer__nav gx-viewer__nav--prev" aria-label="Previous">&#8249;</button>
+        <img class="gx-viewer__img" alt="">
+        <button type="button" class="gx-viewer__nav gx-viewer__nav--next" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="gx-viewer__bar">
+        <div class="gx-viewer__who"><img alt="" width="36" height="36" data-head><div><strong data-gx-name></strong><span data-gx-meta></span></div></div>
+        <span class="gx-viewer__count" data-gx-pos></span>
+        <a class="gx-viewer__open" data-gx-link href="#" target="_blank" rel="noopener">Open full size</a>
+      </div>
+    </dialog>
+  </div>`;
 }
 
 /* News & media: link cards from src/media.json. Nothing is embedded, so the
@@ -299,7 +348,7 @@ function render(pageFile, meta, body) {
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
-  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--FOUNDER-->", buildFounder()).replace("<!--ROSTER-->", () => buildRoster()).replace("<!--MEMBER_COUNT-->", () => memberCount()).replace("<!--MEMBER_SINCE-->", () => memberSince()) + "\n</main>\n";
+  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY_STATS-->", () => buildGalleryStats()).replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--FOUNDER-->", buildFounder()).replace("<!--ROSTER-->", () => buildRoster()).replace("<!--MEMBER_COUNT-->", () => memberCount()).replace("<!--MEMBER_SINCE-->", () => memberSince()) + "\n</main>\n";
   html += SHELL_CACHE["cta.html"];
   html += "\n" + SHELL_CACHE["footer.html"]
     .replace(/\{\{EXPLORE_LINKS\}\}/g, footer.explore)
