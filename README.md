@@ -83,3 +83,8 @@ This project is proprietary. You may not copy, reuse, modify, redistribute, host
 ## News & media
 
 On the **Media** page, edit `src/media.json` (title, description, link, platform) and run `node tools/build.js`. Items render as link cards that open in a new tab; nothing is embedded, so the site keeps loading no third-party scripts.
+
+
+## Extra SEO files
+
+`site.webmanifest`, PNG and Apple touch icons (`assets/img/`), and `.well-known/security.txt` (update the `Expires` date yearly).
