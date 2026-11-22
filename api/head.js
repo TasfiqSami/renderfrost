@@ -1,78 +1,79 @@
 /**
- * GET /api/head?name=<username>[&alt=<other username>]
+ * GET /api/head?name=<username>[&alt=<other username>][&type=head|body]
  *
- * Returns the player's head as a PNG, fetched server-side so visitors' browsers
- * never contact a skin service. When a player has changed their name, pass the
- * other name as `alt`: the one that currently exists is used. Cached for a day.
+ * The player's real skin (head or full body), fetched server-side so visitors
+ * never contact a skin service. A player who has renamed passes the other name
+ * as `alt`. Anyone with no Mojang account, or an account that never set a
+ * custom skin, gets a random but stable pixel-art skin generated from their name.
  */
+const { avatar } = require("./_avatar");
 const NAME = /^[A-Za-z0-9_]{3,16}$/;
 
-const SOURCES = [
-  (n) => `https://mc-heads.net/avatar/${n}/128`,
-  (n) => `https://minotar.net/helm/${n}/128.png`,
-];
+const SOURCES = {
+  head: [(n) => `https://mc-heads.net/avatar/${n}/128`, (n) => `https://minotar.net/helm/${n}/128.png`],
+  body: [(n) => `https://mc-heads.net/body/${n}/200`, (n) => `https://minotar.net/armor/body/${n}/200.png`],
+};
 
-/* true = account exists, false = no such account, null = could not tell */
-async function exists(name) {
+async function getJson(url) {
+  const r = await fetch(url, { headers: { "User-Agent": "RenderFrostSite/1.0" }, signal: AbortSignal.timeout(4000) });
+  if (r.status === 204 || r.status === 404) return { missing: true };
+  if (!r.ok) throw new Error("status " + r.status);
+  return { data: await r.json() };
+}
+
+/* "skin" = has a custom skin, "none" = no account / default skin, "unknown" = could not tell */
+async function skinState(name) {
   try {
-    const r = await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`, {
-      signal: AbortSignal.timeout(4000),
-    });
-    if (r.status === 200) return true;
-    if (r.status === 404 || r.status === 204) return false;
-    return null;
+    const p = await getJson(`https://api.mojang.com/users/profiles/minecraft/${name}`);
+    if (p.missing) return "none";
+    const prof = await getJson(`https://sessionserver.mojang.com/session/minecraft/profile/${p.data.id}`);
+    if (prof.missing) return "none";
+    const tex = (prof.data.properties || []).find((x) => x.name === "textures");
+    if (!tex) return "none";
+    const t = JSON.parse(Buffer.from(tex.value, "base64").toString("utf8"));
+    return t.textures && t.textures.SKIN && t.textures.SKIN.url ? "skin" : "none";
   } catch (e) {
-    return null;
+    return "unknown";
   }
 }
 
-async function image(name) {
-  for (const make of SOURCES) {
+async function image(name, type) {
+  for (const make of SOURCES[type]) {
     try {
-      const r = await fetch(make(name), {
-        headers: { "User-Agent": "RenderFrostSite/1.0" },
-        signal: AbortSignal.timeout(6000),
-      });
+      const r = await fetch(make(name), { headers: { "User-Agent": "RenderFrostSite/1.0" }, signal: AbortSignal.timeout(6000) });
       if (!r.ok || !String(r.headers.get("content-type") || "").startsWith("image/")) continue;
       const buf = Buffer.from(await r.arrayBuffer());
-      if (buf.length <= 200000) return buf;
-    } catch (e) {
-      /* try the next source */
-    }
+      if (buf.length <= 300000) return buf;
+    } catch (e) { /* next source */ }
   }
   return null;
+}
+
+function send(res, buf, cache) {
+  res.setHeader("Content-Type", "image/png");
+  res.setHeader("Cache-Control", cache);
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.status(200).send(buf);
 }
 
 module.exports = async (req, res) => {
   const q = req.query || {};
   const names = [q.name, q.alt].map((v) => String(v || "")).filter(Boolean);
+  const type = q.type === "body" ? "body" : "head";
   if (req.method !== "GET" || !names.length || !names.every((n) => NAME.test(n))) {
     res.status(400).json({ error: "bad request" });
     return;
   }
 
-  // Pick the name that currently exists; if Mojang can't tell us, try them in order.
-  const checks = await Promise.all(names.map(exists));
-  let candidates = names.filter((n, i) => checks[i] === true);
-  if (!candidates.length) {
-    if (checks.every((c) => c === false)) {
-      res.setHeader("Cache-Control", "public, s-maxage=3600");
-      res.status(404).json({ error: "no such account" });
-      return;
-    }
-    candidates = names.filter((n, i) => checks[i] !== false);
-  }
+  const states = await Promise.all(names.map(skinState));
+  const order = names.filter((n, i) => states[i] === "skin").concat(names.filter((n, i) => states[i] === "unknown"));
+  let unsure = states.includes("unknown");
 
-  for (const n of candidates) {
-    const buf = await image(n);
-    if (buf) {
-      res.setHeader("Content-Type", "image/png");
-      res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
-      res.setHeader("X-Content-Type-Options", "nosniff");
-      res.status(200).send(buf);
-      return;
-    }
+  for (const n of order) {
+    const buf = await image(n, type);
+    if (buf) return send(res, buf, "public, s-maxage=86400, stale-while-revalidate=604800");
+    unsure = true;
   }
-  res.setHeader("Cache-Control", "no-store");
-  res.status(404).json({ error: "not found" });
+  // No real skin: a random but stable one, seeded by the main name.
+  send(res, avatar(names[0], type), unsure ? "public, s-maxage=300" : "public, s-maxage=86400, stale-while-revalidate=604800");
 };

@@ -7,18 +7,25 @@ canonical: members.html
 }}
 
 <!-- ================================ HERO ================================ -->
-<section class="mhero">
-  <div class="shell mhero__grid">
-    <div class="mhero__copy">
-      <nav aria-label="Breadcrumb">
-        <ol class="crumbs">
-          <li><a href="index.html">Home</a></li>
-          <li><span aria-current="page">Members</span></li>
-        </ol>
-      </nav>
-      <p class="eyebrow">The community</p>
-      <h1 class="mhero__title">Roll call.</h1>
-      <p class="mhero__sub"><strong><!--MEMBER_COUNT--></strong> players on the whitelist, building together since <strong><!--MEMBER_SINCE--></strong>.</p>
+<section class="phero">
+  <div class="shell">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href="index.html">Home</a></li>
+        <li><span aria-current="page">Members</span></li>
+      </ol>
+    </nav>
+    <p class="eyebrow">The community</p>
+    <h1 class="phero__title">The <em>players.</em></h1>
+    <p class="phero__sub"><strong><!--MEMBER_COUNT--></strong> whitelisted players, together since <strong><!--MEMBER_SINCE--></strong>.</p>
+
+    <div class="live" data-live="panel" data-state="unknown" aria-label="Live server status">
+      <span class="live__cell live__state"><span class="live__dot" aria-hidden="true"></span><span data-live-state>Checking server</span></span>
+      <span class="live__cell"><small>Playing</small><b data-live-players>&ndash;</b></span>
+      <span class="live__cell"><small>Version</small><b data-live-version>&ndash;</b></span>
+      <span class="live__cell"><small>Uptime</small><b data-live-uptime>&ndash;</b></span>
+      <ul class="live__who" data-online-list aria-label="Players online"></ul>
+      <span class="live__none" data-online-none hidden>Nobody is online right now.</span>
       <div class="copyip">
         <span class="copyip__addr"><span class="copyip__dot" aria-hidden="true"></span><span>play.renderfrost.com</span></span>
         <button class="copyip__btn" type="button" data-copy-ip aria-label="Copy the server address play.renderfrost.com">
@@ -27,33 +34,27 @@ canonical: members.html
         </button>
       </div>
     </div>
-
-    <aside class="panel" data-live="panel" data-state="unknown" aria-label="Live server status">
-      <div class="panel__top">
-        <span class="panel__state"><span class="panel__dot" aria-hidden="true"></span><span data-live-state>Checking server</span></span>
-        <span class="panel__tag">Live</span>
-      </div>
-      <p class="panel__count"><span data-live-players>&ndash;</span><small>players online</small></p>
-      <ul class="panel__online" data-online-list aria-label="Players online"></ul>
-      <p class="panel__none" data-online-none hidden>Nobody is online right now.</p>
-      <dl class="panel__facts">
-        <div><dt>Version</dt><dd data-live-version>&ndash;</dd></div>
-        <div><dt>Uptime</dt><dd data-live-uptime>&ndash;</dd></div>
-      </dl>
-    </aside>
   </div>
 </section>
 
-<!-- =============================== FOUNDER ============================== -->
+<!-- =============================== LINE-UP ============================== -->
 <section class="section section--tight">
   <div class="shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">The team</p>
+      <h2>Who runs the place.</h2>
+    </div>
     <!--FOUNDER-->
   </div>
 </section>
 
-<!-- ============================== DIRECTORY ============================= -->
+<!-- ================================ WALL ================================ -->
 <section class="section section--tight" id="directory">
   <div class="shell">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Everyone</p>
+      <h2>The whole whitelist.</h2>
+    </div>
     <div class="mbar" data-reveal>
       <label class="msearch">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -62,9 +63,10 @@ canonical: members.html
       </label>
       <div class="mchips" role="group" aria-label="Filter members">
         <button type="button" class="chip is-active" data-member-filter="" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-member-filter="online" aria-pressed="false" data-online-chip hidden>Online</button>
         <button type="button" class="chip" data-member-filter="staff" aria-pressed="false">Staff</button>
         <button type="button" class="chip" data-member-filter="member" aria-pressed="false">Members</button>
-        <button type="button" class="chip chip--sort" data-member-sort aria-label="Reverse the order">Oldest first</button>
+        <button type="button" class="chip chip--sort" data-member-sort aria-label="Change the order">Oldest first</button>
       </div>
     </div>
 
@@ -78,7 +80,7 @@ canonical: members.html
   <div class="shell">
     <div class="mjoin" data-reveal>
       <div>
-        <h2>Want your name on this list?</h2>
+        <h2>Want to be on the wall?</h2>
         <p>Ask staff in Discord, verify, get approved, and you are whitelisted.</p>
       </div>
       <div class="btn-row">

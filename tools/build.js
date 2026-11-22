@@ -228,9 +228,8 @@ function fmtDate(iso, opts) {
   return new Date(t).toLocaleDateString("en-GB", Object.assign({ timeZone: "Asia/Dhaka" }, opts));
 }
 
-function headTag(m, size) {
-  const headUrl = `/api/head?name=${encodeURIComponent(m.name)}${m.alias ? `&alt=${encodeURIComponent(m.alias)}` : ""}`;
-  return `<span class="face face--${size}"><span class="face__init" aria-hidden="true">${esc(m.name.charAt(0).toUpperCase())}</span><img src="${headUrl}" alt="" width="${size}" height="${size}" loading="lazy" decoding="async" data-head></span>`;
+function skinUrl(m, type) {
+  return `/api/head?name=${encodeURIComponent(m.name)}${m.alias ? `&alt=${encodeURIComponent(m.alias)}` : ""}&type=${type}`;
 }
 
 function buildFounder() {
@@ -240,25 +239,20 @@ function buildFounder() {
     return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
   });
   if (!staff.length) return "";
-  const card = (m, big) => {
-    const when = fmtDate(m.joined, { day: "numeric", month: "long", year: "numeric" });
-    return `<article class="tcard${big ? " tcard--lead" : ""}" data-reveal>
-        ${headTag(m, big ? 132 : 72)}
-        <div class="tcard__text">
-          <p class="tcard__role">${esc(m.role)}</p>
-          <h3 class="tcard__name">${esc(m.name)}</h3>
-          ${when ? `<p class="tcard__meta">${big ? "First to join the SMP, " : "Joined "}${esc(when)}</p>` : ""}
-        </div>
-      </article>`;
-  };
+  // Owner in the middle of the line-up, the rest beside him.
   const [lead, ...rest] = staff;
-  return `<p class="eyebrow">The team</p>
-    <div class="team">
-      ${card(lead, true)}
-      <div class="team__side">
-      ${rest.map((m) => card(m, false)).join("\n      ")}
-      </div>
-    </div>`;
+  const mid = Math.ceil(rest.length / 2);
+  const line = rest.slice(0, mid).concat([lead], rest.slice(mid));
+  const tiles = line.map((m) => {
+    const when = fmtDate(m.joined, { day: "numeric", month: "long", year: "numeric" });
+    return `<li class="lineup__item${m === lead ? " lineup__item--lead" : ""}" data-reveal>
+        <img class="lineup__skin" src="${skinUrl(m, "body")}" alt="${esc(m.name)}'s skin" width="200" height="400" loading="lazy" decoding="async">
+        <span class="lineup__role">${esc(m.role)}</span>
+        <strong class="lineup__name">${esc(m.name)}</strong>
+        ${when ? `<span class="lineup__meta">Joined ${esc(when)}</span>` : ""}
+      </li>`;
+  }).join("\n      ");
+  return `<ul class="lineup">\n      ${tiles}\n    </ul>`;
 }
 
 function buildRoster() {
@@ -266,32 +260,17 @@ function buildRoster() {
   if (!list.length) {
     return `<p class="mempty">The member list is being prepared. Check back soon.</p>`;
   }
-  const groups = [];
-  list.forEach((m) => {
-    const d = new Date(m.joined);
-    const key = isNaN(d) ? "Earlier" : fmtDate(m.joined, { month: "long", year: "numeric" });
-    let g = groups[groups.length - 1];
-    if (!g || g.key !== key) { g = { key, items: [] }; groups.push(g); }
-    g.items.push(m);
-  });
-  const html = groups.map((g) => {
-    const rows = g.items.map((m) => {
-      const names = [m.name].concat(m.alias ? [m.alias] : []);
-      const day = fmtDate(m.joined, { day: "numeric", month: "short" });
-      return `        <li class="mrow${m.role ? " mrow--staff" : ""}" data-name="${esc(names.join(" ").toLowerCase())}" data-kind="${m.role ? "staff" : "member"}">
-          ${headTag(m, 40)}<span class="mrow__live" aria-hidden="true"></span>
-          <span class="mrow__who"><strong class="mrow__name">${esc(m.name)}</strong>${m.alias ? `<span class="mrow__aka">aka ${esc(m.alias)}</span>` : ""}</span>
-          ${m.role ? `<span class="mrow__role">${esc(m.role)}</span>` : ""}<time class="mrow__date" datetime="${esc(m.joined)}">${esc(day)}</time>
-        </li>`;
-    }).join("\n");
-    return `    <section class="mgroup" data-group>
-      <h3 class="mgroup__label">${esc(g.key)} <span>${g.items.length}</span></h3>
-      <ul class="mlist">
-${rows}
-      </ul>
-    </section>`;
+  const cards = list.map((m, i) => {
+    const names = [m.name].concat(m.alias ? [m.alias] : []);
+    const when = fmtDate(m.joined, { day: "numeric", month: "short", year: "numeric" });
+    const ts = Date.parse(m.joined) || 0;
+    return `      <li class="pcard${m.role ? " pcard--staff" : ""}" data-name="${esc(names.join(" ").toLowerCase())}" data-kind="${m.role ? "staff" : "member"}" data-i="${i}" data-ts="${ts}" data-sort="${esc(m.name.toLowerCase())}">
+        <span class="pcard__stage"><img src="${skinUrl(m, "body")}" alt="${esc(m.name)}'s skin" width="120" height="240" loading="lazy" decoding="async"><span class="pcard__live" aria-hidden="true">Online</span></span>
+        <strong class="pcard__name">${esc(m.name)}</strong>${m.alias ? `\n        <span class="pcard__aka">aka ${esc(m.alias)}</span>` : ""}${m.role ? `\n        <span class="pcard__role">${esc(m.role)}</span>` : ""}
+        ${when ? `<time class="pcard__date" datetime="${esc(m.joined)}">${esc(when)}</time>` : ""}
+      </li>`;
   }).join("\n");
-  return `<div class="mledger" data-member-grid>\n${html}\n    </div>`;
+  return `<ul class="wall" data-member-grid>\n${cards}\n    </ul>`;
 }
 
 function memberCount() { return String(loadMembers().length); }

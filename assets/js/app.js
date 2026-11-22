@@ -555,21 +555,17 @@
     var chips = document.querySelectorAll("[data-member-filter]");
     var sortBtn = document.querySelector("[data-member-sort]");
     var empty = document.querySelector("[data-member-empty]");
-    var rows = grid ? Array.prototype.slice.call(grid.querySelectorAll(".mrow")) : [];
-    var groups = grid ? Array.prototype.slice.call(grid.querySelectorAll("[data-group]")) : [];
+    var rows = grid ? Array.prototype.slice.call(grid.querySelectorAll(".pcard")) : [];
     var kind = "";
 
     function apply() {
       var q = search ? search.value.trim().toLowerCase() : "";
       var shown = 0;
       rows.forEach(function (c) {
-        var ok = (!q || c.getAttribute("data-name").indexOf(q) !== -1) &&
-                 (!kind || c.getAttribute("data-kind") === kind);
+        var okKind = !kind || (kind === "online" ? c.classList.contains("is-online") : c.getAttribute("data-kind") === kind);
+        var ok = (!q || c.getAttribute("data-name").indexOf(q) !== -1) && okKind;
         c.hidden = !ok;
         if (ok) shown++;
-      });
-      groups.forEach(function (g) {
-        g.hidden = !g.querySelector(".mrow:not([hidden])");
       });
       if (empty) empty.hidden = shown !== 0 || !rows.length;
     }
@@ -586,15 +582,16 @@
       });
     });
     if (sortBtn && grid) {
-      var newestFirst = false;
+      var modes = [
+        ["Oldest first", function (a, b) { return a.getAttribute("data-ts") - b.getAttribute("data-ts"); }],
+        ["Newest first", function (a, b) { return b.getAttribute("data-ts") - a.getAttribute("data-ts"); }],
+        ["A to Z", function (a, b) { return a.getAttribute("data-sort") < b.getAttribute("data-sort") ? -1 : 1; }]
+      ];
+      var mode = 0;
       sortBtn.addEventListener("click", function () {
-        newestFirst = !newestFirst;
-        sortBtn.textContent = newestFirst ? "Newest first" : "Oldest first";
-        groups.reverse().forEach(function (g) {
-          grid.appendChild(g);
-          var ul = g.querySelector(".mlist");
-          Array.prototype.slice.call(ul.children).reverse().forEach(function (li) { ul.appendChild(li); });
-        });
+        mode = (mode + 1) % modes.length;
+        sortBtn.textContent = modes[mode][0];
+        rows.slice().sort(modes[mode][1]).forEach(function (li) { grid.appendChild(li); });
       });
     }
 
@@ -624,6 +621,9 @@
         var igns = c.getAttribute("data-name").split(" ");
         c.classList.toggle("is-online", lower.some(function (n) { return igns.indexOf(n) !== -1; }));
       });
+      var chipOnline = document.querySelector("[data-online-chip]");
+      if (chipOnline) chipOnline.hidden = !rows.some(function (c) { return c.classList.contains("is-online"); });
+      apply();
 
       var list = document.querySelector("[data-online-list]");
       var none = document.querySelector("[data-online-none]");
@@ -634,7 +634,7 @@
           var im = document.createElement("img");
           im.src = "/api/head?name=" + encodeURIComponent(n);
           im.alt = "";
-          im.width = 36; im.height = 36;
+          im.width = 28; im.height = 28;
           im.addEventListener("error", function () { im.hidden = true; });
           var sp = document.createElement("span");
           sp.textContent = n;
