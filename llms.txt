@@ -1,0 +1,32 @@
+# RenderFrost SMP
+
+> RenderFrost SMP is a whitelisted Minecraft Java survival server built on trust, fairness, creativity and respect. This site holds the official rules, the player list, community screenshots and the joining process.
+
+## Key facts
+
+- Server address: play.renderfrost.com (Minecraft Java Edition)
+- Type: whitelisted survival multiplayer (SMP); PvP is off by default and only by mutual consent
+- Joining: join the Discord, ask a staff member, complete verification and wait for approval
+- Eligibility note: a 15-day recommendation rule applies to new players (see rule 19)
+- Discord: https://discord.gg/SMRS6skKYY
+- Whitelisted players listed on the website: 42
+- Owner: SAGEKRAVE
+- Manager: SfsNotHere
+- Chief Staff: BS_Editz
+- Dev/Admin: Tasfiq
+
+## Pages
+
+- [Home](https://www.renderfrost.com/): Home page
+- [Members (live online players, staff, whitelist)](https://www.renderfrost.com/members): Members page
+- [Rules (all 20 rules plus Discord conduct)](https://www.renderfrost.com/rules): Rules page
+- [Gallery (community screenshots)](https://www.renderfrost.com/gallery): Gallery page
+- [Media and news](https://www.renderfrost.com/media): Media and news page
+- [Discord](https://www.renderfrost.com/discord): Discord page
+- [How to join](https://www.renderfrost.com/join): How to join page
+- [Privacy policy](https://www.renderfrost.com/privacy): Privacy policy page
+- [Terms of service](https://www.renderfrost.com/terms): Terms of service page
+
+## Full text
+
+- [Full rulebook and FAQ in one file](https://www.renderfrost.com/llms-full.txt): the complete rules and joining answers as plain text

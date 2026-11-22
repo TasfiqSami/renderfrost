@@ -328,6 +328,149 @@ function memberSince() {
   return first ? fmtDate(first.joined, { month: "short", year: "numeric" }) : "2025";
 }
 
+
+/* ------------------------------------------------------------------ SEO / GEO */
+const SITE_NAME = "RenderFrost SMP";
+const SERVER_ADDRESS = "play.renderfrost.com";
+const DISCORD_INVITE = "https://discord.gg/SMRS6skKYY";
+const SOCIALS = [DISCORD_INVITE, "https://www.tiktok.com/@tasfiqah"];
+
+const abs = (p) => (SITE_ORIGIN ? siteUrl(p === "./" ? "" : p) : p);
+const ldSafe = (o) => JSON.stringify(o).replace(/</g, "\\u003c");
+const stripTags = (h) => String(h).replace(/<[^>]+>/g, " ").replace(/&rsquo;/g, "\u2019").replace(/&amp;/g, "&").replace(/&[a-z]+;/g, " ").replace(/\s+/g, " ").trim();
+
+function faqPairs(body) {
+  const out = [];
+  const re = /<summary[^>]*>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/g;
+  let m;
+  while ((m = re.exec(body))) {
+    const q = stripTags(m[1]), a = stripTags(m[2]);
+    if (q && a) out.push({ q, a });
+  }
+  return out;
+}
+
+function structuredData(page, meta, body, canonical) {
+  const graph = [];
+  const orgId = abs("./") + "#org";
+  const siteId = abs("./") + "#website";
+  graph.push({
+    "@type": "Organization", "@id": orgId, name: SITE_NAME, url: abs("./"),
+    logo: abs("assets/img/og-image.jpg"), sameAs: SOCIALS,
+    description: "A whitelisted Minecraft Java survival server built on trust, fairness, creativity and respect.",
+  });
+  graph.push({ "@type": "WebSite", "@id": siteId, url: abs("./"), name: SITE_NAME, inLanguage: "en", publisher: { "@id": orgId } });
+  if (page !== "index" && page !== "404") {
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: abs("./") },
+        { "@type": "ListItem", position: 2, name: String(meta.title || page).split(/\s[|\u2014]\s/)[0], item: canonical },
+      ],
+    });
+  }
+  const webpage = { "@type": page === "members" ? "CollectionPage" : "WebPage", "@id": canonical + "#page", url: canonical, name: meta.title, description: meta.description, isPartOf: { "@id": siteId }, inLanguage: "en" };
+  if (page === "gallery") {
+    webpage["@type"] = "ImageGallery";
+    webpage.image = galleryEntries().slice(0, 30).map((e) => ({
+      "@type": "ImageObject",
+      contentUrl: abs("assets/img/gallery/" + e.file.split("/").map(encodeURIComponent).join("/")),
+      creditText: e.credit || undefined, creator: e.credit ? { "@type": "Person", name: e.credit } : undefined,
+      uploadDate: e.date || undefined, caption: e.caption || undefined,
+    }));
+  }
+  if (page === "members") webpage.numberOfItems = loadMembers().length;
+  if (page !== "404") graph.push(webpage);
+  if (page === "index") {
+    const faq = faqPairs(body);
+    if (faq.length) graph.push({ "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) });
+  }
+  return `<script type="application/ld+json">${ldSafe({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+}
+
+function seoExtra(page, meta, body, canonical) {
+  const title = esc(meta.ogTitle || meta.title || SITE_NAME);
+  const desc = esc(meta.ogDescription || meta.description || "");
+  const img = abs("assets/img/og-image.jpg");
+  const tags = [
+    `<meta property="og:url" content="${esc(canonical)}">`,
+    `<meta property="og:locale" content="en_US">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
+    `<meta property="og:image:alt" content="Snow-capped mountains at sunrise over the RenderFrost SMP world">`,
+    `<meta name="twitter:title" content="${title}">`,
+    `<meta name="twitter:description" content="${desc}">`,
+    `<meta name="twitter:image" content="${esc(img)}">`,
+    page === "404"
+      ? `<meta name="robots" content="noindex, follow">`
+      : `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">`,
+  ];
+  if (page !== "404") tags.push(structuredData(page, meta, body, canonical));
+  return tags.join("\n");
+}
+
+function writeLlmsFiles() {
+  const members = loadMembers();
+  const staff = members.filter((m) => m.role);
+  const origin = SITE_ORIGIN || "https://www.renderfrost.com";
+  const facts = [
+    `- Server address: ${SERVER_ADDRESS} (Minecraft Java Edition)`,
+    "- Type: whitelisted survival multiplayer (SMP); PvP is off by default and only by mutual consent",
+    "- Joining: join the Discord, ask a staff member, complete verification and wait for approval",
+    "- Eligibility note: a 15-day recommendation rule applies to new players (see rule 19)",
+    `- Discord: ${DISCORD_INVITE}`,
+    `- Whitelisted players listed on the website: ${members.length}`,
+    ...staff.map((m) => `- ${m.role}: ${m.name}`),
+  ].join("\n");
+  const links = [
+    ["Home", ""], ["Members (live online players, staff, whitelist)", "members"], ["Rules (all 20 rules plus Discord conduct)", "rules"],
+    ["Gallery (community screenshots)", "gallery"], ["Media and news", "media"], ["Discord", "discord"], ["How to join", "join"],
+    ["Privacy policy", "privacy"], ["Terms of service", "terms"],
+  ].map(([t, u]) => `- [${t}](${origin}/${u}): ${t.split(" (")[0]} page`).join("\n");
+  const short = `# ${SITE_NAME}
+
+> ${SITE_NAME} is a whitelisted Minecraft Java survival server built on trust, fairness, creativity and respect. This site holds the official rules, the player list, community screenshots and the joining process.
+
+## Key facts
+
+${facts}
+
+## Pages
+
+${links}
+
+## Full text
+
+- [Full rulebook and FAQ in one file](${origin}/llms-full.txt): the complete rules and joining answers as plain text
+`;
+  fs.writeFileSync(path.join(ROOT, "llms.txt"), short, "utf8");
+
+  let rules = "";
+  try { rules = fs.readFileSync(path.join(ROOT, "SmpRules.md"), "utf8").trim(); } catch (e) { rules = ""; }
+  let faq = "";
+  try {
+    const join = parseFrontMatter(fs.readFileSync(path.join(PAGES, "index.html"), "utf8")).body;
+    faq = faqPairs(join).map((f) => `### ${f.q}\n${f.a}`).join("\n\n");
+  } catch (e) { faq = ""; }
+  const full = `# ${SITE_NAME}: full reference
+
+${SITE_NAME} is a whitelisted Minecraft Java survival server (${SERVER_ADDRESS}).
+
+## Key facts
+
+${facts}
+
+## Frequently asked questions
+
+${faq}
+
+## Official rulebook
+
+${rules}
+`;
+  fs.writeFileSync(path.join(ROOT, "llms-full.txt"), full, "utf8");
+}
+
 const SHELL_CACHE = {};
 const partials = ["head.html", "nav.html", "drawer.html", "cta.html", "footer.html", "scripts.html"];
 partials.forEach((p) => { SHELL_CACHE[p] = read(p); });
@@ -343,7 +486,8 @@ function render(pageFile, meta, body) {
     .replace(/\{\{CANONICAL\}\}/g, esc(SITE_ORIGIN ? siteUrl(canonicalPath === "./" ? "" : canonicalPath) : canonicalPath))
     .replace(/\{\{OG_IMAGE\}\}/g, esc(SITE_ORIGIN ? siteUrl("assets/img/og-image.jpg") : "assets/img/og-image.jpg"))
     .replace(/\{\{OG_TITLE\}\}/g, esc(meta.ogTitle || meta.title || "RenderFrost SMP"))
-    .replace(/\{\{OG_DESCRIPTION\}\}/g, esc(meta.ogDescription || meta.description || ""));
+    .replace(/\{\{OG_DESCRIPTION\}\}/g, esc(meta.ogDescription || meta.description || ""))
+    .replace(/\{\{SEO_EXTRA\}\}/g, () => seoExtra(pageFile, meta, body, SITE_ORIGIN ? siteUrl(canonicalPath === "./" ? "" : canonicalPath) : canonicalPath));
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
@@ -372,8 +516,13 @@ function writeSeoFiles() {
       });
     const xml = [
       '<?xml version="1.0" encoding="UTF-8"?>',
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-      ...urls.map((url) => `  <url><loc>${url.replace(/&/g, "&amp;")}</loc></url>`),
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+      ...urls.map((url) => {
+        const loc = url.replace(/&/g, "&amp;");
+        if (!/\/gallery$/.test(url)) return `  <url><loc>${loc}</loc></url>`;
+        const imgs = galleryEntries().map((e) => `    <image:image><image:loc>${siteUrl("assets/img/gallery/" + e.file.split("/").map(encodeURIComponent).join("/")).replace(/&/g, "&amp;")}</image:loc></image:image>`).join("\n");
+        return `  <url><loc>${loc}</loc>\n${imgs}\n  </url>`;
+      }),
       "</urlset>",
       "",
     ].join("\n");
@@ -400,6 +549,7 @@ function main() {
     console.log(`✓ built ${page}.html  (${(out.length / 1024).toFixed(1)} kB)`);
   });
   writeSeoFiles();
+  writeLlmsFiles();
   console.log(`✓ wrote robots.txt${SITE_ORIGIN ? " and sitemap.xml" : " (set SITE_ORIGIN to generate a sitemap)"}`);
   console.log(`\n${built} page(s) written.`);
 }

@@ -41,6 +41,10 @@ The build writes absolute canonical and Open Graph URLs and a sitemap for `https
 
 The site deploys from `main` on Vercel. Commit the generated root HTML together with the sources.
 
+## SEO and AI-search (GEO)
+
+The build adds, for every page: a keyword-led title and description, canonical and Open Graph/Twitter tags, a 1200x630 social image, and JSON-LD structured data (Organization and WebSite everywhere, breadcrumbs, an ImageGallery on the Gallery page, a FAQPage on the home page matching its visible FAQ). It also writes `sitemap.xml` (with gallery images), `robots.txt`, `llms.txt` and `llms-full.txt` (a plain-text summary, FAQ and the full rulebook for AI assistants). The 404 page is `noindex`. Edit titles and descriptions in each page's front matter in `src/pages`.
+
 ## Live server data
 
 Two Vercel functions power the Members page. Neither exposes a secret to the browser.
