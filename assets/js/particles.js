@@ -61,8 +61,12 @@
       }
     }
 
-    function draw() {
+    var last = 0;
+    function draw(now) {
       if (!alive) return;
+      raf = requestAnimationFrame(draw);
+      if (now - last < 33) return; // ~30fps is plenty for slow drifting flakes
+      last = now;
       ctx.clearRect(0, 0, w, h);
       for (var i = 0; i < flakes.length; i++) {
         var f = flakes[i];
@@ -91,7 +95,6 @@
           (f.a * shimmer).toFixed(3) + ")";
         ctx.fill();
       }
-      raf = requestAnimationFrame(draw);
     }
 
     function start() {

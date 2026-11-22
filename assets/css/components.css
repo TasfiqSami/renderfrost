@@ -148,7 +148,6 @@
 .btn--secondary {
   --btn-bg: var(--surface-1);
   --btn-border: var(--glass-border);
-  backdrop-filter: blur(10px);
 }
 
 .btn--secondary:hover { --btn-bg: var(--surface-2); }
@@ -199,7 +198,6 @@
   border: 1px solid var(--glass-border);
   border-radius: var(--r-md);
   background: var(--surface-1);
-  backdrop-filter: blur(12px);
   overflow: hidden;
   max-width: 100%;
 }

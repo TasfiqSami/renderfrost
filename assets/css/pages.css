@@ -16,9 +16,8 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: url("../img/background.jpg") 50% 34% / cover no-repeat;
-  opacity: 0.25;
-  filter: saturate(0.72) contrast(1.04);
+  background: url("../img/background.jpg") 50% 38% / cover no-repeat;
+  opacity: 0.8;
 }
 
 .pagehead--art::after {
@@ -27,8 +26,8 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(6, 5, 12, 0.2), transparent 70%),
-    linear-gradient(180deg, rgba(6, 5, 12, 0.66), rgba(6, 5, 12, 0.9) 72%, var(--bg-0));
+    linear-gradient(90deg, rgba(6, 5, 12, 0.55), transparent 65%),
+    linear-gradient(180deg, rgba(6, 5, 12, 0.5) 0%, rgba(6, 5, 12, 0.22) 30%, rgba(6, 5, 12, 0.6) 62%, var(--bg-0) 100%);
 }
 
 .pagehead__inner {
@@ -398,13 +397,14 @@
 
 /* ================================================================ Members */
 .phero { position: relative; padding: calc(var(--nav-h) + clamp(2rem, 5vw, 4rem)) 0 clamp(1.5rem, 3vw, 2.5rem); overflow: hidden; isolation: isolate; }
-.phero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(70% 80% at 50% -10%, rgba(139, 92, 246, 0.3), transparent 70%); }
+.phero::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url("../img/background.jpg") 50% 38% / cover no-repeat; opacity: 0.8; }
+.phero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(6, 5, 12, 0.55), transparent 65%), linear-gradient(180deg, rgba(6, 5, 12, 0.5) 0%, rgba(6, 5, 12, 0.22) 30%, rgba(6, 5, 12, 0.6) 62%, var(--bg-0) 100%); }
 .phero__title { margin: 0.4rem 0 0.7rem; font-size: clamp(3.4rem, 10vw, 7.5rem); line-height: 0.95; letter-spacing: -0.035em; }
 .phero__title em { font-style: normal; background: linear-gradient(100deg, var(--violet-300), var(--frost-200, #cfe0ff)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .phero__sub { max-width: 36rem; margin: 0 0 1.8rem; color: var(--text-secondary); font-size: var(--fs-lead); }
 .phero__sub strong { color: var(--text-primary); font-weight: 600; }
 
-.live { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.6rem; padding: 0.9rem 1.2rem; border: 1px solid var(--glass-border); border-radius: var(--r-lg); background: var(--surface-1); backdrop-filter: blur(8px); }
+.live { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.6rem; padding: 0.9rem 1.2rem; border: 1px solid var(--glass-border); border-radius: var(--r-lg); background: var(--surface-1); }
 .live__cell { display: flex; flex-direction: column; gap: 0.1rem; }
 .live__cell small { font-family: var(--font-mono); font-size: var(--fs-eyebrow); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
 .live__cell b { font-family: var(--font-mono); font-weight: 500; color: var(--text-primary); }

@@ -59,8 +59,7 @@
   height: 100vh;
   height: 100dvh;
   max-width: none;
-  opacity: 0.48;
-  mix-blend-mode: screen;
+  opacity: 0.4;
 }
 
 .hero__inner {

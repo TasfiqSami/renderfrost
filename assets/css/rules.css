@@ -14,7 +14,7 @@
 .rquick__item {
   display: flex; flex-direction: column; gap: 0.3rem; padding: 1rem 1.15rem;
   border: 1px solid var(--glass-border); border-radius: var(--r-lg);
-  background: var(--surface-1); backdrop-filter: blur(6px); color: inherit; text-decoration: none;
+  background: var(--surface-1); color: inherit; text-decoration: none;
   transition: border-color var(--t-base) var(--ease), transform var(--t-base) var(--ease);
 }
 .rquick__item:hover { border-color: var(--glass-border-strong); transform: translateY(-2px); }
@@ -29,7 +29,7 @@
 .rbar {
   position: sticky; top: var(--nav-h); z-index: 20;
   border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
-  background: rgba(8, 6, 16, 0.82); backdrop-filter: blur(14px) saturate(1.2);
+  background: rgba(8, 6, 16, 0.95);
 }
 .rbar__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; padding-block: 0.8rem; }
 .rbar__search { flex: 1 1 280px; max-width: 360px; }

@@ -225,7 +225,7 @@
         canvas.classList.add("ambient-particles");
         document.body.appendChild(canvas);
         activeParticleCanvas = canvas;
-        activeParticleInstance = global.RFParticles.mount(canvas, { max: 76 });
+        activeParticleInstance = global.RFParticles.mount(canvas, { max: 38 });
       } else if (canvas) {
         /* Reduced motion: the canvas is pure decoration, so it is removed
            outright rather than left as an empty element. */
