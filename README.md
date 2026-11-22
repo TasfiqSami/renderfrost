@@ -9,11 +9,15 @@ Official website and rulebook for **RenderFrost SMP**, a whitelisted Minecraft J
 | Path | Description |
 |---|---|
 | `SmpRules.md` | The official rulebook: 20 rules plus the Discord Community Conduct & Etiquette announcement |
-| `src/pages`, `src/partials` | Editable page sources |
-| `src/pages/gallery.html`, `src/pages/media.html` | Gallery page and Media & News page |
+| `src/pages`, `src/partials` | Editable page sources (Home, Members, Rules, Gallery, Media, Discord, Join, legal pages) |
+| `src/members.json` | The member list shown on the Members page (names, old names, roles, join dates) |
+| `src/media.json` | Cards shown on the Media & News page |
+| `assets/img/gallery/` | Optimised gallery images and `gallery.json` |
+| `api/status.js`, `api/head.js`, `api/_avatar.js` | Vercel serverless functions: live server status, player skins, generated fallback skins |
 | `*.html` (root) | Generated, deployable pages (do not edit by hand) |
 | `assets/` | CSS, JavaScript, fonts, images and audio |
-| `tools/` | Build, verify and browser test scripts |
+| `tools/` | Build, verify, browser test and gallery import scripts |
+| `vercel.json` | Clean URLs, security headers (CSP and others) and caching |
 | `Deployment guide.md`, `OPERATIONS.md` | Hosting and maintenance notes |
 
 ## Rules at a glance
@@ -28,14 +32,36 @@ Read the full text in [`SmpRules.md`](SmpRules.md).
 
 ## Build
 
-This is a static site. The only server-side piece is the status function in `api/status.js`; the panel API key lives only in the Vercel project environment, never in the site.
-
 ```bash
 node tools/build.js     # render src/pages into root HTML files
-node tools/verify.js    # check links, anchors and rule content
+node tools/verify.js    # check links, anchors, accessibility basics and rule content
 ```
 
 Set `SITE_ORIGIN` to the real HTTPS website origin before building if you want absolute SEO URLs and a sitemap. See [`OPERATIONS.md`](OPERATIONS.md) and [`Deployment guide.md`](Deployment%20guide.md) for deployment details.
+
+The site deploys from `main` on Vercel. Commit the generated root HTML together with the sources.
+
+## Live server data
+
+Two Vercel functions power the Members page. Neither exposes a secret to the browser.
+
+- **`/api/status`** returns whether the server is up, uptime, and players online (names, count, version, MOTD). Player data comes from pinging the Minecraft server directly. Server state and uptime come from the Pterodactyl panel.
+- **`/api/head`** returns a player's skin (`?name=NAME&type=head|body`). Add `&alt=OLDNAME` for someone who changed their name. Players with no Mojang account, or no custom skin, get a stable random pixel-art skin generated from their name.
+
+Environment variables (Vercel project settings): `PTERO_API_KEY` (sensitive), `PTERO_URL`, `PTERO_SERVER_ID`, `MC_HOST`, `SHOW_WHITELIST`.
+
+## Editing the Members page
+
+Edit `src/members.json`, then run `node tools/build.js`.
+
+```json
+{ "name": "SAGEKRAVE", "role": "Owner", "joined": "2025-04-16T03:34:45+06:00" }
+{ "name": "Aayan_efx", "alias": "Kryptonite", "joined": "2025-04-16T14:03:46+06:00" }
+```
+
+- `name` is the main in-game name; `alias` is the same person's other name (searchable, and counted as online if either name is online).
+- `role` (optional) puts the person in the Team lineup. Roles used: Owner, Chief Staff, Manager, Dev/Admin.
+- `joined` is an ISO timestamp with the `+06:00` offset.
 
 ## License
 

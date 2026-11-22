@@ -2,14 +2,17 @@
 
 ## What this project is
 
-This is a static website. `src/pages` and `src/partials` are the editable page
-sources; `node tools/build.js` renders the deployable HTML files into the project
-root. CSS, JavaScript, fonts, images, and audio are served as static assets.
+A static website with a few serverless functions. `src/pages` and `src/partials`
+are the editable page sources; `node tools/build.js` renders the deployable HTML
+files into the project root. Data lives in `src/members.json`, `src/media.json` and
+`assets/img/gallery/gallery.json`. CSS, JavaScript, fonts, images and audio are
+static assets.
 
-There is no application server, database, authentication, admin panel, contact
-form, or server-status API. There are no production secrets or required runtime
-environment variables. The optional `SITE_ORIGIN` build variable is only used to
-produce absolute SEO URLs; it is not a secret.
+Three Vercel functions live in `api/`: `status.js` (server state, uptime, players),
+`head.js` (player skins) and `_avatar.js` (generated fallback skins). The only secret
+is `PTERO_API_KEY`, set as a sensitive variable in the Vercel project. There is no
+database, authentication, admin panel or contact form. The optional `SITE_ORIGIN`
+build variable is only used to produce absolute SEO URLs; it is not a secret.
 
 ## Build and test
 
@@ -50,31 +53,35 @@ node tools/test.js
 ```
 
 The suite checks navigation, music continuity, notifications, particles, page
-metadata, and horizontal overflow across the tested page and viewport combinations.
+metadata, the Rules page controls and horizontal overflow across the tested page and
+viewport combinations. It needs Windows Chrome and the local `.bt` dependency, and some
+expectations (Members, Gallery) may lag behind the latest redesigns.
 Stop the local server with Ctrl+C when finished.
+
+## Content updates
+
+| Change | Do this |
+|---|---|
+| Add or edit a member, role or old name | Edit `src/members.json`, build, commit, push |
+| Add gallery screenshots | Put originals in `assets/img/gallery/_raw/<Name>/`, run `python3 tools/gallery-import.py`, build, commit |
+| Add a video or news card | Edit `src/media.json`, build, commit, push |
+| Change a page | Edit it in `src/pages`, build, commit the source and generated HTML |
 
 ## Deployment
 
-1. Confirm the production website domain and HTTPS setup with the site owner.
-2. Build from the project root, setting `SITE_ORIGIN` to that exact HTTPS origin if
-   sitemap and absolute metadata are wanted.
-3. Upload the generated root-level HTML files, `robots.txt`, optional
-   `sitemap.xml`, and the complete `assets` directory to the static host. Preserve
-   the paths and letter casing.
-4. Configure the host to serve `404.html` as its not-found page.
-5. On Netlify, `_headers` is read automatically. On any other host, configure the
-   response headers in that provider's settings; merely uploading `_headers` does
-   not activate them.
-6. After publishing, open every page, test navigation/music on desktop and mobile,
-   verify that a missing URL displays the 404 page, and inspect browser-console and
-   network errors. Confirm `robots.txt`, sitemap, canonical URLs, and headers from
+1. Run `node tools/build.js` and `node tools/verify.js`.
+2. Commit the sources and the generated root HTML, then push to `main`. Vercel
+   deploys automatically.
+3. `vercel.json` provides clean URLs, the security headers (CSP, HSTS, framing and
+   referrer policies) and cache rules. `_headers` is only for Netlify/Cloudflare.
+4. After publishing, open every page, test navigation and music on desktop and mobile,
+   check `/api/status` shows players, and verify that a missing URL shows the 404 page.
+5. If you use `SITE_ORIGIN`, confirm `robots.txt`, the sitemap and canonical URLs on
    the deployed domain.
 
-The current cache policy revalidates CSS and JavaScript on each visit to avoid
-stale responsive fixes. Fonts, images, and audio have a one-week cache lifetime;
-move to immutable long-lived caching only after asset filenames are content-hashed.
-The configured HSTS header includes subdomains. Before deploying it, verify that
-every subdomain under the production domain supports HTTPS.
+The cache policy revalidates CSS and JavaScript on each visit. Images are cached for
+30 days, audio for a week, fonts for a year. The HSTS header includes subdomains;
+verify that every subdomain supports HTTPS before relying on it.
 
 ## Backups and rollback
 
@@ -86,15 +93,15 @@ matching HTML references have changed.
 
 ## Current owner checklist and future work
 
-| Priority | Work | Owner decision or dependency |
+| Priority | Work | Notes |
 |---|---|---|
-| P0 | Confirm the public website domain, host, and HTTPS coverage before production deployment. | Required; none of these are established by this source tree. |
-| P1 | Run the deployed browser/device check, especially the 677px compact-navigation layout and mobile music controls. | Requires access to the actual host and physical target devices. |
-| P1 | Revisit SEO metadata and publish the generated sitemap using the confirmed domain. | Set `SITE_ORIGIN` at release time. |
-| P2 | Add live server status or player counts only from a trusted, documented source with a clear refresh/cache policy. | No status endpoint is currently configured. |
-| P2 | If whitelist applications or contact submissions are wanted, select a maintained service or design a real backend with validation, access controls, retention, and abuse protection. | Do not put credentials or privileged actions in client-side JavaScript. |
-| P3 | Consider localization, richer motion/audio controls, or additional community pages based on player feedback. | Keep reduced-motion support and keyboard access. |
+| P0 | Rotate the Pterodactyl API key that was shared in chat; update `PTERO_API_KEY` in Vercel and redeploy. | The old key should be revoked. |
+| P1 | Run the deployed browser/device check on a real phone, especially the compact navigation and mobile music controls. | Needs physical devices. |
+| P1 | Review whether `lastBackup` and whitelist data should be published (`SHOW_WHITELIST`). | Currently off. |
+| P2 | Update the legal pages' effective dates when their text changes (Terms still says 11 October 2026). | Owner decision. |
+| P2 | Add real captions to the media card and any gallery pictures you want described. | Edit the JSON files. |
+| P3 | Whitelist applications or contact submissions would need a maintained service or a real backend with validation, access controls and abuse protection. | Never put credentials in client-side JavaScript. |
 
 This is an operational handoff, not a legal or penetration-test certification. The
 privacy and cookie statements should be reviewed again if analytics, forms, cookies,
-third-party scripts, or a backend are introduced.
+third-party scripts, or a new backend are introduced.

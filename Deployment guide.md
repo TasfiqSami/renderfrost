@@ -1,38 +1,36 @@
 # RenderFrost SMP — deployment guide
 
-## What is in this package
+## What this is
 
-This is a ready-to-upload static website. It contains the eleven HTML pages, the
-complete `assets` folder, `robots.txt`, and `_headers`. No build step, database,
-backend, environment variables, or secrets are required to host this package.
-The footer credits SYXLOR Studios at `studios.syxlor.xyz` and the developer at
-`syxlor.xyz`. “Download CV” is intentionally not clickable because no CV file URL
-was provided; add its real URL to the footer before expecting a working download.
+A static website (eleven HTML pages built from `src/`) plus three small Vercel
+serverless functions in `api/` (live status, player skins, fallback skins). The
+production site deploys automatically from the `main` branch of the GitHub
+repository to Vercel, and is served at `www.renderfrost.com`.
 
-## Upload it
+The only secret is the Pterodactyl API key, which lives in the Vercel project
+environment (`PTERO_API_KEY`, marked sensitive) and never in any file in this
+repository. The footer credits SYXLOR Studios at `studios.syxlor.xyz` and the
+developer at `syxlor.xyz`.
 
-1. Extract the ZIP file.
-2. Upload the **contents** of the extracted folder to the root of your static
-   website, preserving the `assets` folder and all file names and paths.
-3. Configure your hosting provider to use `404.html` as the custom not-found page.
-4. Enable HTTPS for the website domain.
-5. Open the site and check the home page, navigation, music control, and a missing
-   URL on desktop and mobile.
+## Deploy
 
-Do not upload the ZIP itself as the website; extract it first. Do not rename or
-move the pages or `assets` folder, since page links refer to those paths.
+1. Run `node tools/build.js` and `node tools/verify.js`.
+2. Commit the sources and the generated root HTML together, then push to `main`.
+3. Vercel builds and publishes within about a minute. Check the Deployments tab.
+4. Open the site and check the home page, navigation, music control, Members page
+   (online count and skins) and a missing URL on desktop and mobile.
 
-## Hosting provider notes
+## Hosting notes
 
-- **Netlify:** `_headers` is read automatically. Set the site's custom 404 page to
-  `404.html` if your deploy settings do not detect it automatically.
-- **Other static hosts:** `_headers` is not a universal standard and may be ignored.
-  Configure the response security and cache headers in your provider's dashboard
-  or configuration file. Set the custom error page to `404.html`.
+- **Vercel (current host):** `vercel.json` turns on clean URLs and sends the security
+  headers (including the Content-Security-Policy) and cache rules. `404.html` is used
+  automatically for missing pages. The `_headers` file is only for Netlify/Cloudflare
+  and is ignored by Vercel.
+- **Other static hosts:** the `api/` functions will not run, so the Members page falls
+  back to static text. Copy the headers from `vercel.json` into that host's settings.
 
-The configured HSTS header includes subdomains. Only enable that header on a
-production domain after confirming every subdomain supports HTTPS. Do not enable
-HSTS on a temporary preview domain.
+The configured HSTS header includes subdomains. Only keep it if every subdomain
+of the production domain supports HTTPS.
 
 ## Domain and search-engine metadata
 
@@ -56,29 +54,29 @@ and redeploy the newly generated files.
 
 ## Cache behavior
 
-CSS and JavaScript are configured to revalidate so visitors do not keep stale
-responsive styles or navigation code. Fonts, images, and audio are cached for one
-week. Keep this policy unless asset filenames become content-hashed.
+CSS and JavaScript revalidate on each visit so visitors never keep stale styles or
+navigation code. Images are cached for 30 days, audio for a week and fonts for a
+year. Player skin responses are cached at the edge for a day.
 
 ## If something looks broken
 
-- Confirm all eleven HTML files are at the site root.
-- Confirm the entire `assets` directory uploaded with its subfolders.
-- Check that file and folder name casing was preserved.
+- Check the latest deployment on Vercel finished (state: Ready) and read its build log.
+- Confirm the generated root HTML was committed alongside the sources.
 - Clear the browser cache or test in a private window.
 - Check the browser console and network panel for missing files.
-- Confirm the host serves `404.html` for a nonexistent path.
-- Confirm security headers in the deployed response; an uploaded `_headers` file
-  alone does not configure every provider.
+- Members page shows no players: open `/api/status` directly. `players: null` means
+  the Minecraft server could not be pinged from Vercel; check `MC_HOST`.
+- Skins show a letter or random skin: open `/api/head?name=NAME&type=body`; a generated
+  skin means that account has no custom skin (or the name is not a Java account).
 
 ## Project limits and future changes
 
-The site is static: it has no live server status/player count, applications,
-accounts, database, or admin interface. Add these only after selecting a trusted
-status source or a real service/backend and documenting its privacy, validation,
-access-control, retention, and abuse-protection behavior. Update the privacy and
-cookie policies if the site later adds analytics, cookies, forms, or third-party
-scripts.
+There are no accounts, applications, database or admin interface. Add these only
+after designing validation, access control, retention and abuse protection, and
+update the privacy and cookie policies if the site later adds analytics, cookies,
+forms or third-party scripts. Today the site loads no third-party scripts and
+visitors' browsers contact no other origin: skins and status are fetched by the
+server.
 
 ## Clean URLs (no `.html`)
 
@@ -92,10 +90,14 @@ Internal links and canonical URLs are written without the `.html` extension
 
 Old `.html` addresses keep working in the site's own navigation.
 
-## Live status (`/api/status`)
+## Live status (`/api/status`) and skins (`/api/head`)
 
-`api/status.js` is a Vercel serverless function used by the Members page. It reads
-these environment variables (Vercel project settings): `PTERO_API_KEY` (sensitive),
-`PTERO_URL`, `PTERO_SERVER_ID`, `MC_HOST`, `SHOW_WHITELIST`.
-Set `SHOW_WHITELIST` to `true` to publish whitelisted names on the Members page.
-If the function or panel is unreachable, the page falls back to its static text.
+`api/status.js` reads these environment variables (Vercel project settings):
+`PTERO_API_KEY` (sensitive), `PTERO_URL`, `PTERO_SERVER_ID`, `MC_HOST`,
+`SHOW_WHITELIST`. Players online come from a direct Minecraft server ping to
+`MC_HOST` (SRV records respected). Set `SHOW_WHITELIST` to `true` only if you want
+the panel's whitelist published. If the panel or server is unreachable, the page
+falls back to its static text.
+
+`api/head.js` proxies player skins so visitors never contact a skin service, and
+generates a stable random skin (`api/_avatar.js`) for anyone without one.
