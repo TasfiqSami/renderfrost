@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url><loc>https://www.renderfrost.com/</loc></url>
-  <url><loc>https://www.renderfrost.com/members</loc></url>
-  <url><loc>https://www.renderfrost.com/rules</loc></url>
-  <url><loc>https://www.renderfrost.com/gallery</loc>
+  <url><loc>https://www.renderfrost.com/</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://www.renderfrost.com/members</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://www.renderfrost.com/rules</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://www.renderfrost.com/gallery</loc><lastmod>2026-11-22</lastmod>
     <image:image><image:loc>https://www.renderfrost.com/assets/img/gallery/not_rexo/2026-11-20_22-52-32.webp</image:loc></image:image>
     <image:image><image:loc>https://www.renderfrost.com/assets/img/gallery/ItzMelissa/1572581398114476034_7_2026-11-18_11-47-58.webp</image:loc></image:image>
     <image:image><image:loc>https://www.renderfrost.com/assets/img/gallery/ItzMelissa/1572581398114476034_6_2026-11-18_11-47-54.webp</image:loc></image:image>
@@ -204,10 +204,10 @@
     <image:image><image:loc>https://www.renderfrost.com/assets/img/gallery/Kryptonite/1369006792658522347_4_IMG-20250505-WA0024.webp</image:loc></image:image>
     <image:image><image:loc>https://www.renderfrost.com/assets/img/gallery/SKRULLYT/1399426915076542526_1_2025-05-03_14-20-18.webp</image:loc></image:image>
   </url>
-  <url><loc>https://www.renderfrost.com/media</loc></url>
-  <url><loc>https://www.renderfrost.com/discord</loc></url>
-  <url><loc>https://www.renderfrost.com/join</loc></url>
-  <url><loc>https://www.renderfrost.com/privacy</loc></url>
-  <url><loc>https://www.renderfrost.com/terms</loc></url>
-  <url><loc>https://www.renderfrost.com/cookies</loc></url>
+  <url><loc>https://www.renderfrost.com/media</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://www.renderfrost.com/discord</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://www.renderfrost.com/join</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://www.renderfrost.com/privacy</loc><lastmod>2026-11-21</lastmod></url>
+  <url><loc>https://www.renderfrost.com/terms</loc><lastmod>2026-11-01</lastmod></url>
+  <url><loc>https://www.renderfrost.com/cookies</loc><lastmod>2026-11-01</lastmod></url>
 </urlset>

@@ -501,6 +501,17 @@ function render(pageFile, meta, body) {
   return cleanLinks(html);
 }
 
+function lastModified(...files) {
+  let best = "";
+  for (const f of files) {
+    try {
+      const out = require("child_process").execFileSync("git", ["log", "-1", "--format=%cs", "--", f], { cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+      if (out > best) best = out;
+    } catch (e) { /* not a git checkout */ }
+  }
+  return best;
+}
+
 function writeSeoFiles() {
   const robots = ["User-agent: *", "Allow: /"];
   const sitemapPath = path.join(ROOT, "sitemap.xml");
@@ -512,16 +523,17 @@ function writeSeoFiles() {
       .map((page) => {
         const { meta } = parseFrontMatter(fs.readFileSync(path.join(PAGES, `${page}.html`), "utf8"));
         const c = cleanPath(meta.canonical || `${page}.html`);
-        return siteUrl(c === "./" ? "" : c);
+        return { url: siteUrl(c === "./" ? "" : c), mod: lastModified(`src/pages/${page}.html`, ...(page === "gallery" ? ["assets/img/gallery/gallery.json"] : page === "members" ? ["src/members.json"] : page === "media" ? ["src/media.json"] : [])) };
       });
     const xml = [
       '<?xml version="1.0" encoding="UTF-8"?>',
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
-      ...urls.map((url) => {
+      ...urls.map(({ url, mod }) => {
         const loc = url.replace(/&/g, "&amp;");
-        if (!/\/gallery$/.test(url)) return `  <url><loc>${loc}</loc></url>`;
+        const lm = mod ? `<lastmod>${mod}</lastmod>` : "";
+        if (!/\/gallery$/.test(url)) return `  <url><loc>${loc}</loc>${lm}</url>`;
         const imgs = galleryEntries().map((e) => `    <image:image><image:loc>${siteUrl("assets/img/gallery/" + e.file.split("/").map(encodeURIComponent).join("/")).replace(/&/g, "&amp;")}</image:loc></image:image>`).join("\n");
-        return `  <url><loc>${loc}</loc>\n${imgs}\n  </url>`;
+        return `  <url><loc>${loc}</loc>${lm}\n${imgs}\n  </url>`;
       }),
       "</urlset>",
       "",
