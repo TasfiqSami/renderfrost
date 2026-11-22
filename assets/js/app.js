@@ -653,6 +653,29 @@
     }, 60000);
   }
 
+  function bindHomeLive() {
+    var li = document.querySelector("[data-home-live]");
+    if (!li) return;
+    var txt = li.querySelector("[data-home-live-text]");
+    function load() {
+      fetch("/api/status", { headers: { Accept: "application/json" }, cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+          if (!d || d.error) return;
+          var on = d.online === true, p = d.players;
+          li.setAttribute("data-state", on ? "online" : d.state === "starting" ? "starting" : "offline");
+          txt.textContent = on ? (p ? p.online + " online now" : "Online") : d.state === "starting" ? "Starting up" : "Offline";
+          li.hidden = false;
+        })
+        .catch(function () { li.hidden = true; });
+    }
+    load();
+    var t = global.setInterval(function () {
+      if (!document.body.contains(li)) { global.clearInterval(t); return; }
+      if (!document.hidden) load();
+    }, 60000);
+  }
+
   function bindHeads() {
     Array.prototype.forEach.call(document.querySelectorAll("img[data-head]"), function (img) {
       var fail = function () { img.hidden = true; };
@@ -671,6 +694,7 @@
     bindFaq();
     bindGallery();
     bindMembers();
+    bindHomeLive();
     bindHeads();
   }
 

@@ -160,6 +160,35 @@ function buildGalleryStats() {
     </div>`;
 }
 
+function buildGalleryPreview() {
+  const list = galleryEntries();
+  if (list.length < 5) return "";
+  const picks = list.filter((e) => e.featured).sort((a, b) => a.featured - b.featured).slice(0, 5);
+  for (const e of list.slice().sort((a, b) => (b.score || 0) - (a.score || 0))) {
+    if (picks.length >= 5) break;
+    if (!picks.includes(e) && (e.w || 0) >= 1600) picks.push(e);
+  }
+  const src = (f) => "assets/img/gallery/" + f.split("/").map(encodeURIComponent).join("/");
+  const figs = picks.map((e, i) => {
+    const alt = `Screenshot by ${e.credit || "a RenderFrost member"}${e.date ? ", " + fmtDate(e.date, { day: "numeric", month: "long", year: "numeric" }) : ""}`;
+    return `<a class="gp__item gp__item--${i + 1}" href="gallery"><img src="${src(i === 0 ? e.file : e.thumb || e.file)}" alt="${esc(alt)}" width="${i === 0 ? e.w : 640}" height="${i === 0 ? e.h : 360}" loading="lazy" decoding="async"></a>`;
+  }).join("\n      ");
+  const who = new Set(list.map((e) => e.credit).filter(Boolean)).size;
+  return `<section class="section" id="gallery-preview">
+  <div class="shell shell--wide">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">From the world</p>
+      <h2>Screenshots from the people who live here.</h2>
+      <p>${list.length} screenshots from ${who} members, all taken in-game on RenderFrost.</p>
+    </div>
+    <div class="gp" data-reveal>
+      ${figs}
+    </div>
+    <p class="gp__more"><a class="btn btn--secondary" href="gallery">Browse the full gallery</a></p>
+  </div>
+</section>`;
+}
+
 function buildGallery() {
   const list = galleryEntries();
   if (!list.length) {
@@ -491,7 +520,7 @@ function render(pageFile, meta, body) {
 
   html += "\n\n" + SHELL_CACHE["nav.html"].replace(/\{\{NAV_LINKS\}\}/g, nav.links);
   html += "\n\n" + SHELL_CACHE["drawer.html"].replace(/\{\{DRAWER_LINKS\}\}/g, nav.drawer);
-  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY_STATS-->", () => buildGalleryStats()).replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--FOUNDER-->", buildFounder()).replace("<!--ROSTER-->", () => buildRoster()).replace("<!--MEMBER_COUNT-->", () => memberCount()).replace("<!--MEMBER_SINCE-->", () => memberSince()) + "\n</main>\n";
+  html += "\n\n<main id=\"main\">\n" + body.trim().replace("<!--GALLERY_PREVIEW-->", () => buildGalleryPreview()).replace("<!--GALLERY_STATS-->", () => buildGalleryStats()).replace("<!--GALLERY-->", () => buildGallery()).replace("<!--MEDIA-->", () => buildMedia()).replace("<!--FOUNDER-->", buildFounder()).replace("<!--ROSTER-->", () => buildRoster()).replace("<!--MEMBER_COUNT-->", () => memberCount()).replace("<!--MEMBER_SINCE-->", () => memberSince()) + "\n</main>\n";
   html += SHELL_CACHE["cta.html"];
   html += "\n" + SHELL_CACHE["footer.html"]
     .replace(/\{\{EXPLORE_LINKS\}\}/g, footer.explore)
