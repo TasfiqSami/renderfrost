@@ -23,8 +23,7 @@ const PAGES_ORDER = ["index", "members", "rules", "gallery", "media", "discord",
 const SITE_ORIGIN = getSiteOrigin();
 
 function getSiteOrigin() {
-  const value = process.env.SITE_ORIGIN;
-  if (!value) return "";
+  const value = process.env.SITE_ORIGIN || "https://www.renderfrost.com";
 
   const url = new URL(value);
   if (
@@ -342,7 +341,7 @@ function render(pageFile, meta, body) {
     .replace(/\{\{TITLE\}\}/g, esc(meta.title || "RenderFrost SMP"))
     .replace(/\{\{DESCRIPTION\}\}/g, esc(meta.description || ""))
     .replace(/\{\{CANONICAL\}\}/g, esc(SITE_ORIGIN ? siteUrl(canonicalPath === "./" ? "" : canonicalPath) : canonicalPath))
-    .replace(/\{\{OG_IMAGE\}\}/g, esc(SITE_ORIGIN ? siteUrl("assets/img/background.jpg") : "assets/img/background.jpg"))
+    .replace(/\{\{OG_IMAGE\}\}/g, esc(SITE_ORIGIN ? siteUrl("assets/img/og-image.jpg") : "assets/img/og-image.jpg"))
     .replace(/\{\{OG_TITLE\}\}/g, esc(meta.ogTitle || meta.title || "RenderFrost SMP"))
     .replace(/\{\{OG_DESCRIPTION\}\}/g, esc(meta.ogDescription || meta.description || ""));
 

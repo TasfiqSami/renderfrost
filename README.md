@@ -37,7 +37,7 @@ node tools/build.js     # render src/pages into root HTML files
 node tools/verify.js    # check links, anchors, accessibility basics and rule content
 ```
 
-Set `SITE_ORIGIN` to the real HTTPS website origin before building if you want absolute SEO URLs and a sitemap. See [`OPERATIONS.md`](OPERATIONS.md) and [`Deployment guide.md`](Deployment%20guide.md) for deployment details.
+The build writes absolute canonical and Open Graph URLs and a sitemap for `https://www.renderfrost.com` by default; set `SITE_ORIGIN` to another HTTPS origin to override it. See [`OPERATIONS.md`](OPERATIONS.md) and [`Deployment guide.md`](Deployment%20guide.md) for deployment details.
 
 The site deploys from `main` on Vercel. Commit the generated root HTML together with the sources.
 
