@@ -15,17 +15,7 @@ cooperate with the staff team.
 [Jail time Interrupting friendly PvP Rule 09](https://www.renderfrost.com/rules#rule-9)
 [Appeals Through the official ticket channel Rule 04](https://www.renderfrost.com/rules#rule-4)
 
-Search the rules
-
-**20** rules shown
-
-I
-
-Section I · 4 rules
-
 ## Community Conduct & Safety
-
-01
 
 ### Be Kind & Respectful
 
@@ -43,8 +33,6 @@ Prohibited behaviour
 
 **Remember:** disagreements are normal, but personal attacks are strictly unacceptable.
 
-02
-
 ### Protect Personal Information
 
 Permanent ban
@@ -59,8 +47,6 @@ Strictly prohibited
 
 **Penalty:** immediate permanent ban.
 
-03
-
 ### No Advertising or Spam
 
 Mute
@@ -68,8 +54,6 @@ Mute
 - Do not advertise other servers, websites or external services in chat, on signs or in books.
 
 - Repeated chat spam, flooding or disruptive messaging will result in a mute.
-
-04
 
 ### Respect the Staff’s Decisions
 
@@ -81,13 +65,7 @@ Final decisions
 
 Arguing in public chat or harassing staff will result in additional penalties.
 
-II
-
-Section II · 6 rules
-
 ## Property, Trading & Combat
-
-05
 
 ### No Griefing or Stealing
 
@@ -99,8 +77,6 @@ Strictly prohibited
 
 - Stealing items from chests, barrels, shulker boxes or other storage.
 
-06
-
 ### Respect Private Storage & Restricted Areas
 
 - Do not enter another player's private storage room without explicit permission.
@@ -109,15 +85,11 @@ Staff-only areas
 
 Entering staff-only storage halls, accessing restricted containers or taking staff materials is strictly prohibited and is treated as **severe griefing or theft**.
 
-07
-
 ### No Scamming or Fraudulent Trading
 
 - Scamming other players in trades, player shops or item exchanges is strictly prohibited.
 
 - All trades are considered final once both parties confirm the exchange.
-
-08
 
 ### No Unconsented PvP or Player Harm
 
@@ -137,8 +109,6 @@ Prohibited behaviour
 
 Consent to one fight does not grant permission for future or unrelated attacks.
 
-09
-
 ### Do Not Interrupt Ongoing Friendly PvP
 
 Jail time
@@ -146,8 +116,6 @@ Jail time
 When players are engaged in an agreed-upon friendly PvP session, do not run into the fight, obstruct the participants or distract them.
 
 **Penalty:** intentional disruption may result in several hours of jail time.
-
-10
 
 ### Limits on Explosives & Channeling Tridents
 
@@ -161,13 +129,7 @@ Do not use Channeling-enchanted tridents near another player's base or structure
 
 Damage caused "as a joke" is treated as griefing and is not eligible for staff repair.
 
-III
-
-Section III · 4 rules
-
 ## Fair Play, Accounts & Item Limits
-
-11
 
 ### No Hacks, X-Ray or Duplication Exploits
 
@@ -193,23 +155,17 @@ Prohibited
 
 Litematica and Tweakeroo are allowed when used strictly within their legitimate building and quality-of-life functionality. Exploiting bugs or abusive features within these mods remains prohibited.
 
-12
-
 ### No Alt Accounts for Advantage or Ban Evasion
 
 - Using alternate accounts to bypass punishments or bans, bypass the Elytra ownership limit, or grant unfair gameplay advantages to your main account is prohibited.
 
 **Exception.** Alt accounts are permitted strictly for AFK or chunk-loading farm operations, provided they comply with the server performance rules.
 
-13
-
 ### No Account Sharing or Selling
 
 - Buying, selling, trading or sharing Minecraft accounts is prohibited.
 
 - You are fully responsible for all actions and rule violations committed on your account.
-
-14
 
 ### Elytra Ownership Limit
 
@@ -223,13 +179,7 @@ Each player may own and possess a maximum of **3 Elytras** at any given time.
 
 **New player gift.** Established new players are eligible to receive **1 free Elytra** from staff after completing **30 days** on the server, subject to staff conditions. This gift still counts toward your 3-Elytra maximum.
 
-IV
-
-Section IV · 4 rules
-
 ## World Preservation & Server Performance
-
-15
 
 ### Do Not Modify Spawn Village
 
@@ -241,8 +191,6 @@ Without explicit staff approval, you must not
 
 Spawn Village is protected. Do not modify it without staff approval.
 
-16
-
 ### Responsible Building, Redstone & Farm Limits
 
 Build creatively, but do not compromise server TPS for everyone else.
@@ -253,8 +201,6 @@ Build creatively, but do not compromise server TPS for everyone else.
 
 - If a build degrades server performance, you must cooperate with staff to optimise, disable or remove it.
 
-17
-
 ### Do Not Mine Straight Down
 
 Mining directly downward is strictly prohibited on RenderFrost SMP, to prevent accidental lava and fall deaths and hazardous terrain traps.
@@ -263,19 +209,11 @@ Mining directly downward is strictly prohibited on RenderFrost SMP, to prevent a
 
 Claiming a fall was accidental does not excuse a violation.
 
-18
-
 ### Finish Chopping Trees
 
 Keep the landscape clean: always chop down the entire tree and remove all remaining floating logs before moving on.
 
-V
-
-Section V · 2 rules
-
 ## Whitelist Access & Rollback Policy
-
-19
 
 ### Whitelist & Player Recommendations
 
@@ -286,8 +224,6 @@ Only authorised staff members can approve and add players to the whitelist.
 - **15-day rule:** new players must spend at least **15 days** on RenderFrost SMP from their first login before they can recommend a friend for whitelist consideration.
 
 - Recommended players must still complete the official verification process; meeting the 15-day requirement does not guarantee approval.
-
-20
 
 ### Unified Rollback Policy (World & Inventory)
 
@@ -317,13 +253,9 @@ Not eligible
 
 To request a review, submit a ticket explaining what happened, when it occurred, and any supporting evidence.
 
-DC
-
 Discord server
 
 ## Community Conduct & Etiquette
-
-DC
 
 ### Official Discord server announcement
 
@@ -353,8 +285,6 @@ from the server.
 
 Thank you for your cooperation in keeping this community respectful and
 safe for everyone.
-
-No rules match your search.
 
 ## Build the RenderFrost community together
 

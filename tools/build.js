@@ -130,7 +130,7 @@ function buildFooterLinks() {
     `          <li><a href="${item.file}.html">${esc(item.label)}</a></li>`
   ).join("\n") +
     `
-          <li><a href="https://discord.gg/SMRS6skKYY" target="_blank" rel="noopener noreferrer">Discord <span class="footer__ext">EXT</span></a></li>`;
+          <li><a href="https://discord.gg/SMRS6skKYY" target="_blank" rel="noopener noreferrer" aria-label="Discord (opens in a new tab)">Discord</a></li>`;
 
   return { explore, legal };
 }
@@ -398,7 +398,7 @@ function structuredData(page, meta, body, canonical) {
       ],
     });
   }
-  const webpage = { "@type": page === "members" ? "CollectionPage" : "WebPage", "@id": canonical + "#page", url: canonical, name: meta.title, description: meta.description, isPartOf: { "@id": siteId }, inLanguage: "en" };
+  const webpage = { "@type": page === "members" ? "CollectionPage" : "WebPage", "@id": canonical + "#page", url: canonical, name: meta.title, description: meta.description, isPartOf: { "@id": siteId }, inLanguage: "en", dateModified: lastModified(`src/pages/${page}.html`) || undefined };
   if (page === "gallery") {
     webpage["@type"] = "ImageGallery";
     webpage.image = galleryEntries().slice(0, 30).map((e) => ({
@@ -463,7 +463,7 @@ function htmlToMarkdown(main, pageUrl) {
     .replace(/<\/(p|div|section|article|ul|ol|details|header|footer|figure|figcaption|table|tr)>/gi, "\n\n")
     .replace(/<img\b[^>]*alt="([^"]+)"[^>]*>/gi, "")
     .replace(/<[^>]+>/g, "");
-  h = decode(h).split("\n").map((l) => l.replace(/[ \t]+/g, " ").trim()).join("\n").replace(/^-$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+  h = decode(h).split("\n").map((l) => l.replace(/[ \t]+/g, " ").trim()).join("\n").replace(/^-$/gm, "").replace(/^(Search the rules|No rules match your search\.|\*\*\d+\*\* rules shown|Section [IVX]+ \u00b7 \d+ rules|[IVX]+|DC|\d{2})$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
   return h;
 }
 
