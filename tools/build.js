@@ -434,8 +434,58 @@ function seoExtra(page, meta, body, canonical) {
       ? `<meta name="robots" content="noindex, follow">`
       : `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">`,
   ];
+  if (MD_PAGES.includes(page)) tags.push(`<link rel="alternate" type="text/markdown" href="${abs("md/" + page + ".md")}">`);
   if (page !== "404") tags.push(structuredData(page, meta, body, canonical));
   return tags.join("\n");
+}
+
+
+/* Markdown twins of the public text pages, written to md/<page>.md for AI agents
+   and other plain-text consumers. Derived from the built page, never hand-edited. */
+const MD_PAGES = ["index", "rules", "join", "discord", "media", "privacy", "terms", "cookies"];
+function htmlToMarkdown(main, pageUrl) {
+  const decode = (t) => t.replace(/&rsquo;|&lsquo;/g, "'").replace(/&ldquo;|&rdquo;/g, '"').replace(/&mdash;/g, "—").replace(/&ndash;/g, "–").replace(/&nbsp;/g, " ").replace(/&middot;/g, "·").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+  const link = (h) => {
+    if (/^(https?:|mailto:)/i.test(h)) return h;
+    if (h.startsWith("#")) return pageUrl + h;
+    return abs(h);
+  };
+  let h = main
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style|svg|button|canvas|dialog|nav|form|noscript)\b[\s\S]*?<\/\1>/gi, "")
+    .replace(/<summary[^>]*>([\s\S]*?)<\/summary>/gi, (m, t) => `\n\n### ${stripTags(t)}\n\n`)
+    .replace(/<h([1-4])[^>]*>([\s\S]*?)<\/h\1>/gi, (m, n, t) => `\n\n${"#".repeat(+n)} ${stripTags(t)}\n\n`)
+    .replace(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, (m, href, t) => { const x = stripTags(t); return x ? `[${x}](${link(href)})` : ""; })
+    .replace(/<(strong|b)\b[^>]*>([\s\S]*?)<\/\1>/gi, (m, t, x) => `**${stripTags(x)}**`)
+    .replace(/<code\b[^>]*>([\s\S]*?)<\/code>/gi, (m, x) => `\`${stripTags(x)}\``)
+    .replace(/<li\b[^>]*>/gi, "\n- ")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(p|div|section|article|ul|ol|details|header|footer|figure|figcaption|table|tr)>/gi, "\n\n")
+    .replace(/<img\b[^>]*alt="([^"]+)"[^>]*>/gi, "")
+    .replace(/<[^>]+>/g, "");
+  h = decode(h).split("\n").map((l) => l.replace(/[ \t]+/g, " ").trim()).join("\n").replace(/^-$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+  return h;
+}
+
+function writeMarkdownTwins(outputs) {
+  const dir = path.join(ROOT, "md");
+  fs.mkdirSync(dir, { recursive: true });
+  const made = [];
+  MD_PAGES.forEach((page) => {
+    const html = outputs[page];
+    if (!html) return;
+    const m = html.match(/<main id="main">([\s\S]*?)<\/main>/);
+    if (!m) return;
+    const file = path.join(PAGES, `${page}.html`);
+    const { meta } = parseFrontMatter(fs.readFileSync(file, "utf8"));
+    const c = cleanPath(meta.canonical || `${page}.html`);
+    const url = abs(c === "./" ? "./" : c);
+    const title = String(meta.title || page);
+    const md = `<!-- ${title.replace(/--/g, "-")} -->\nSource: ${url}\nLast updated: ${lastModified(`src/pages/${page}.html`) || ""}\n\n${htmlToMarkdown(m[1], url)}\n`;
+    fs.writeFileSync(path.join(dir, `${page}.md`), md.replace(/Last updated: \n/, ""), "utf8");
+    made.push(page);
+  });
+  return made;
 }
 
 function writeLlmsFiles() {
@@ -467,6 +517,10 @@ ${facts}
 ## Pages
 
 ${links}
+
+## Markdown versions of the text pages
+
+${["index", "rules", "join", "discord", "media", "privacy", "terms", "cookies"].map((pg) => `- [${pg === "index" ? "home" : pg}](${origin}/md/${pg}.md)`).join("\n")}
 
 ## Full text
 
@@ -577,6 +631,7 @@ function writeSeoFiles() {
 
 function main() {
   let built = 0;
+  const outputs = {};
   PAGES_ORDER.forEach((page) => {
     const file = path.join(PAGES, `${page}.html`);
     if (!fs.existsSync(file)) {
@@ -585,11 +640,14 @@ function main() {
     }
     const { meta, body } = parseFrontMatter(fs.readFileSync(file, "utf8"));
     const out = render(page, meta, body);
+    outputs[page] = out;
     fs.writeFileSync(path.join(ROOT, `${page}.html`), out, "utf8");
     built++;
     console.log(`✓ built ${page}.html  (${(out.length / 1024).toFixed(1)} kB)`);
   });
   writeSeoFiles();
+  const mdMade = writeMarkdownTwins(outputs);
+  console.log(`✓ wrote ${mdMade.length} markdown twins in md/`);
   writeLlmsFiles();
   console.log(`✓ wrote robots.txt${SITE_ORIGIN ? " and sitemap.xml" : " (set SITE_ORIGIN to generate a sitemap)"}`);
   console.log(`\n${built} page(s) written.`);

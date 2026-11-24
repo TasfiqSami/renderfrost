@@ -27,6 +27,17 @@
 - [Privacy policy](https://www.renderfrost.com/privacy): Privacy policy page
 - [Terms of service](https://www.renderfrost.com/terms): Terms of service page
 
+## Markdown versions of the text pages
+
+- [home](https://www.renderfrost.com/md/index.md)
+- [rules](https://www.renderfrost.com/md/rules.md)
+- [join](https://www.renderfrost.com/md/join.md)
+- [discord](https://www.renderfrost.com/md/discord.md)
+- [media](https://www.renderfrost.com/md/media.md)
+- [privacy](https://www.renderfrost.com/md/privacy.md)
+- [terms](https://www.renderfrost.com/md/terms.md)
+- [cookies](https://www.renderfrost.com/md/cookies.md)
+
 ## Full text
 
 - [Full rulebook and FAQ in one file](https://www.renderfrost.com/llms-full.txt): the complete rules and joining answers as plain text
